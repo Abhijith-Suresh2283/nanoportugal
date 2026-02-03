@@ -12,6 +12,8 @@ import SponsorsAndExhibitorsPage from "./components/SponsorsAndExhibitors";
 import TravelPage from "./components/Travel";
 import VenuePage from "./components/Venue";
 import ContactPage from "./components/Contact";
+import AccommodationPage from "./components/Accomodation";
+import AbstractSubmissionPage from "./components/AbstractSubmission";
 function App() {
   return (
     <Router>
@@ -20,7 +22,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<About/>} />
         <Route path="/program" element={<Program/>} />
-        {/* <Route path="/abstract-submission" element={<AbstractSubmissionPage />} /> */}
+        <Route path="/abstract-submission" element={<AbstractSubmissionPage />} />
         <Route path="/speakers" element={<SpeakersPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
         <Route path="/deadlines" element={<DeadlinesPage />} />
@@ -29,7 +31,7 @@ function App() {
         <Route path="/sponsors" element={<SponsorsAndExhibitorsPage />} />
         <Route path="/travel" element={<TravelPage />} />
         <Route path="/venue" element={<VenuePage/>} />
-        {/* <Route path="/accommodation" element={<AccommodationPage />} /> */}
+        <Route path="/accommodation" element={<AccommodationPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </Router>
