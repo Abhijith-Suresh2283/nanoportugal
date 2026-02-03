@@ -43,7 +43,7 @@ export default function HomePage() {
             <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-4">
               <div className="w-2 h-2 bg-violet-400 rounded-full animate-pulse" />
               <span className="text-xs sm:text-sm uppercase tracking-widest font-semibold text-white/90">
-                25th Anniversary Edition
+                25th Edition
               </span>
             </div>
 
@@ -81,35 +81,56 @@ export default function HomePage() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row justify-center gap-4 pt-6">
-              <Link
-                to="/about"
-                className="group relative px-10 py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white text-sm font-medium tracking-widest uppercase hover:bg-white hover:text-gray-900 transition-all duration-300 rounded-full overflow-hidden"
-              >
-                <span className="relative z-10">Learn More</span>
-                <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-              </Link>
+        <div className="flex flex-col items-center gap-6 pt-6">
 
-              
-               <a href="https://www.congressospco.abreu.pt/ANM2026-41875.aspx"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group px-10 py-4 bg-gradient-to-r from-violet-500 to-purple-600 text-white text-sm font-medium tracking-widest uppercase hover:shadow-2xl hover:shadow-violet-500/50 transition-all duration-300 rounded-full hover:scale-105"
-              >
-                <span className="flex items-center justify-center gap-2">
-                  Register Now
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </span>
-              </a>
-            </div>
+          {/* Top Row: Submit + Register */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
 
+            {/* Submit Abstract */}
+            <a
+              href="/abstract-submission" 
+              className="group px-10 py-4 bg-gradient-to-r from-violet-500 to-purple-600 text-white text-sm font-medium tracking-widest uppercase hover:shadow-2xl hover:shadow-violet-500/50 transition-all duration-300 rounded-full hover:scale-105"
+            >
+              <span className="flex items-center justify-center gap-2">
+                Submit Abstract
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </span>
+            </a>
+
+            {/* Register Now */}
+            <a
+              href="https://www.congressospco.abreu.pt/ANM2026-41875.aspx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group px-10 py-4 bg-gradient-to-r from-violet-500 to-purple-600 text-white text-sm font-medium tracking-widest uppercase hover:shadow-2xl hover:shadow-violet-500/50 transition-all duration-300 rounded-full hover:scale-105"
+            >
+              <span className="flex items-center justify-center gap-2">
+                Register Now
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </span>
+            </a>
+
+          </div>
+
+          {/* Bottom Center: Learn More */}
+          <a
+            href="/about"
+            className="group relative px-10 py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white text-sm font-medium tracking-widest uppercase hover:bg-white hover:text-gray-900 transition-all duration-300 rounded-full overflow-hidden"
+          >
+            <span className="relative z-10">Learn More</span>
+            <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+          </a>
+
+          </div>
           </div>
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 z-20 animate-bounce">
+        <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 animate-bounce">
           <div className="flex flex-col items-center gap-2 text-white/70">
             {/* <span className="text-xs uppercase tracking-widest">Scroll</span> */}
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
