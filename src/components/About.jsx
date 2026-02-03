@@ -291,8 +291,8 @@ export default function About() {
 
         </div>
       </section>
-
-      {/* ================= FOOTER NOTE =================
+{/* 
+      ================= FOOTER NOTE ================= */}
       <section className="py-16 px-6">
         <div className="max-w-3xl mx-auto">
           <div className="bg-gradient-to-br from-violet-50 to-purple-50 rounded-3xl p-10 text-center border border-violet-100 shadow-lg">
@@ -317,7 +317,7 @@ export default function About() {
             </a>
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* ================= FOOTER ================= */}
       <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-12 text-center mt-auto border-t border-gray-700">
