@@ -5,18 +5,21 @@ export default function SpeakersPage() {
       institution: "Ontario Tech University",
       country: "Canada",
       image: "/ibrahim.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/Abstract-Ibrahim-Dincer-ANM2025.docx"
     },
     {
       name: "Prof. Ajayan Vinu",
       institution: "The University of Newcastle",
       country: "Australia",
       image: "/ajayan.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/Ajayan-Vinu.pdf"
     },
     {
       name: "Luiz Pereira",
       institution: "University of Aveiro",
       country: "Portugal",
       image: "/luiz.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/ANM2025-abstract-LuizPereira.pdf" 
     },
   ];
 
@@ -67,7 +70,7 @@ export default function SpeakersPage() {
         {/* Section Introduction */}
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl font-light text-gray-900 mb-3">
-           Speakers
+           Speakers 2025
           </h2>
           <p className="text-gray-600 font-light text-sm sm:text-base">
             Leading voices shaping the future of advanced nanomaterials
@@ -130,12 +133,12 @@ export default function SpeakersPage() {
                 </div>
 
                 {/* View Abstract Button */}
-                <button className="group/btn inline-flex items-center gap-2 mt-4 px-6 py-2.5 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-xs font-medium tracking-widest uppercase rounded-full hover:shadow-lg hover:shadow-violet-300/50 transition-all duration-300 hover:scale-105">
+                <a href={speaker.abstract} className="group/btn inline-flex items-center gap-2 mt-4 px-6 py-2.5 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-xs font-medium tracking-widest uppercase rounded-full hover:shadow-lg hover:shadow-violet-300/50 transition-all duration-300 hover:scale-105">
                   View Abstract
                   <svg className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
-                </button>
+                </a>
               </div>
             </div>
           ))}

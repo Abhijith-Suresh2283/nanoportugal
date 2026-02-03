@@ -11,6 +11,7 @@ import CommitteesPage from "./components/Committee";
 import SponsorsAndExhibitorsPage from "./components/SponsorsAndExhibitors";
 import TravelPage from "./components/Travel";
 import VenuePage from "./components/Venue";
+import ContactPage from "./components/Contact";
 function App() {
   return (
     <Router>
@@ -29,8 +30,7 @@ function App() {
         <Route path="/travel" element={<TravelPage />} />
         <Route path="/venue" element={<VenuePage/>} />
         {/* <Route path="/accommodation" element={<AccommodationPage />} /> */}
-        {/* <Route path="/venue" element={<VenuePage />} /> */}
-        {/* <Route path="/contact" element={<ContactPage />} /> */}
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </Router>
   );
