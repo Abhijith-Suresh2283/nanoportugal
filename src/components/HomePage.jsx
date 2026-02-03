@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import PhotoGalleryGrid from "./Gallery";
 export default function HomePage() {
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] text-gray-900 overflow-x-hidden">
@@ -334,6 +334,129 @@ export default function HomePage() {
 
         </div>
       </section>
+
+     {/* ================= PHOTO GALLERY ================= */}
+{/* ================= PHOTO GALLERY ================= */}
+<section className="relative py-20 sm:py-32 px-4 sm:px-6 overflow-hidden">
+  
+  {/* Decorative Background Elements */}
+  <div className="absolute top-0 right-1/4 w-96 h-96 bg-violet-200/20 rounded-full blur-3xl" />
+  <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl" />
+  
+  <div className="max-w-6xl mx-auto relative z-10">
+
+    {/* Section Header */}
+    <div className="text-center mb-16">
+      
+      {/* Badge */}
+      <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/60 backdrop-blur-md border border-violet-200/50 rounded-full mb-6">
+        <svg className="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span className="text-xs sm:text-sm uppercase tracking-widest font-semibold text-violet-700">
+          Memories
+        </span>
+      </div>
+
+      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extralight text-gray-900 mb-4">
+        Photo <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent font-light">Gallery</span>
+      </h2>
+
+      {/* Divider */}
+      <div className="flex items-center gap-3 justify-center py-4">
+        <div className="h-px w-20 bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
+        <div className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+        <div className="h-px w-20 bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
+      </div>
+
+      <p className="text-base sm:text-lg font-light text-gray-600 max-w-2xl mx-auto">
+        Highlights from previous ANM conferences
+      </p>
+
+      <p className="text-sm sm:text-base text-gray-500 mt-2">
+        Click on any photo to view it in full size.
+      </p>
+
+    </div>
+
+    <PhotoGalleryGrid />
+
+  </div>
+</section>
+
+{/* ================= PARTNERS / PUBLICATIONS SECTION ================= */}
+<section className="bg-gray-50 py-16 border-t border-gray-200">
+  <div className="max-w-7xl mx-auto px-6 text-center">
+
+    {/* Heading */}
+    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extralight text-gray-900 mb-4">
+      Publication & <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent font-light">Media Partners</span>
+    </h2>
+
+    {/* Divider */}
+    <div className="flex items-center gap-3 justify-center py-4">
+      <div className="h-px w-20 bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
+      <div className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+      <div className="h-px w-20 bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
+    </div>
+
+    <p className="text-base sm:text-lg font-light text-gray-600 max-w-2xl mx-auto mb-12">
+      Proudly supported by internationally recognized research and publication partners
+    </p>
+
+    {/* Logos Grid */}
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-10 items-center justify-items-center">
+
+      {/* NFFA */}
+      <a href="https://www.nffa.eu" target="_blank" rel="noopener noreferrer" className="hover:scale-105 transition duration-300">
+        <img
+          src="/nffa.eu.png"
+          alt="NFFA Research Infrastructure"
+          className="h-16 object-contain grayscale-0 sm:grayscale sm:hover:grayscale-0 transition duration-300"
+        />
+      </a>
+
+      {/* HIAG / H2 */}
+      <div className="hover:scale-105 transition duration-300">
+        <img
+          src="/hiag.jpg"
+          alt="H2"
+          className="h-16 object-contain grayscale-0 sm:grayscale sm:hover:grayscale-0 transition duration-300"
+        />
+      </div>
+
+      {/* Energies */}
+      <a href="https://www.mdpi.com/journal/energies" target="_blank" rel="noopener noreferrer" className="hover:scale-105 transition duration-300">
+        <img
+          src="/energies_partnership-1-768x236.png"
+          alt="Energies Journal"
+          className="h-16 object-contain grayscale-0 sm:grayscale sm:hover:grayscale-0 transition duration-300"
+        />
+      </a>
+
+      {/* International Conference Alerts */}
+      <a href="https://www.internationalconferencealerts.com" target="_blank" rel="noopener noreferrer" className="hover:scale-105 transition duration-300">
+        <img
+          src="/international-conference-alerts-logo-768x249.jpg"
+          alt="International Conference Alerts"
+          className="h-16 object-contain grayscale-0 sm:grayscale sm:hover:grayscale-0 transition duration-300"
+        />
+      </a>
+
+      {/* Physics */}
+      <a href="https://www.mdpi.com/journal/physics" target="_blank" rel="noopener noreferrer" className="hover:scale-105 transition duration-300">
+        <img
+          src="/Physics-logo-768x238.png"
+          alt="Physics Journal"
+          className="h-16 object-contain grayscale-0 sm:grayscale sm:hover:grayscale-0 transition duration-300"
+        />
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
 
       {/* ================= FOOTER ================= */}
       <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-12 text-center mt-auto border-t border-gray-700">

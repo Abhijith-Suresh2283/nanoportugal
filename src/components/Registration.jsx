@@ -295,6 +295,7 @@ export default function RegistrationPage() {
                     "Publications in Journal",
                     "Publications in Proceedings",
                     "Lunch",
+                    "Banquet",
                     "Participation Certificate"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm font-light text-gray-700">
