@@ -235,7 +235,7 @@ const handlePageNavigation = (route) => {
             { 
               img: "/nanoenergyadv.png", 
               name: "Nano Energy Advances",
-              url: "https://www.sciopen.com/journal/2713-5071"
+              url: "https://www.mdpi.com/journal/nanoenergyadv"
             },
             { 
               img: "/materialsprocessdings.png", 
