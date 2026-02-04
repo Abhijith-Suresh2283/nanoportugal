@@ -225,7 +225,7 @@ const handlePageNavigation = (route) => {
             { 
               img: "/energystorage.jpeg", 
               name: "Energy Storage",
-              url: "https://onlinelibrary.wiley.com/journal/26967455"
+              url: "https://onlinelibrary.wiley.com/journal/25784862"
             },
             { 
               img: "/nanomaterials.png", 
