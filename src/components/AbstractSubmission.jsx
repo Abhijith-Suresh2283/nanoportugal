@@ -24,7 +24,7 @@ export default function AbstractSubmissionPage() {
           </div>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg font-light text-gray-600 max-w-3xl mx-auto leading-relaxed whitespace-nowrap">
+          <p className="text-base sm:text-lg font-light text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Please submit your abstract below using this{" "}
             <a 
               href="/ANM2026-abstract-template-new.doc" 
