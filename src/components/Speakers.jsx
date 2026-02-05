@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function SpeakersPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const speakersRef = useRef(null);
   const SPEAKERS_PER_PAGE = 21; // 3 columns × 7 rows
 
   const speakers = [
@@ -186,21 +187,41 @@ export default function SpeakersPage() {
 
   const goToPage = (page) => {
     setCurrentPage(page);
-    // Scroll to top of speakers section
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const nextPage = () => {
-    if (currentPage < totalPages) {
-      goToPage(currentPage + 1);
+    // Scroll to speakers section
+    if (speakersRef.current) {
+      const offsetTop = speakersRef.current.offsetTop - 100; // 100px offset for breathing room
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     }
   };
 
-  const prevPage = () => {
-    if (currentPage > 1) {
-      goToPage(currentPage - 1);
-    }
-  };
+const nextPage = () => {
+  if (currentPage < totalPages) {
+    const newPage = currentPage + 1;
+    setCurrentPage(newPage);
+    // Scroll after state update
+    setTimeout(() => {
+      if (speakersRef.current) {
+        const offsetTop = speakersRef.current.offsetTop - 100;
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      }
+    }, 0);
+  }
+};
+
+const prevPage = () => {
+  if (currentPage > 1) {
+    const newPage = currentPage - 1;
+    setCurrentPage(newPage);
+    // Scroll after state update
+    setTimeout(() => {
+      if (speakersRef.current) {
+        const offsetTop = speakersRef.current.offsetTop - 100;
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      }
+    }, 0);
+  }
+};
+
 
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 overflow-x-hidden">
@@ -244,7 +265,7 @@ export default function SpeakersPage() {
       </section>
 
       {/* ================= SPEAKERS GRID ================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20 overflow-hidden">
+      <section ref={speakersRef} className="max-w-7xl mx-auto px-4 sm:px-6 pb-20 overflow-hidden">
         
         {/* Section Introduction */}
         <div className="text-center mb-12">
@@ -389,6 +410,7 @@ export default function SpeakersPage() {
             </div>
           )}
         </div>
+
       </section>
 
       {/* ================= CALL TO ACTION ================= */}
