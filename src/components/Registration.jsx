@@ -54,7 +54,6 @@ export default function RegistrationPage() {
                   <th className="text-left p-3 font-semibold border-r border-gray-300 text-sm">Category</th>
                   <th className="text-left p-3 font-semibold border-r border-gray-300 text-sm">
                     <div>Early bird registration</div>
-                    <div className="font-normal">Registration</div>
                   </th>
                   <th className="text-left p-3 font-semibold border-r border-gray-300 text-sm">
                     <div>Normal registration</div>
