@@ -132,6 +132,7 @@ export default function RegistrationPage() {
               "Publications in journal",
               "Publications in Proceedings",
               "Lunch",
+              "Banquet",
               "Participation certificate"
             ].map((item, i) => (
               <li key={i} className="list-disc text-gray-900 text-sm sm:text-base">{item}</li>

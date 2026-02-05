@@ -5,7 +5,7 @@ export default function AbstractSubmissionPage() {
       {/* ================= PAGE HEADER ================= */}
       <section className="py-12 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl font-light text-gray-800 mb-6">
+          <h1 className="text-lg sm:text-2xl font-light text-gray-800 mb-6">
             Abstract Submission
           </h1>
           
@@ -28,14 +28,6 @@ export default function AbstractSubmissionPage() {
         
         {/* Form Container */}
         <div className="bg-gray-50 rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-          
-          {/* Form Header */}
-          <div className="bg-white border-b border-gray-200 px-6 sm:px-12 py-8 text-center">
-            <h2 className="text-2xl sm:text-3xl font-normal text-gray-900">
-              ANM 2026 Abstract Submission
-            </h2>
-          </div>
-
           {/* Embedded Zoho Form */}
           <div className="p-4 sm:p-8">
             <iframe
