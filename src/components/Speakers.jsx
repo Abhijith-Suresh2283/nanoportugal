@@ -9,53 +9,53 @@ export default function SpeakersPage() {
 
   const speakers = [
     {
-      name: "Ibrahim Dincer",
+      name: "Ibrahim Dincer (Plenary)",
       institution: "Ontario Tech University",
       country: "Canada",
-      image: "/ibrahim.jpg",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/92.jpg",
       abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/Abstract-Ibrahim-Dincer-ANM2025.docx"
     },
     {
-      name: "Prof. Ajayan Vinu",
+      name: "Prof. Ajayan Vinu (Plenary)",
       institution: "The University of Newcastle",
       country: "Australia",
-      image: "/ajayan.jpg",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/93.jpg",
       abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/Ajayan-Vinu.pdf"
     },
     {
-      name: "Luiz Pereira",
+      name: "Luiz Pereira (Plenary)",
       institution: "University of Aveiro",
       country: "Portugal",
-      image: "/luiz.jpg",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/94.jpg",
       abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/ANM2025-abstract-LuizPereira.pdf" 
+    },
+    {
+      name: "Prof. Luis Cadillon Costa",
+      institution: "University of Aveiro",
+      country: "Portugal",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/95.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/ANM_2025_LCC-2.docx"
+    },
+    {
+      name: "Necmettin Kilinc",
+      institution: "Department of Physics, Faculty of Science & Arts, Inonu University, Malataya",
+      country: "Türkiye",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/96.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/ANM2025-PdAu-alloy-hydrogen-sensor.pdf"
+    },
+    {
+      name: "Cláudia Lopes",
+      institution: "CICECO – University of Aveiro",
+      country: "Portugal",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/97.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/ANM2025-abstract-Claudia-Batista-Lopes.pdf" 
     },
     {
       name: "Ibrahim Dincer",
       institution: "Ontario Tech University",
       country: "Canada",
       image: "/ibrahim.jpg",
-      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/Abstract-Ibrahim-Dincer-ANM2025.docx"
-    },
-    {
-      name: "Prof. Ajayan Vinu",
-      institution: "The University of Newcastle",
-      country: "Australia",
-      image: "/ajayan.jpg",
-      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/Ajayan-Vinu.pdf"
-    },
-    {
-      name: "Luiz Pereira",
-      institution: "University of Aveiro",
-      country: "Portugal",
-      image: "/luiz.jpg",
-      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/ANM2025-abstract-LuizPereira.pdf" 
-    },
-    {
-      name: "Ibrahim Dincer",
-      institution: "Ontario Tech University",
-      country: "Canada",
-      image: "/ibrahim.jpg",
-      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/Abstract-Ibrahim-Dincer-ANM2025.docx"
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/ANM2025-PdAu-alloy-hydrogen-sensor.pdf"
     },
     {
       name: "Prof. Ajayan Vinu",
