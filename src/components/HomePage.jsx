@@ -117,7 +117,7 @@ const handlePageNavigation = (route) => {
               className="group px-10 py-4 bg-gradient-to-r from-violet-500 to-purple-600 text-white text-sm font-medium tracking-widest uppercase hover:shadow-2xl hover:shadow-violet-500/50 transition-all duration-300 rounded-full hover:scale-105"
             >
               <span className="flex items-center justify-center gap-2">
-                Register Now
+                Register
                 <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -366,7 +366,7 @@ const handlePageNavigation = (route) => {
                   className="group px-10 py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-medium tracking-widest uppercase hover:shadow-lg hover:shadow-violet-300/50 transition-all duration-300 rounded-full hover:scale-105"
                 >
                   <span className="flex items-center justify-center gap-2">
-                    Register Now
+                    Register
                     <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
