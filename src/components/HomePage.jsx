@@ -359,6 +359,19 @@ const handlePageNavigation = (route) => {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+
+                    {/* Submit Abstract */}
+            <button
+              onClick={() => handlePageNavigation("/abstract-submission")}
+              className="group px-10 py-4 bg-gradient-to-r from-violet-500 to-purple-600 text-white text-sm font-medium tracking-widest uppercase hover:shadow-2xl hover:shadow-violet-500/50 transition-all duration-300 rounded-full hover:scale-105"
+            >
+              <span className="flex items-center justify-center gap-2">
+                Submit Abstract
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </span>
+            </button>
                 
                  <a href="https://www.congressospco.abreu.pt/ANM2026-41875.aspx"
                   target="_blank"
@@ -372,18 +385,7 @@ const handlePageNavigation = (route) => {
                     </svg>
                   </span>
                 </a>
-
-                <Link
-                  to="/abstract-submission"
-                  className="group px-10 py-4 bg-white border-2 border-violet-600 text-violet-700 text-sm font-medium tracking-widest uppercase hover:bg-violet-600 hover:text-white transition-all duration-300 rounded-full"
-                >
-                  <span className="flex items-center justify-center gap-2">
-                    Submit Abstract
-                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                  </span>
-                </Link>
+             
               </div>
 
             </div>
