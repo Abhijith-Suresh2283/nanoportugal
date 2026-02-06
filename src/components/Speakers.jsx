@@ -385,7 +385,7 @@ export default function SpeakersPage() {
       country: "South Korea",
       image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/05/48.jpg",
       abstract: "https://t9016861658.p.clickup-attachments.com/t9016861658/f5d50808-3134-4082-a8a3-396623e2d2c8/Nano-formulations%20ANM2025%20(1).pdf?view=open"
-
+    },
     {
       name: "Hyung-Ho Park",
       institution: "Yonsei University",
