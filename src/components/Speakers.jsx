@@ -798,98 +798,91 @@ export default function SpeakersPage() {
       image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/109.jpg",
       abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/Abstract-ANM-portugal-2-1.pdf"
     },
-    // {
-    //   name: "",
-    //   institution: "",
-    //   country: "",
-    //   image: "",
-    //   abstract: ""
-    // },
-    // {
-    //   name: "",
-    //   institution: "",
-    //   country: "",
-    //   image: "",
-    //   abstract: ""
-    // },
-    // {
-    //   name: "",
-    //   institution: "",
-    //   country: "",
-    //   image: "",
-    //   abstract: ""
-    // },
-    // {
-    //   name: "",
-    //   institution: "",
-    //   country: "",
-    //   image: "",
-    //   abstract: ""
-    // },
-    // {
-    //   name: "",
-    //   institution: "",
-    //   country: "",
-    //   image: "",
-    //   abstract: ""
-    // },
-    // {
-    //   name: "",
-    //   institution: "",
-    //   country: "",
-    //   image: "",
-    //   abstract: ""
-    // },
-    // {
-    //   name: "",
-    //   institution: "",
-    //   country: "",
-    //   image: "",
-    //   abstract: ""
-    // },
-    // {
-    //   name: "",
-    //   institution: "",
-    //   country: "",
-    //   image: "",
-    //   abstract: ""
-    // },
-    // {
-    //   name: "",
-    //   institution: "",
-    //   country: "",
-    //   image: "",
-    //   abstract: ""
-    // },
-    // {
-    //   name: "",
-    //   institution: "",
-    //   country: "",
-    //   image: "",
-    //   abstract: ""
-    // },
-    // {
-    //   name: "",
-    //   institution: "",
-    //   country: "",
-    //   image: "",
-    //   abstract: ""
-    // },
-    // {
-    //   name: "",
-    //   institution: "",
-    //   country: "",
-    //   image: "",
-    //   abstract: ""
-    // },
-    // {
-    //   name: "",
-    //   institution: "",
-    //   country: "",
-    //   image: "",
-    //   abstract: ""
-    // },
-    // Add more speakers here as needed to test pagination
+    {
+      name: "Vera La Ferrara",
+      institution: "ENEA – Italian National Agency for New Technologies, Energy and Sustainable Economic Development",
+      country: "Italy",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/111.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/abstract-ANM25_Vera-La-Ferrara_rev.pdf"
+    },
+    {
+      name: "Paweł Pasierb",
+      institution: "AGH University of Krakow",
+      country: "Poland",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/112.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/ANM2025-PP.pdf"
+    },
+    {
+      name: "Khadiri Mohyeddine",
+      institution: "Cadi Ayyad University, Faculty of Science Semlalia Marrakech",
+      country: "Morocco",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/113.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/khadiri.docx"
+    },
+    {
+      name: "Dariusz Zientara",
+      institution: "AGH University of Science and Technology, Faculty of Materials Science and Ceramics",
+      country: "Poland",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/unnamed-file.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/ANM2022-abstract-template_DZ.pdf"
+    },
+    {
+      name: "Ivana Troppová",
+      institution: "VSB-Technical University of Ostrava",
+      country: "Czech Republic",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/115.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/ANM2025-abstract_TroppovaIvana.pdf"
+    },
+    {
+      name: "Parisa Ebrahimi",
+      institution: "Qatar University",
+      country: "Qatar",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/116.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/ANM2025-abstract-Parisa.pdf"
+    },
+    {
+      name: "Oihan Allegret",
+      institution: "Xlim research institute UMR CNRS 7252 Université de Limoges, Limoge",
+      country: "France",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/117.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/Abstract-ANM_V5.pdf"
+    },
+    {
+      name: "Muhammad Aasim",
+      institution: "PhD Candidate IFIMUP University of Porto",
+      country: "Portugal",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/167.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/ANM2025-Abstract-1.pdf"
+    },
+    {
+      name: "Matjaž Malok",
+      institution: "",
+      country: "Slovenia",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/168.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/ANM2025-Malok-Electrical-properties-of-collapsed-MoS2-nanotubes-1.pdf"
+    },
+    {
+      name: "Francisco De Santiago Varela",
+      institution: "Instituto de Fisica, UNAM",
+      country: "Mexico",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/169.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/anm2025_gecbilayer_FD1-1.pdf"
+    },
+    {
+      name: "František Hájek",
+      institution: "Institute of Physics, Czech Academy of Sciences",
+      country: "Czech Republic",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/170.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/ANM2025-abstract-Hajek_final.pdf"
+    },
+    {
+      name: "Hana Krýsová",
+      institution: "J. Heyrovsky Institute of Physical Chemistry",
+      country: "Czech Republic",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/171.jpg",
+      abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/ANM2025-abstract_Krysova.pdf"
+    },
+    Add more speakers here as needed to test pagination
   ];
 
   // Calculate pagination
