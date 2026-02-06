@@ -363,7 +363,7 @@ const handlePageNavigation = (route) => {
                     {/* Submit Abstract */}
             <button
               onClick={() => handlePageNavigation("/abstract-submission")}
-              className="group px-10 py-4 bg-gradient-to-r from-violet-500 to-purple-600 text-white text-sm font-medium tracking-widest uppercase hover:shadow-2xl hover:shadow-violet-500/50 transition-all duration-300 rounded-full hover:scale-105"
+              className="group px-10 py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-medium tracking-widest uppercase hover:shadow-lg hover:shadow-violet-300/50 transition-all duration-300 rounded-full hover:scale-105"
             >
               <span className="flex items-center justify-center gap-2">
                 Submit Abstract
