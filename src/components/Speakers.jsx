@@ -384,8 +384,7 @@ export default function SpeakersPage() {
       institution: "Yonsei University",
       country: "South Korea",
       image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/05/48.jpg",
-      abstract: "https://t9016861658.p.clickup-attachments.com/t9016861658/f5d50808-3134-4082-a8a3-396623e2d2c8/Nano-formulations%20ANM2025%20(1).pdf?view=openhttps://t9016861658.p.clickup-attachments.com/t9016861658/f5d50808-3134-4082-a8a3-396623e2d2c8/Nano-formulations%20ANM2025%20(1).pdf?view=open"
-    },
+      abstract: "https://t9016861658.p.clickup-attachments.com/t9016861658/f5d50808-3134-4082-a8a3-396623e2d2c8/Nano-formulations%20ANM2025%20(1).pdf?view=open"
 
     {
       name: "Hyung-Ho Park",
@@ -606,7 +605,7 @@ export default function SpeakersPage() {
       name: "Dr Tahir Muhmood",
       institution: "International Iberian Nanotechnology Laboratory (INL),",
       country: "Portugal",
-      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/77.jpg#",
+      image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/06/77.jpg",
       abstract: ""
     },
      {
@@ -882,7 +881,6 @@ export default function SpeakersPage() {
       image: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/171.jpg",
       abstract: "https://www.advanced-nanomaterials-conference.com/wp-content/uploads/2025/07/ANM2025-abstract_Krysova.pdf"
     },
-    Add more speakers here as needed to test pagination
   ];
 
   // Calculate pagination
