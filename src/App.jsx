@@ -1,6 +1,7 @@
+import { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import HomePage from "./components/HomePage";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import About from "./components/About";
 import Program from "./components/Program";
 import SpeakersPage from "./components/Speakers";
@@ -14,9 +15,28 @@ import VenuePage from "./components/Venue";
 import ContactPage from "./components/Contact";
 import AccommodationPage from "./components/Accomodation";
 import AbstractSubmissionPage from "./components/AbstractSubmission";
+
+// 1. Helper component to handle Google Analytics page tracking
+function AnalyticsTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (window.gtag) {
+      window.gtag('config', 'G-WT73VVQQZ1', {
+        page_path: location.pathname,
+      });
+    }
+  }, [location]);
+
+  return null; 
+}
+
 function App() {
   return (
     <Router>
+      {/* 2. Tracker must be INSIDE <Router> so useLocation works */}
+      <AnalyticsTracker />
+      
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
