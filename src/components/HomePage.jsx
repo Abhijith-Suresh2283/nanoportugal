@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import SEO from "./SEO";
 import PhotoGalleryGrid from "./Gallery";
 import { Helmet } from "react-helmet-async";
 export default function HomePage() {
@@ -13,13 +13,12 @@ const handlePageNavigation = (route) => {
 
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] text-gray-900 overflow-x-hidden">
-      <Helmet>
-        {/* IMPROVED TITLE: Keywords moved to the front */}
-        <title>Nanomaterials Conference 2026 | Nano Portugal (ANM 2026)</title>
-        <meta name="description" content="Join the 25th Edition of the International Nanomaterials Conference 2026 in Portugal. The premier global Nano Conference for research on energy and advanced materials." />
-        <meta name="keywords" content="Nanomaterials Conference 2026, Nano Conference 2026, Portugal Nanotechnology Event, Advanced Materials Research, Energy Materials Conference" />
-        <link rel="canonical" href="https://nanoportugal.com/" /> 
-      </Helmet>
+      <SEO 
+        title="ANM 2026 | International Conference on Advanced Nanomaterials" 
+        description="International conferences on: •Advanced Nanomaterials •Hydrogen Energy •Advanced Graphene Materials •Advanced Magnetic and Spintronics Materials •University of Aveiro, Portugal."
+        keywords="ANM 2026, Advanced Nanomaterials Conference, Hydrogen Energy Portugal, Graphene Research 2026, Spintronics Materials"
+        path="/"
+      />
 
       {/* ================= HERO SECTION ================= */}
       <section className="relative w-full h-[75vh] sm:h-screen overflow-hidden bg-black">
