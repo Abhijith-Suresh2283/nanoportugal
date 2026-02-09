@@ -1,6 +1,13 @@
+import SEO from "./SEO";
 export default function VenuePage() {
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 flex flex-col">
+      <SEO 
+        title="Conference Venue | University of Aveiro" 
+        description="Join us at the Pedagogical Complex, University of Aveiro, for ANM 2026. Get directions, campus maps, and information about the beautiful city of Aveiro, Portugal."
+        keywords="University of Aveiro venue, Pedagogical Complex Aveiro, ANM 2026 location, Portugal conference center, Campus Santiago Aveiro"
+        path="/venue"
+      />
 
       {/* ================= HERO IMAGE SECTION ================= */}
       <section className="relative w-full h-[55vh] sm:h-[65vh] overflow-hidden">
@@ -95,6 +102,11 @@ export default function VenuePage() {
         </div>
 
       </section>
+      <div className="sr-only">
+        <h3>Venue Facilities - ANM 2026</h3>
+        <p>The conference takes place at the University of Aveiro's Pedagogical Complex (Complexo Pedagógico).</p>
+        <p>Facilities include plenary auditoriums, breakout rooms for technical sessions, and foyer space for scientific poster presentations.</p>
+      </div>
 
       {/* ================= MAP SECTION ================= */}
       <section className="max-w-6xl mx-auto w-full px-4 sm:px-6 py-20 sm:py-24">

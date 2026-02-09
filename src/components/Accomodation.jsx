@@ -1,6 +1,14 @@
+import SEO from "./SEO";
+
 export default function AccommodationPage() {
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 flex flex-col">
+        <SEO 
+        title="Accommodation & Hotels" 
+        description="Find the best hotels and accommodation options for the Nanomaterials Conference 2026 in Aveiro, Portugal. Special rates and booking details coming soon."
+        keywords="ANM 2026 hotels, Aveiro Portugal accommodation, conference housing Portugal, nanotechnology event stay"
+        path="/accommodation"
+      />
 
       {/* ================= HERO SECTION ================= */}
       <section className="relative flex-1 flex items-center justify-center px-4 sm:px-6 py-24 overflow-hidden">

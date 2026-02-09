@@ -1,6 +1,13 @@
+import SEO from "./SEO";
 export default function RegistrationPage() {
   return (
     <div className="bg-white min-h-screen text-gray-900">
+      <SEO 
+        title="Registration Fees & Online Booking" 
+        description="Register for the ANM 2026 Nanomaterials Conference. View registration fees for academics, students, and industry professionals. Early bird discounts available until Feb 28, 2026."
+        keywords="ANM 2026 registration, conference fees Portugal, student discount nanotechnology, early bird registration science, Abreu Events registration"
+        path="/registration"
+      />
 
       {/* ================= MAIN CONTENT ================= */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-6 sm:space-y-8">

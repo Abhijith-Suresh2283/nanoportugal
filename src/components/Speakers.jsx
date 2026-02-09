@@ -1,5 +1,5 @@
 'use client';
-
+import SEO from "./SEO";
 import { useState, useRef } from 'react';
 
 export default function SpeakersPage() {
@@ -929,6 +929,12 @@ const prevPage = () => {
 
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 overflow-x-hidden">
+      <SEO 
+        title="Keynote & Invited Speakers" 
+        description="Meet the distinguished speakers for the ANM 2026 Nanomaterials Conference. Featuring over 140 world-renowned experts in nanotechnology, energy materials, and graphene from global institutions."
+        keywords="ANM 2026 speakers, nanotechnology experts, nanomaterials keynote speakers, University of Aveiro research speakers, international science conference 2026"
+        path="/speakers"
+      />
 
       {/* ================= PAGE HEADER ================= */}
       <section className="relative py-20 sm:py-32 px-4 sm:px-6 overflow-hidden">
@@ -1156,6 +1162,14 @@ const prevPage = () => {
             </div>
 
           </div>
+        </div>
+        <div className="sr-only">
+          <h2>Full Directory of ANM 2026 Speakers</h2>
+          <ul>
+            {speakers.map((s, i) => (
+              <li key={i}>{s.name} - {s.institution}, {s.country}</li>
+            ))}
+          </ul>
         </div>
       </section>
 

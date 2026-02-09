@@ -1,3 +1,4 @@
+import SEO from "./SEO";
 export default function DeadlinesPage() {
   const deadlines = [
     {
@@ -29,6 +30,12 @@ export default function DeadlinesPage() {
 
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 overflow-x-hidden">
+      <SEO 
+        title="Important Deadlines" 
+        description="View all key dates and deadlines for the ANM 2026 conference in Aveiro, Portugal. Includes abstract submission, early bird registration, and manuscript deadlines."
+        keywords="ANM 2026 deadlines, abstract submission date 2026, nanomaterials conference registration, early bird nano conference, Portugal research deadlines"
+        path="/deadlines"
+      />
 
       {/* ================= PAGE HEADER ================= */}
       <section className="relative py-20 sm:py-32 px-4 sm:px-6 overflow-hidden">
@@ -70,6 +77,14 @@ export default function DeadlinesPage() {
 
       {/* ================= DEADLINES TIMELINE ================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
+        <div className="sr-only">
+          <h2>Key Submission and Registration Dates for Nano Portugal 2026</h2>
+          <ul>
+            {deadlines.map((item, index) => (
+              <li key={index}>{item.title}: {item.date}</li>
+            ))}
+          </ul>
+        </div>
         
         {/* Timeline for Desktop */}
         <div className="hidden lg:block relative">

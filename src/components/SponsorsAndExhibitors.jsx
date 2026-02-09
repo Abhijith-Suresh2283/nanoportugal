@@ -1,3 +1,4 @@
+import SEO from "./SEO";
 export default function SponsorsAndExhibitorsPage() {
   const sponsorshipTiers = [
     {
@@ -36,6 +37,12 @@ export default function SponsorsAndExhibitorsPage() {
 
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 overflow-x-hidden">
+      <SEO 
+        title="Sponsorship & Exhibition Opportunities" 
+        description="Partner with ANM 2026. Explore sponsorship tiers (Platinum, Gold, Silver) and exhibition opportunities for the premier international gathering in Nanomaterials and Energy."
+        keywords="ANM 2026 sponsors, exhibit at nanotechnology conference, conference sponsorship tiers, Portugal science exhibition, nanotechnology industry partners"
+        path="/sponsors"
+      />
 
       {/* ================= PAGE HEADER ================= */}
       <section className="relative py-20 sm:py-32 px-4 sm:px-6 overflow-hidden">
@@ -77,6 +84,10 @@ export default function SponsorsAndExhibitorsPage() {
 
       {/* ================= MAIN CONTENT ================= */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20 space-y-12">
+        <div className="sr-only">
+          <h2>Exhibitor and Sponsor Information for Nano Portugal 2026</h2>
+          <p>We offer exhibition space for startups and R&D organizations in the fields of carbon nanotubes, battery technology, and hydrogen energy.</p>
+        </div>
 
         {/* Sponsorship Tiers */}
         <div className="space-y-8">

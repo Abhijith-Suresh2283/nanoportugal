@@ -1,3 +1,4 @@
+import SEO from "./SEO";
 export default function CommitteesPage() {
   const conferenceChairs = [
     { name: "Prof. João Campos Gil", institution: "University of Coimbra, Portugal" },
@@ -58,6 +59,12 @@ export default function CommitteesPage() {
 
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 overflow-x-hidden">
+      <SEO 
+        title="Committees & Leadership" 
+        description="Meet the ANM 2026 Organizing and Scientific Committees. Featuring distinguished chairs and nanotechnology experts from the University of Aveiro, Porto, Coimbra, and global institutions."
+        keywords="ANM 2026 committee, scientific committee nanomaterials, Dr. Elby Titus, Prof. João Campos Gil, University of Aveiro research, nanotechnology leadership Portugal"
+        path="/committees"
+      />
 
       {/* ================= PAGE HEADER ================= */}
       <section className="relative py-20 sm:py-32 px-4 sm:px-6 overflow-hidden">

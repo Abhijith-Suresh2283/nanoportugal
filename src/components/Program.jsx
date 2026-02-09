@@ -1,9 +1,16 @@
+import SEO from "./SEO";
 export default function Program() {
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 overflow-x-hidden">
 
       {/* ================= PAGE HEADER ================= */}
       <section className="relative py-20 sm:py-32 px-4 sm:px-6 overflow-hidden">
+        <SEO 
+        title="Conference Program & Schedule" 
+        description="Explore the ANM 2026 conference schedule. Featuring keynote speakers, technical sessions on graphene and energy materials, and networking events in Aveiro, Portugal."
+        keywords="ANM 2026 program, conference schedule nanotechnology, technical sessions energy materials, graphene research presentations, Aveiro science events"
+        path="/program"
+      />
         
         {/* Decorative Background Elements */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-violet-200/20 rounded-full blur-3xl" />
@@ -42,6 +49,11 @@ export default function Program() {
 
       {/* ================= MAIN CONTENT ================= */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20 space-y-12">
+        <div className="sr-only">
+          <h2>Scientific Program Tracks - Nano Portugal 2026</h2>
+          <p>Our technical sessions cover advanced topics in: Energy materials research, Graphene applications, Polymer chemistry, and Magnetic nanomaterials.</p>
+          <p>Schedule includes plenary talks, invited oral presentations, and interactive poster sessions.</p>
+        </div>
 
         {/* Program Access Card */}
         <div className="bg-white/90 backdrop-blur-xl rounded-[2rem] shadow-xl border border-violet-100/50 overflow-hidden">

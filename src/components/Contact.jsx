@@ -1,6 +1,13 @@
+import SEO from "./SEO";
 export default function ContactPage() {
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 flex flex-col">
+      <SEO 
+        title="Contact Us" 
+        description="Get in touch with the ANM 2026 conference organizers. Contact us for general inquiries, abstract submissions, registration assistance, and travel planning in Portugal."
+        keywords="Contact ANM 2026, Nanomaterials conference email, Aveiro conference support, Abreu Events contact, nanotechnology research inquiry"
+        path="/contact"
+      />
       
       {/* ================= PAGE HEADER ================= */}
       <section className="relative py-24 sm:py-32 text-center px-4 sm:px-6 overflow-hidden">

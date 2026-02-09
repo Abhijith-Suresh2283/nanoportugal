@@ -1,6 +1,13 @@
+import SEO from "./SEO";
 export default function PublicationsPage() {
   return (
     <div className="min-h-screen bg-white">
+      <SEO 
+        title="Journal Publications & Special Issues" 
+        description="Publish your ANM 2026 research in prestigious journals. Special issues available in International Journal of Hydrogen Energy, Energy Storage, Nanomaterials, and more."
+        keywords="ANM 2026 publications, nanomaterials special issue, Elsevier hydrogen energy, MDPI nanomaterials, Wiley energy storage, research paper submission 2026"
+        path="/publications"
+      />
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 py-12">

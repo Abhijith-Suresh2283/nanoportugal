@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import PhotoGalleryGrid from "./Gallery";
+import { Helmet } from "react-helmet-async";
 export default function HomePage() {
   const navigate = useNavigate();
 
@@ -12,6 +13,13 @@ const handlePageNavigation = (route) => {
 
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] text-gray-900 overflow-x-hidden">
+      <Helmet>
+        {/* IMPROVED TITLE: Keywords moved to the front */}
+        <title>Nanomaterials Conference 2026 | Nano Portugal (ANM 2026)</title>
+        <meta name="description" content="Join the 25th Edition of the International Nanomaterials Conference 2026 in Portugal. The premier global Nano Conference for research on energy and advanced materials." />
+        <meta name="keywords" content="Nanomaterials Conference 2026, Nano Conference 2026, Portugal Nanotechnology Event, Advanced Materials Research, Energy Materials Conference" />
+        <link rel="canonical" href="https://nanoportugal.com/" /> 
+      </Helmet>
 
       {/* ================= HERO SECTION ================= */}
       <section className="relative w-full h-[75vh] sm:h-screen overflow-hidden bg-black">
@@ -73,8 +81,9 @@ const handlePageNavigation = (route) => {
 
             {/* Subheadline */}
             <div className="space-y-2">
+              
               <p className="text-lg sm:text-xl md:text-2xl font-light tracking-wide opacity-95">
-                25th International Conference
+                25th International Conference on Nano and Energy related materials
               </p>
               <div className="flex items-center justify-center gap-3 text-base sm:text-lg font-light opacity-90">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,7 +94,7 @@ const handlePageNavigation = (route) => {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 </svg>
-                <span>Aveiro, Portugal</span>
+                <span>Aveiro, Portugal, Europe</span>
               </div>
             </div>
 
@@ -298,6 +307,13 @@ const handlePageNavigation = (route) => {
 
   </div>
 </section>
+{/* ================= HIDDEN SEO TRACKS SECTION ================= */}
+      {/* This section helps Google associate your site with specific scientific topics */}
+      <div className="sr-only">
+        <h2>Call for Papers: Nano Portugal 2026</h2>
+        <p>Submit research abstracts on Advanced Nanomaterials, Energy Materials, Graphene, Carbon Nanotubes, and Polymer Nanocomposites.</p>
+        <p>The 2026 Nanomaterials conference tracks include: Hydrogen Energy, Battery Materials, and Nano-Biotechnology.</p>
+      </div>
 
       {/* ================= WELCOME ================= */}
       <section className="py-24 sm:py-32 px-4 sm:px-6 relative overflow-hidden">

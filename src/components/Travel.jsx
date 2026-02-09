@@ -1,6 +1,13 @@
+import SEO from "./SEO";
 export default function TravelPage() {
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900">
+      <SEO 
+        title="Travel Information & Directions" 
+        description="Plan your trip to ANM 2026. Detailed guide on reaching the University of Aveiro from Porto (OPO) and Lisbon (LIS) airports by train, bus, or car."
+        keywords="Travel to Aveiro Portugal, Porto airport to Aveiro train, Lisbon to Aveiro directions, ANM 2026 travel guide, University of Aveiro location"
+        path="/travel"
+      />
 
       {/* ================= PAGE HEADER ================= */}
       <section className="relative py-20 sm:py-32 px-4 sm:px-6 overflow-hidden">
@@ -39,6 +46,12 @@ export default function TravelPage() {
           </p>
         </div>
       </section>
+      <div className="sr-only">
+        <h2>ANM 2026 Travel Summary</h2>
+        <p>Porto Airport to Aveiro: 40-75 minutes via Metro and CP Train.</p>
+        <p>Lisbon Airport to Aveiro: 2-2.5 hours via Oriente Railway Station.</p>
+        <p>Aveiro is located 70km from Porto and 250km from Lisbon.</p>
+      </div>
 
       {/* ================= QUICK ACCESS CARDS ================= */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">

@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
-
+import { Helmet } from "react-helmet-async";
+import SEO from "./SEO";
 export default function About() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] text-gray-900">
+      <SEO 
+        title="About the Conference" 
+        description="Learn about the 25-year history of the Advanced Nanomaterials Conference (ANM 2026) at the University of Aveiro, Portugal. Discover our mission to advance nanotechnology research."
+        keywords="About ANM 2026, Nanotechnology history, University of Aveiro research, science conference Portugal"
+        path="/about"
+      />
 
       {/* ================= HERO SECTION ================= */}
       <section className="relative py-24 sm:py-36 text-center px-6 overflow-hidden">

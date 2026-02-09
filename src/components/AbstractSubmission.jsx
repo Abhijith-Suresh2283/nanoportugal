@@ -1,6 +1,13 @@
+import SEO from "./SEO";
 export default function AbstractSubmissionPage() {
   return (
     <div className="bg-white min-h-screen text-gray-900">
+        <SEO 
+        title="Abstract Submission" 
+        description="Official abstract submission portal for the 2026 Nanomaterials Conference (ANM). Download the template and submit your research on energy and advanced materials."
+        keywords="ANM 2026 abstract submission, call for papers nanotechnology 2026, nanomaterials submission portal, Aveiro Portugal conference"
+        path="/abstract-submission"
+      />
 
       {/* ================= PAGE HEADER ================= */}
       <section className="py-12 px-4 sm:px-6">
@@ -25,6 +32,12 @@ export default function AbstractSubmissionPage() {
 
       {/* ================= SUBMISSION FORM ================= */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
+        {/* 3. VISUALLY HIDDEN SEO DATA (Crucial for iframe pages) */}
+        <div className="sr-only">
+          <h2>Nanomaterials Conference 2026 Call for Papers</h2>
+          <p>Submission categories: Keynote, Invited, Oral, and Poster presentations.</p>
+          <p>Scientific tracks: Graphene, Carbon Nanotubes, Energy Materials, and Polymer Nanocomposites.</p>
+        </div>
         
         {/* Form Container */}
         <div className="bg-gray-50 rounded-lg shadow-sm border border-gray-200 overflow-hidden">
