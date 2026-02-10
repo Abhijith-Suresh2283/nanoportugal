@@ -159,6 +159,8 @@ const handlePageNavigation = (route) => {
         </div>
       </section>
 
+      
+
       {/* ================= FEATURED JOURNALS ================= */}
 <section className="relative py-20 sm:py-32 px-4 sm:px-6 overflow-hidden">
   
@@ -167,9 +169,18 @@ const handlePageNavigation = (route) => {
   <div className="absolute bottom-1/3 right-10 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl" />
   
   <div className="max-w-6xl mx-auto relative z-10">
-
     {/* Section Header */}
     <div className="text-center mb-16">
+      <div className="text-center py-4">
+  <a
+    href="https://www.advanced-nanomaterials-conference.com/anm-home/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-violet-700 hover:text-violet-900 underline text-sm font-medium"
+  >
+    Visit Previous ANM Website
+  </a>
+</div>
       
       {/* Badge */}
       <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/60 backdrop-blur-md border border-violet-200/50 rounded-full mb-6">
