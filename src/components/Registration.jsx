@@ -71,8 +71,8 @@ export default function RegistrationPage() {
                 </tr>
                 <tr className="border-b border-gray-300 bg-gray-50">
                   <th className="text-left p-3 font-normal border-r border-gray-300 text-sm"></th>
-                  <th className="text-left p-3 font-normal border-r border-gray-300 text-sm">Until 28 February 2026</th>
                   <th className="text-left p-3 font-normal border-r border-gray-300 text-sm">Until 31 March 2026</th>
+                  <th className="text-left p-3 font-normal border-r border-gray-300 text-sm">Until 30 April 2026</th>
                   <th className="text-left p-3 font-normal text-sm">Until 30 June 2026</th>
                 </tr>
               </thead>
