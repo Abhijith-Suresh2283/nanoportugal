@@ -61,7 +61,7 @@ export default function Program() {
 
           {/* Subtitle */}
           <p className="text-base sm:text-lg font-light text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Explore the comprehensive schedule of sessions, workshops, and networking events at ANM2026
+            ANM2026 Programme Schedule will be uploaded prior to the conference.
           </p>
         </div>
       </section>
