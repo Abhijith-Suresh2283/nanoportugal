@@ -106,11 +106,11 @@ export default function RegistrationPage() {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Normal (Until 31 Mar 2026):</span>
-                    <span className="font-semibold">€{row[2]}</span>
+                    <span className="font-semibold">€{row[1]}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Late (Until 30 Jun 2026):</span>
-                    <span className="font-semibold">€{row[3]}</span>
+                    <span className="font-semibold">€{row[2]}</span>
                   </div>
                 </div>
               </div>
