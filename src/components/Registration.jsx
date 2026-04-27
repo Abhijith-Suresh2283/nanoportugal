@@ -60,9 +60,6 @@ export default function RegistrationPage() {
                 <tr className="border-b border-gray-300">
                   <th className="text-left p-3 font-semibold border-r border-gray-300 text-sm">Category</th>
                   <th className="text-left p-3 font-semibold border-r border-gray-300 text-sm">
-                    <div>Early bird registration (Euros)</div>
-                  </th>
-                  <th className="text-left p-3 font-semibold border-r border-gray-300 text-sm">
                     <div>Normal registration (Euros)</div>
                   </th>
                   <th className="text-left p-3 font-semibold text-sm">
@@ -71,25 +68,23 @@ export default function RegistrationPage() {
                 </tr>
                 <tr className="border-b border-gray-300 bg-gray-50">
                   <th className="text-left p-3 font-normal border-r border-gray-300 text-sm"></th>
-                  <th className="text-left p-3 font-normal border-r border-gray-300 text-sm">Until 31 March 2026</th>
                   <th className="text-left p-3 font-normal border-r border-gray-300 text-sm">Until 30 April 2026</th>
                   <th className="text-left p-3 font-normal text-sm">Until 30 June 2026</th>
                 </tr>
               </thead>
               <tbody>
                 {[
-                  ["Academics", "700", "800", "900"],
-                  ["Post Docs", "600", "700", "800"],
-                  ["Students (PhD scholars, graduates & under graduates)", "450", "500", "550"],
-                  ["Industry", "1000", "1500", "2000"],
-                  ["Accompanying Person", "350", "400", "450"],
-                  ["Virtual Presentation (Oral or Poster)", "350", "400", "450"]
+                  ["Academics","800", "900"],
+                  ["Post Docs","700", "800"],
+                  ["Students (PhD scholars, graduates & under graduates)", "500", "550"],
+                  ["Industry","1500", "2000"],
+                  ["Accompanying Person","400", "450"],
+                  ["Virtual Presentation (Oral or Poster)", "400", "450"]
                 ].map((row, index) => (
                   <tr key={index} className="border-b border-gray-300">
                     <td className="p-3 border-r border-gray-300 text-sm">{row[0]}</td>
                     <td className="p-3 border-r border-gray-300 text-sm">{row[1]}</td>
                     <td className="p-3 border-r border-gray-300 text-sm">{row[2]}</td>
-                    <td className="p-3 text-sm">{row[3]}</td>
                   </tr>
                 ))}
               </tbody>
@@ -99,20 +94,16 @@ export default function RegistrationPage() {
           {/* Fees Cards - Mobile */}
           <div className="md:hidden space-y-4">
             {[
-              ["Academics", "700", "800", "900"],
-              ["Post Docs", "600", "700", "800"],
-              ["Students (PhD scholars, graduates & under graduates)", "450", "500", "550"],
-              ["Industry", "1000", "1500", "2000"],
-              ["Accompanying Person", "350", "400", "450"],
-              ["Virtual Presentation (Oral or Poster)", "350", "400", "450"]
+              ["Academics","800", "900"],
+                  ["Post Docs","700", "800"],
+                  ["Students (PhD scholars, graduates & under graduates)", "500", "550"],
+                  ["Industry","1500", "2000"],
+                  ["Accompanying Person","400", "450"],
+                  ["Virtual Presentation (Oral or Poster)", "400", "450"]
             ].map((row, index) => (
               <div key={index} className="border border-gray-300 p-4 rounded-lg space-y-3">
                 <p className="font-semibold text-sm text-gray-900">{row[0]}</p>
                 <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Early Bird (Until 28 Feb 2026):</span>
-                    <span className="font-semibold">€{row[1]}</span>
-                  </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Normal (Until 31 Mar 2026):</span>
                     <span className="font-semibold">€{row[2]}</span>
