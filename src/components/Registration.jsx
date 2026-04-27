@@ -60,13 +60,13 @@ export default function RegistrationPage() {
                 <tr className="border-b border-gray-300">
                   <th className="text-left p-3 font-semibold border-r border-gray-300 text-sm">Category</th>
                   <th className="text-left p-3 font-semibold border-r border-gray-300 text-sm">
-                    <div>Early bird registration</div>
+                    <div>Early bird registration (Euros)</div>
                   </th>
                   <th className="text-left p-3 font-semibold border-r border-gray-300 text-sm">
-                    <div>Normal registration</div>
+                    <div>Normal registration (Euros)</div>
                   </th>
                   <th className="text-left p-3 font-semibold text-sm">
-                    <div>Late registration</div>
+                    <div>Late registration (Euros)</div>
                   </th>
                 </tr>
                 <tr className="border-b border-gray-300 bg-gray-50">
