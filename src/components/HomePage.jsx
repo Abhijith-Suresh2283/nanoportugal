@@ -233,7 +233,7 @@ const handlePageNavigation = (route) => {
         </div>
 
         {/* Journals Grid - Centered layout for odd number of items */}
-        <div className="flex flex-wrap justify-center gap-6 sm:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8">
 
           {[
             { 
@@ -261,13 +261,18 @@ const handlePageNavigation = (route) => {
               name: "Materials Proceedings",
               url: "https://www.mdpi.com/journal/materproc"
             },
+             { 
+              img: "/condensed-matter.png", 
+              name: "Condensed Matter",
+              url: "https://www.mdpi.com/journal/condensedmatter"
+            },
           ].map((journal, i) => (
             <a
               key={i}
               href={journal.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative w-[calc(50%-12px)] sm:w-[calc(33.333%-21px)] lg:w-[calc(20%-26px)] cursor-pointer"
+              className="group relative cursor-pointer"
             >
               {/* Journal Logo Container - Increased size */}
               <div className="relative bg-gradient-to-br from-violet-50/30 to-purple-50/20 rounded-xl p-6 h-44 sm:h-48 flex items-center justify-center border border-violet-100/30 hover:border-violet-300/50 transition-all duration-300 hover:shadow-lg hover:shadow-violet-200/30">
