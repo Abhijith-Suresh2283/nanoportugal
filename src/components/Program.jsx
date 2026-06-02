@@ -90,7 +90,7 @@ export default function Program() {
                 View Full Program Schedule
               </h2>
               <p className="text-base font-light text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                Access the detailed program for ANM2025 including keynote sessions, technical presentations, poster sessions, and social events
+                Access the detailed program for ANM2026 including keynote sessions, technical presentations, poster sessions, and social events
               </p>
             </div>
 
