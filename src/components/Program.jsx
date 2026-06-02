@@ -46,19 +46,6 @@ export default function Program() {
               }
             }
           `}</style>
-
-          {/* Main Title */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extralight leading-tight mb-6">
-            Conference <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent font-light">Program</span>
-          </h1>
-
-          {/* Divider */}
-          <div className="flex items-center gap-3 justify-center py-4">
-            <div className="h-px w-20 bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
-            <div className="w-1.5 h-1.5 rounded-full bg-violet-400" />
-            <div className="h-px w-20 bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
-          </div>
-
         </div>
       </section>
 
