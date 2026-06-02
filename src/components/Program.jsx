@@ -4,7 +4,7 @@ export default function Program() {
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 overflow-x-hidden">
 
       {/* ================= PAGE HEADER ================= */}
-      <section className="relative py-20 sm:py-32 px-4 sm:px-6 overflow-hidden">
+      <section className="relative pt-20 sm:pt-32 pb-4 px-4 sm:px-6 overflow-hidden">
         <SEO 
         title="Conference Program & Schedule" 
         description="Explore the ANM 2026 conference schedule. Featuring keynote speakers, technical sessions on graphene and energy materials, and networking events in Aveiro, Portugal."
@@ -60,17 +60,7 @@ export default function Program() {
         {/* Program Access Card */}
         <div className="bg-white/90 backdrop-blur-xl rounded-[2rem] shadow-xl border border-violet-100/50 overflow-hidden">
           
-          {/* Decorative Top Border */}
-          <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400" />
-          
           <div className="p-8 sm:p-16 text-center space-y-8">
-            
-            {/* Icon */}
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-violet-100 to-purple-100 rounded-3xl mb-4">
-              <svg className="w-10 h-10 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
 
             <div className="space-y-4">
               <h2 className="text-2xl sm:text-3xl font-light text-gray-900">
