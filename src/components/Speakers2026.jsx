@@ -97,7 +97,7 @@ export default function SpeakersPage2026() {
         {loading && <p className="text-center text-gray-600 py-20">Loading speakers…</p>}
         {error && <p className="text-center text-red-500 py-20">Failed to load speakers: {error}</p>}
         {!loading && !error && speakers.length === 0 && (
-          <p className="text-center text-gray-600 py-20">No speakers announced yet.</p>
+          <p className="text-center text-gray-600 py-20"></p>
         )}
 
         {!loading && !error && speakers.length > 0 && (
