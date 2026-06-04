@@ -22,6 +22,7 @@ import AccommodationPage from "./components/Accomodation";
 import AbstractSubmissionPage from "./components/AbstractSubmission";
 import AdminPage from "./components/AdminPage";
 import SpeakerSubmissionPage from "./components/SpeakerSubmissionPage";
+import SpeakersPage2026 from "./components/Speakers2026";
 
 // 1. Helper component to handle Google Analytics page tracking
 function AnalyticsTracker() {
@@ -54,6 +55,7 @@ function App() {
           element={<AbstractSubmissionPage />}
         />
         <Route path="/speakers" element={<SpeakersPage />} />
+        <Route path="/speakers2026" element={<SpeakersPage2026 />} />
         <Route path="/registration" element={<RegistrationPage />} />
         <Route path="/deadlines" element={<DeadlinesPage />} />
         <Route path="/publications" element={<PublicationsPage />} />
