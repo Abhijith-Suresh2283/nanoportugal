@@ -8,15 +8,24 @@ const ADMIN_EMAIL = 'anm@nanoportugal.com';
 // Must match the speakers page card image ratio (aspect-[10/9]).
 const CROP_ASPECT = 10 / 9;
 
-// Produces a cropped JPEG Blob from a source image + crop pixel area
+// Size limits — keep aligned with the submission page and the 2 MB bucket limit.
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5 MB source (recompressed before upload)
+const MAX_ABSTRACT_BYTES = 2 * 1024 * 1024; // 2 MB abstract (uploaded as-is)
+const MAX_OUTPUT_WIDTH = 600; // cap cropped image width (px)
+
+// Produces a cropped, size-capped JPEG Blob from a source image + crop pixel area
 function getCroppedBlob(imageSrc, cropPixels) {
   return new Promise((resolve, reject) => {
     const image = new Image();
     image.crossOrigin = 'anonymous';
     image.onload = () => {
+      const scale = Math.min(1, MAX_OUTPUT_WIDTH / cropPixels.width);
+      const outW = Math.round(cropPixels.width * scale);
+      const outH = Math.round(cropPixels.height * scale);
+
       const canvas = document.createElement('canvas');
-      canvas.width = cropPixels.width;
-      canvas.height = cropPixels.height;
+      canvas.width = outW;
+      canvas.height = outH;
       const ctx = canvas.getContext('2d');
       ctx.drawImage(
         image,
@@ -26,8 +35,8 @@ function getCroppedBlob(imageSrc, cropPixels) {
         cropPixels.height,
         0,
         0,
-        cropPixels.width,
-        cropPixels.height
+        outW,
+        outH
       );
       canvas.toBlob(
         (blob) => {
@@ -35,7 +44,7 @@ function getCroppedBlob(imageSrc, cropPixels) {
           resolve(blob);
         },
         'image/jpeg',
-        0.9
+        0.85
       );
     };
     image.onerror = reject;
@@ -58,6 +67,7 @@ export default function AdminPage() {
 
   // upload state
   const [uploading, setUploading] = useState(null); // 'image' | 'abstract' | null
+  const [fileError, setFileError] = useState(null);
 
   // crop state
   const [rawImageSrc, setRawImageSrc] = useState(null); // object URL of newly selected file
@@ -115,8 +125,19 @@ export default function AdminPage() {
   }
 
   // Abstract upload (no cropping)
-  async function handleAbstractUpload(file) {
+  async function handleAbstractUpload(e) {
+    const file = e.target.files[0];
     if (!file) return;
+    if (file.size > MAX_ABSTRACT_BYTES) {
+      setFileError(
+        `Abstract is too large (${(file.size / 1024 / 1024).toFixed(1)} MB). Maximum is ${
+          MAX_ABSTRACT_BYTES / 1024 / 1024
+        } MB.`
+      );
+      e.target.value = '';
+      return;
+    }
+    setFileError(null);
     setUploading('abstract');
     try {
       const ext = file.name.split('.').pop();
@@ -133,6 +154,16 @@ export default function AdminPage() {
   const onImageSelected = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    if (file.size > MAX_IMAGE_BYTES) {
+      setFileError(
+        `Image is too large (${(file.size / 1024 / 1024).toFixed(1)} MB). Maximum is ${
+          MAX_IMAGE_BYTES / 1024 / 1024
+        } MB.`
+      );
+      e.target.value = '';
+      return;
+    }
+    setFileError(null);
     const url = URL.createObjectURL(file);
     setRawImageSrc(url);
     setZoom(1);
@@ -179,6 +210,7 @@ export default function AdminPage() {
   function startEdit(s) {
     setEditing(s.id);
     setForm(s);
+    setFileError(null);
   }
 
   async function saveEdit() {
@@ -287,6 +319,7 @@ export default function AdminPage() {
                   {/* PHOTO */}
                   <div className="border border-violet-100 rounded-lg p-3 space-y-2">
                     <label className="text-sm font-medium text-gray-700">Photo</label>
+                    <p className="text-xs text-gray-400">Max 5 MB. Will be resized automatically.</p>
                     {form.image ? (
                       <div className="flex items-center gap-3 flex-wrap">
                         <img
@@ -330,6 +363,7 @@ export default function AdminPage() {
                   {/* ABSTRACT */}
                   <div className="border border-violet-100 rounded-lg p-3 space-y-2">
                     <label className="text-sm font-medium text-gray-700">Abstract</label>
+                    <p className="text-xs text-gray-400">Max 2 MB.</p>
                     {form.abstract && form.abstract !== '#' ? (
                       <div className="flex items-center gap-3">
                         <a
@@ -354,7 +388,7 @@ export default function AdminPage() {
                     <input
                       type="file"
                       accept=".pdf,.doc,.docx"
-                      onChange={(e) => handleAbstractUpload(e.target.files[0])}
+                      onChange={handleAbstractUpload}
                       className="block w-full text-sm text-gray-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:bg-violet-100 file:text-violet-700"
                     />
                     {uploading === 'abstract' && <p className="text-xs text-violet-500">Uploading…</p>}
@@ -365,6 +399,8 @@ export default function AdminPage() {
                       className="w-full px-3 py-2 rounded-lg border border-violet-200 text-xs"
                     />
                   </div>
+
+                  {fileError && <p className="text-xs text-red-500">{fileError}</p>}
 
                   <select
                     value={form.status}

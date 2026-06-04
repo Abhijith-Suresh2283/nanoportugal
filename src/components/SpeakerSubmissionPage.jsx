@@ -4,19 +4,28 @@ import { useState, useCallback } from 'react';
 import Cropper from 'react-easy-crop';
 import { supabase } from '../lib/supabaseClient';
 
-// Aspect ratio of the speaker card image area.
-// The speakers page shows full-width images at h-[360px]; ~3:4 portrait keeps faces well framed.
+// Aspect ratio of the speaker card image area (matches speakers page aspect-[10/9]).
 const CROP_ASPECT = 10 / 9;
 
-// Produces a cropped Blob from the source image + crop pixel area
+// Size limits to keep storage under control
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5 MB source image
+const MAX_ABSTRACT_BYTES = 2 * 1024 * 1024; // 10 MB abstract
+const MAX_OUTPUT_WIDTH = 600; // cap cropped image width (px)
+
+// Produces a cropped, size-capped JPEG Blob from the source image + crop pixel area
 function getCroppedBlob(imageSrc, cropPixels) {
   return new Promise((resolve, reject) => {
     const image = new Image();
     image.crossOrigin = 'anonymous';
     image.onload = () => {
+      // Scale down if the cropped area is larger than our max width
+      const scale = Math.min(1, MAX_OUTPUT_WIDTH / cropPixels.width);
+      const outW = Math.round(cropPixels.width * scale);
+      const outH = Math.round(cropPixels.height * scale);
+
       const canvas = document.createElement('canvas');
-      canvas.width = cropPixels.width;
-      canvas.height = cropPixels.height;
+      canvas.width = outW;
+      canvas.height = outH;
       const ctx = canvas.getContext('2d');
       ctx.drawImage(
         image,
@@ -26,8 +35,8 @@ function getCroppedBlob(imageSrc, cropPixels) {
         cropPixels.height,
         0,
         0,
-        cropPixels.width,
-        cropPixels.height
+        outW,
+        outH
       );
       canvas.toBlob(
         (blob) => {
@@ -35,7 +44,7 @@ function getCroppedBlob(imageSrc, cropPixels) {
           resolve(blob);
         },
         'image/jpeg',
-        0.9
+        0.85
       );
     };
     image.onerror = reject;
@@ -69,6 +78,16 @@ export default function SpeakerSubmissionPage() {
   const onImageSelected = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    if (file.size > MAX_IMAGE_BYTES) {
+      setError(
+        `Image is too large (${(file.size / 1024 / 1024).toFixed(1)} MB). Maximum is ${
+          MAX_IMAGE_BYTES / 1024 / 1024
+        } MB.`
+      );
+      e.target.value = ''; // reset the input
+      return;
+    }
+    setError(null);
     const url = URL.createObjectURL(file);
     setRawImageSrc(url);
     setCroppedPreview(null);
@@ -108,6 +127,16 @@ export default function SpeakerSubmissionPage() {
   const onAbstractSelected = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    if (file.size > MAX_ABSTRACT_BYTES) {
+      setError(
+        `Abstract is too large (${(file.size / 1024 / 1024).toFixed(1)} MB). Maximum is ${
+          MAX_ABSTRACT_BYTES / 1024 / 1024
+        } MB.`
+      );
+      e.target.value = '';
+      return;
+    }
+    setError(null);
     setAbstractFile(file);
     setAbstractPreview(URL.createObjectURL(file));
   };
@@ -212,14 +241,15 @@ export default function SpeakerSubmissionPage() {
             {/* PHOTO */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Photo</label>
+              <p className="text-xs text-gray-400 mb-1">Max 5 MB. Will be resized automatically.</p>
 
               {croppedPreview ? (
                 <div className="space-y-3">
                   <div className="flex items-center gap-4">
                     <img
-                    src={croppedPreview}
-                    alt="Cropped preview"
-                    className="w-32 aspect-[10/9] object-cover rounded-xl border border-violet-200 shadow"
+                      src={croppedPreview}
+                      alt="Cropped preview"
+                      className="w-32 aspect-[10/9] object-cover rounded-xl border border-violet-200 shadow"
                     />
                     <div className="flex flex-col gap-2">
                       <span className="text-xs text-green-600">Looks good — this is how it will appear.</span>
@@ -253,6 +283,7 @@ export default function SpeakerSubmissionPage() {
             {/* ABSTRACT */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Abstract (PDF / DOCX)</label>
+              <p className="text-xs text-gray-400 mb-1">Max 2 MB.</p>
               {abstractFile ? (
                 <div className="flex items-center gap-3 flex-wrap">
                   <span className="text-sm text-gray-700 truncate max-w-[200px]">{abstractFile.name}</span>
