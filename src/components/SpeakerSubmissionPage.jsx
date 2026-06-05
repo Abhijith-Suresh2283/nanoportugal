@@ -53,7 +53,7 @@ function getCroppedBlob(imageSrc, cropPixels) {
 }
 
 export default function SpeakerSubmissionPage() {
-  const [form, setForm] = useState({ name: '', institution: '', country: '' });
+  const [form, setForm] = useState({ designation: '',name: '', institution: '', country: '' });
 
   // image / cropping state
   const [rawImageSrc, setRawImageSrc] = useState(null); // object URL of the originally chosen file
@@ -174,6 +174,7 @@ export default function SpeakerSubmissionPage() {
       }
       const { error } = await supabase.from('speakers').insert([
         {
+          designation:form.designation,
           name: form.name,
           institution: form.institution,
           country: form.country,
@@ -226,8 +227,25 @@ export default function SpeakerSubmissionPage() {
           <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400" />
           <div className="p-8 space-y-5">
             <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Designation</label>
+              <select
+                name="designation"
+                value={form.designation}
+                onChange={handleChange}
+                className={inputClass}
+              >
+                <option value="">— None —</option>
+                <option value="Dr.">Dr.</option>
+                <option value="Prof.">Prof.</option>
+                <option value="Prof. Dr.">Prof. Dr.</option>
+                <option value="Mr.">Mr.</option>
+                <option value="Ms.">Ms.</option>
+                <option value="Mrs.">Mrs.</option>
+              </select>
+            </div>
+            <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
-              <input name="name" value={form.name} onChange={handleChange} className={inputClass} placeholder="Dr. Jane Doe" />
+              <input name="name" value={form.name} onChange={handleChange} className={inputClass} placeholder="Jane Doe" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Institution</label>

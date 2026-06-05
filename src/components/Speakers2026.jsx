@@ -16,7 +16,7 @@ export default function SpeakersPage2026() {
     async function fetchSpeakers() {
       const { data, error } = await supabase
         .from('speakers')
-        .select('name, institution, country, image, abstract')
+        .select('designation, name, institution, country, image, abstract')
         .eq('status', 'approved')
         .order('created_at', { ascending: true });
 
@@ -115,7 +115,9 @@ export default function SpeakersPage2026() {
                     <div className="absolute inset-0 bg-gradient-to-t from-violet-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                   <div className="p-8 text-center space-y-4">
-                    <h3 className="text-xl font-medium text-gray-900 group-hover:text-violet-700 transition-colors duration-300">{speaker.name}</h3>
+                    <h3 className="text-xl font-medium text-gray-900 group-hover:text-violet-700 transition-colors duration-300">
+                      {speaker.designation ? `${speaker.designation} ${speaker.name}` : speaker.name}
+                    </h3>
                     <div className="flex items-center gap-2 justify-center">
                       <div className="h-px w-12 bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
                       <div className="w-1 h-1 rounded-full bg-violet-400" />

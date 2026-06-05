@@ -214,10 +214,10 @@ export default function AdminPage() {
   }
 
   async function saveEdit() {
-    const { id, name, institution, country, image, abstract, status } = form;
+    const { id, designation, name, institution, country, image, abstract, status } = form;
     await supabase
       .from('speakers')
-      .update({ name, institution, country, image, abstract, status })
+      .update({ designation, name, institution, country, image, abstract, status })
       .eq('id', id);
     setEditing(null);
     loadSpeakers();
@@ -306,7 +306,7 @@ export default function AdminPage() {
             >
               {editing === s.id ? (
                 <div className="space-y-3">
-                  {['name', 'institution', 'country'].map((f) => (
+                  {['designation', 'name', 'institution', 'country'].map((f) => (
                     <input
                       key={f}
                       value={form[f] || ''}
@@ -439,7 +439,8 @@ export default function AdminPage() {
                   )}
                   <div className="flex-1">
                     <p className="font-medium">
-                      {s.name}
+                      {form.designation /* not used here */}
+                      {s.designation ? `${s.designation} ${s.name}` : s.name}
                       <span
                         className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
                           s.status === 'approved'
