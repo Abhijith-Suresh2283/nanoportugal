@@ -219,8 +219,7 @@ export default function SpeakerSubmissionPage() {
           <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400 -mt-12 mb-8 rounded-full" />
           <h2 className="text-2xl font-light text-gray-900 mb-3">Thank you!</h2>
           <p className="text-gray-600 font-light">
-            Your submission was received and is pending review. It will appear on the speakers page
-            once approved.
+            Your submission was received well.
           </p>
         </div>
       </div>
