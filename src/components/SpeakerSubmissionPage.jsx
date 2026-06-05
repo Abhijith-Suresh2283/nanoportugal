@@ -9,7 +9,7 @@ const CROP_ASPECT = 10 / 9;
 
 // Size limits to keep storage under control
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5 MB source image
-const MAX_ABSTRACT_BYTES = 2 * 1024 * 1024; // 10 MB abstract
+const MAX_ABSTRACT_BYTES = 2 * 1024 * 1024; // 2 MB abstract
 const MAX_OUTPUT_WIDTH = 600; // cap cropped image width (px)
 
 // Produces a cropped, size-capped JPEG Blob from the source image + crop pixel area
@@ -53,7 +53,7 @@ function getCroppedBlob(imageSrc, cropPixels) {
 }
 
 export default function SpeakerSubmissionPage() {
-  const [form, setForm] = useState({ designation: '',name: '', institution: '', country: '' });
+  const [form, setForm] = useState({ designation: '', name: '', institution: '', country: '' });
 
   // image / cropping state
   const [rawImageSrc, setRawImageSrc] = useState(null); // object URL of the originally chosen file
@@ -156,25 +156,42 @@ export default function SpeakerSubmissionPage() {
   }
 
   async function handleSubmit() {
-    if (!form.name.trim()) {
-      setError('Name is required.');
+    // ---- all fields required ----
+    if (!form.designation) {
+      setError('Designation is required.');
       return;
     }
+    if (!form.name.trim()) {
+      setError('Full name is required.');
+      return;
+    }
+    if (!form.institution.trim()) {
+      setError('Institution is required.');
+      return;
+    }
+    if (!form.country.trim()) {
+      setError('Country is required.');
+      return;
+    }
+    if (!croppedBlob) {
+      setError('Photo is required.');
+      return;
+    }
+    if (!abstractFile) {
+      setError('Abstract is required.');
+      return;
+    }
+
     setSubmitting(true);
     setError(null);
     try {
-      let imageUrl = null;
-      if (croppedBlob) {
-        imageUrl = await uploadBlob(croppedBlob, 'images', 'jpg');
-      }
-      let abstractUrl = null;
-      if (abstractFile) {
-        const ext = abstractFile.name.split('.').pop();
-        abstractUrl = await uploadBlob(abstractFile, 'abstracts', ext);
-      }
+      const imageUrl = await uploadBlob(croppedBlob, 'images', 'jpg');
+      const ext = abstractFile.name.split('.').pop();
+      const abstractUrl = await uploadBlob(abstractFile, 'abstracts', ext);
+
       const { error } = await supabase.from('speakers').insert([
         {
-          designation:form.designation,
+          designation: form.designation,
           name: form.name,
           institution: form.institution,
           country: form.country,
@@ -227,20 +244,18 @@ export default function SpeakerSubmissionPage() {
           <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400" />
           <div className="p-8 space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Designation</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Designation *</label>
               <select
                 name="designation"
                 value={form.designation}
                 onChange={handleChange}
                 className={inputClass}
               >
-                <option value="">— None —</option>
-                <option value="Dr.">Dr.</option>
+                <option value="">— Select —</option>
                 <option value="Prof.">Prof.</option>
-                <option value="Prof. Dr.">Prof. Dr.</option>
+                <option value="Dr.">Dr.</option>
                 <option value="Mr.">Mr.</option>
                 <option value="Ms.">Ms.</option>
-                <option value="Mrs.">Mrs.</option>
               </select>
             </div>
             <div>
@@ -248,17 +263,17 @@ export default function SpeakerSubmissionPage() {
               <input name="name" value={form.name} onChange={handleChange} className={inputClass} placeholder="Jane Doe" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Institution</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Institution *</label>
               <input name="institution" value={form.institution} onChange={handleChange} className={inputClass} placeholder="University of ..." />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Country *</label>
               <input name="country" value={form.country} onChange={handleChange} className={inputClass} placeholder="Portugal" />
             </div>
 
             {/* PHOTO */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Photo</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Photo *</label>
               <p className="text-xs text-gray-400 mb-1">Max 5 MB. Will be resized automatically.</p>
 
               {croppedPreview ? (
@@ -300,7 +315,7 @@ export default function SpeakerSubmissionPage() {
 
             {/* ABSTRACT */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Abstract (PDF / DOCX)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Abstract (PDF / DOCX) *</label>
               <p className="text-xs text-gray-400 mb-1">Max 2 MB.</p>
               {abstractFile ? (
                 <div className="flex items-center gap-3 flex-wrap">
