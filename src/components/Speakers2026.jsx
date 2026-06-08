@@ -113,39 +113,34 @@ export default function SpeakersPage2026() {
                       className="w-full aspect-[10/9] object-cover group-hover:scale-105 transition-transform duration-700" />
                     <div className="absolute inset-0 bg-gradient-to-t from-violet-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
-                  <div className="p-5 text-center space-y-3">
-                    <h3 className="text-lg font-medium text-gray-900 group-hover:text-violet-700 transition-colors duration-300">
-                      {speaker.designation ? `${speaker.designation} ${speaker.name}` : speaker.name}
-                    </h3>
-                    {/* <div className="flex items-center gap-2 justify-center">
-                      <div className="h-px w-10 bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
-                      <div className="w-1 h-1 rounded-full bg-violet-400" />
-                      <div className="h-px w-10 bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
-                    </div> */}
-                    <div className="space-y-2">
-                      <div className="flex items-start justify-center gap-2 text-xs text-gray-700 font-light">
-                        <svg className="w-4 h-4 text-violet-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                        <span className="leading-relaxed">{speaker.institution}</span>
-                      </div>
-                      <div className="flex items-center justify-center gap-2 text-xs text-gray-600 font-light">
-                        <svg className="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>{speaker.country}</span>
-                      </div>
-                    </div>
-                    {speaker.abstract && speaker.abstract !== '#' && (
-                      <a href={speaker.abstract} target="_blank" rel="noopener noreferrer"
-                        className="group/btn inline-flex items-center gap-2 mt-3 px-5 py-2 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-xs font-medium tracking-widest uppercase rounded-full hover:shadow-lg hover:shadow-violet-300/50 transition-all duration-300 hover:scale-105">
-                        View Abstract
-                        <svg className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                      </a>
-                    )}
-                  </div>
+                  <div className="p-5 text-center space-y-1">
+  {/* Name — red bold */}
+  <h3 className="text-lg font-bold text-red-600">
+    {speaker.designation ? `${speaker.designation} ${speaker.name}` : speaker.name}
+  </h3>
+
+  {/* Institution — black bold */}
+  <p className="text-base font-bold text-gray-900 leading-snug">
+    {speaker.institution}
+  </p>
+
+  {/* Country — black bold */}
+  <p className="text-base font-bold text-gray-900">
+    {speaker.country}
+  </p>
+
+  {/* Abstract — blue button */}
+  {speaker.abstract && speaker.abstract !== '#' && (
+  
+   <a href={speaker.abstract}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block mt-1 text-base font-bold text-blue-800 hover:underline"
+  >
+    Abstract
+  </a>
+)}
+</div>
                 </div>
               ))}
             </div>
