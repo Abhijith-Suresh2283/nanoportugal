@@ -64,31 +64,8 @@ export default function SpeakersPage2026() {
         path="/speakers"
       />
 
-      <section className="relative py-20 sm:py-32 px-4 sm:px-6 overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-violet-200/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl" />
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/60 backdrop-blur-md border border-violet-200/50 rounded-full mb-6">
-            <svg className="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-            <span className="text-xs sm:text-sm uppercase tracking-widest font-semibold text-violet-700">Featured Speakers</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extralight leading-tight mb-6">
-            Meet Our <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent font-light">Distinguished</span> Speakers
-          </h1>
-          <div className="flex items-center gap-3 justify-center py-4">
-            <div className="h-px w-20 bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
-            <div className="w-1.5 h-1.5 rounded-full bg-violet-400" />
-            <div className="h-px w-20 bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
-          </div>
-          <p className="text-base sm:text-lg font-light text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Learn from world-renowned experts at the forefront of nanomaterials research
-          </p>
-        </div>
-      </section>
 
-      <section ref={speakersRef} className="max-w-7xl mx-auto px-4 sm:px-6 pb-20 overflow-hidden">
+      <section ref={speakersRef} className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 pb-20 overflow-hidden">  
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl font-light text-gray-900 mb-3">Speakers 2026</h2>
           <p className="text-gray-600 font-light text-sm sm:text-base">Leading voices shaping the future of advanced nanomaterials</p>
@@ -180,7 +157,7 @@ export default function SpeakersPage2026() {
 
       {/* ================= VIEW 2025 SPEAKERS ================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20 text-center">
-        <a href="/speakers"
+        <a href="/speakers2025"
           className="inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-medium tracking-widest uppercase rounded-full hover:shadow-lg hover:shadow-violet-300/50 transition-all duration-300 hover:scale-105 group"
         >
           View 2025 Speakers

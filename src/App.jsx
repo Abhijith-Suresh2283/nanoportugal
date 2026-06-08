@@ -54,8 +54,8 @@ function App() {
           path="/abstract-submission"
           element={<AbstractSubmissionPage />}
         />
-        <Route path="/speakers" element={<SpeakersPage />} />
-        <Route path="/speakers2026" element={<SpeakersPage2026 />} />
+        <Route path="/speakers2025" element={<SpeakersPage />} />
+        <Route path="/speakers" element={<SpeakersPage2026 />} />
         <Route path="/registration" element={<RegistrationPage />} />
         <Route path="/deadlines" element={<DeadlinesPage />} />
         <Route path="/publications" element={<PublicationsPage />} />
