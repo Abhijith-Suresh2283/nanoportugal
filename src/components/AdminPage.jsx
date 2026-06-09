@@ -102,6 +102,13 @@ export default function AdminPage() {
     setSpeakers(data || []);
   }
 
+  // Ranks (1–5) already assigned to OTHER plenary speakers
+  function takenPlenaryRanks(currentId) {
+    return speakers
+      .filter((s) => s.id !== currentId && s.category === 'plenary' && s.plenary_rank)
+      .map((s) => s.plenary_rank);
+  }
+
   // ---- AUTH ----
   async function signIn() {
     setAuthBusy(true);
@@ -214,10 +221,18 @@ export default function AdminPage() {
   }
 
   async function saveEdit() {
-    const { id, designation, name, institution, country, image, abstract, status } = form;
+    const {
+      id, designation, name, institution, country,
+      image, abstract, status, category, plenary_rank,
+    } = form;
+    // Only plenary speakers keep a rank; clear it otherwise so no stale value lingers.
+    const rank = category === 'plenary' ? (plenary_rank ?? null) : null;
     await supabase
       .from('speakers')
-      .update({ designation, name, institution, country, image, abstract, status })
+      .update({
+        designation, name, institution, country,
+        image, abstract, status, category, plenary_rank: rank,
+      })
       .eq('id', id);
     setEditing(null);
     loadSpeakers();
@@ -402,14 +417,65 @@ export default function AdminPage() {
 
                   {fileError && <p className="text-xs text-red-500">{fileError}</p>}
 
-                  <select
-                    value={form.status}
-                    onChange={(e) => setForm({ ...form, status: e.target.value })}
-                    className="px-3 py-2 rounded-lg border border-violet-200"
-                  >
-                    <option value="pending">pending</option>
-                    <option value="approved">approved</option>
-                  </select>
+                  {/* CATEGORY */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                    <select
+                      value={form.category || 'normal'}
+                      onChange={(e) => setForm({ ...form, category: e.target.value })}
+                      className="px-3 py-2 rounded-lg border border-violet-200"
+                    >
+                      <option value="plenary">Plenary</option>
+                      <option value="keynote">Keynote</option>
+                      <option value="normal">Normal</option>
+                    </select>
+                  </div>
+
+                  {/* PLENARY ORDER — only for plenary, hides ranks taken by others */}
+                  {form.category === 'plenary' && (() => {
+                    const taken = takenPlenaryRanks(form.id);
+                    return (
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Plenary Order</label>
+                        <select
+                          value={form.plenary_rank ?? ''}
+                          onChange={(e) =>
+                            setForm({
+                              ...form,
+                              plenary_rank: e.target.value ? Number(e.target.value) : null,
+                            })
+                          }
+                          className="px-3 py-2 rounded-lg border border-violet-200"
+                        >
+                          <option value="">— Unranked —</option>
+                          {[1, 2, 3, 4, 5].map((rank) => {
+                            // Hide a rank if another plenary speaker has it,
+                            // but keep this speaker's own current rank visible.
+                            const isTaken = taken.includes(rank) && form.plenary_rank !== rank;
+                            if (isTaken) return null;
+                            return (
+                              <option key={rank} value={rank}>
+                                Top {rank}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    );
+                  })()}
+
+                  {/* STATUS */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <select
+                      value={form.status}
+                      onChange={(e) => setForm({ ...form, status: e.target.value })}
+                      className="px-3 py-2 rounded-lg border border-violet-200"
+                    >
+                      <option value="pending">pending</option>
+                      <option value="approved">approved</option>
+                    </select>
+                  </div>
 
                   <div className="flex gap-2">
                     <button
@@ -439,7 +505,6 @@ export default function AdminPage() {
                   )}
                   <div className="flex-1">
                     <p className="font-medium">
-                      {form.designation /* not used here */}
                       {s.designation ? `${s.designation} ${s.name}` : s.name}
                       <span
                         className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
@@ -449,6 +514,10 @@ export default function AdminPage() {
                         }`}
                       >
                         {s.status}
+                      </span>
+                      <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-violet-100 text-violet-700 capitalize">
+                        {s.category || 'normal'}
+                        {s.category === 'plenary' && s.plenary_rank ? ` · Top ${s.plenary_rank}` : ''}
                       </span>
                     </p>
                     <p className="text-sm text-gray-600">

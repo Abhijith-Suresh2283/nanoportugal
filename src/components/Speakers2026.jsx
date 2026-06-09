@@ -4,6 +4,9 @@ import SEO from "./SEO";
 import { useState, useRef, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
+// Display order for categories: plenary first, then keynote, then normal.
+const CATEGORY_ORDER = { plenary: 0, keynote: 1, normal: 2 };
+
 export default function SpeakersPage2026() {
   const [currentPage, setCurrentPage] = useState(1);
   const [speakers, setSpeakers] = useState([]);
@@ -16,12 +19,28 @@ export default function SpeakersPage2026() {
     async function fetchSpeakers() {
       const { data, error } = await supabase
         .from('speakers')
-        .select('designation, name, institution, country, image, abstract')
+        .select('designation, name, institution, country, image, abstract, category, plenary_rank')
         .eq('status', 'approved')
         .order('created_at', { ascending: true });
 
-      if (error) setError(error.message);
-      else setSpeakers(data || []);
+      if (error) {
+        setError(error.message);
+      } else {
+        // Sort by category (plenary -> keynote -> normal). Within plenary, order by
+        // plenary_rank (1..5, unranked last). Other groups keep created_at order.
+        const sorted = (data || []).slice().sort((a, b) => {
+          const ra = CATEGORY_ORDER[a.category] ?? CATEGORY_ORDER.normal;
+          const rb = CATEGORY_ORDER[b.category] ?? CATEGORY_ORDER.normal;
+          if (ra !== rb) return ra - rb;
+          if (a.category === 'plenary') {
+            const pa = a.plenary_rank ?? Infinity;
+            const pb = b.plenary_rank ?? Infinity;
+            return pa - pb;
+          }
+          return 0; // keep created_at order for keynote/normal
+        });
+        setSpeakers(sorted);
+      }
       setLoading(false);
     }
     fetchSpeakers();
@@ -91,33 +110,34 @@ export default function SpeakersPage2026() {
                     <div className="absolute inset-0 bg-gradient-to-t from-violet-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                   <div className="p-5 text-center space-y-1">
-  {/* Name — red bold */}
-  <h3 className="text-lg font-bold text-red-600">
-    {speaker.designation ? `${speaker.designation} ${speaker.name}` : speaker.name}
-  </h3>
+                    {/* Name — red bold, with category suffix */}
+                    <h3 className="text-lg font-bold text-red-600">
+                      {speaker.designation ? `${speaker.designation} ${speaker.name}` : speaker.name}
+                      {speaker.category === 'plenary' && ' (Plenary)'}
+                      {speaker.category === 'keynote' && ' (Keynote)'}
+                    </h3>
 
-  {/* Institution — black bold */}
-  <p className="text-base font-bold text-gray-900 leading-snug">
-    {speaker.institution}
-  </p>
+                    {/* Institution — black bold */}
+                    <p className="text-base font-bold text-gray-900 leading-snug">
+                      {speaker.institution}
+                    </p>
 
-  {/* Country — black bold */}
-  <p className="text-base font-bold text-gray-900">
-    {speaker.country}
-  </p>
+                    {/* Country — black bold */}
+                    <p className="text-base font-bold text-gray-900">
+                      {speaker.country}
+                    </p>
 
-  {/* Abstract — blue button */}
-  {speaker.abstract && speaker.abstract !== '#' && (
-  
-   <a href={speaker.abstract}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-block mt-1 text-base font-bold text-blue-800 hover:underline"
-  >
-    Abstract
-  </a>
-)}
-</div>
+                    {/* Abstract — blue link */}
+                    {speaker.abstract && speaker.abstract !== '#' && (
+                      <a href={speaker.abstract}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block mt-1 text-base font-bold text-blue-800 hover:underline"
+                      >
+                        Abstract
+                      </a>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
