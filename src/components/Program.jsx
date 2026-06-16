@@ -4,7 +4,7 @@ export default function Program() {
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 overflow-x-hidden">
 
       {/* ================= PAGE HEADER ================= */}
-      <section className="relative pt-20 sm:pt-32 pb-8 px-4 sm:px-6">
+      <section className="relative pt-8 sm:pt-12 pb-8 px-4 sm:px-6">
         <SEO 
         title="Conference Program & Schedule" 
         description="Explore the ANM 2026 conference schedule. Featuring keynote speakers, technical sessions on graphene and energy materials, and networking events in Aveiro, Portugal."
@@ -25,6 +25,9 @@ export default function Program() {
             style={{ animation: 'breathe 3s ease-in-out infinite' }}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/60 backdrop-blur-md border border-violet-200/50 rounded-full cursor-pointer hover:bg-white/80 hover:shadow-md transition-all duration-200 active:scale-95"
           >
+            <svg className="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
             <span className="text-xs sm:text-sm uppercase tracking-widest font-semibold text-violet-700">
               Programme at a Glance
             </span>
