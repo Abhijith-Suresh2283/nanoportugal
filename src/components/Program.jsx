@@ -60,32 +60,24 @@ export default function Program() {
         {/* Program Access Card */}
         <div className="bg-white/90 backdrop-blur-xl rounded-[2rem] shadow-xl border border-violet-100/50 overflow-hidden">
           
-          <div className="p-8 sm:p-16 text-center space-y-8">
-
-            <div className="space-y-4">
-              <h2 className="text-2xl sm:text-3xl font-light text-gray-900">
-                View Full Program Schedule
-              </h2>
-              <p className="text-base font-light text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                Access the detailed program for ANM2026 including keynote sessions, technical presentations, poster sessions, and social events
-              </p>
-            </div>
+          <div className="p-8 sm:p-16 text-center space-y-6">
 
             {/* CTA Button */}
-            <div className="pt-4">
-              
-              <a  href="https://drive.google.com/drive/folders/1t_1mOkkqswrKInHaoy7kdfR_XIXWm3mf?usp=drive_link" target="_blank"
-                className="inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-medium tracking-widest uppercase hover:shadow-lg hover:shadow-violet-300/50 transition-all duration-300 rounded-full hover:scale-105 group"
-              >
-                <svg className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                View Programme ANM2026
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </a>
-            </div>
+            <a href="https://drive.google.com/drive/folders/1t_1mOkkqswrKInHaoy7kdfR_XIXWm3mf?usp=drive_link" target="_blank"
+              className="inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-medium tracking-widest uppercase hover:shadow-lg hover:shadow-violet-300/50 transition-all duration-300 rounded-full hover:scale-105 group"
+            >
+              <svg className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              View Programme ANM2026
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+
+            <p className="text-sm font-light text-gray-500 max-w-xl mx-auto leading-relaxed">
+              Access the detailed program for ANM2026 including keynote sessions, technical presentations, poster sessions, and social events
+            </p>
 
           </div>
         </div>
