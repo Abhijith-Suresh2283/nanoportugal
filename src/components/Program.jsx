@@ -4,7 +4,7 @@ export default function Program() {
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 overflow-x-hidden">
 
       {/* ================= PAGE HEADER ================= */}
-      <section className="relative pt-20 sm:pt-32 pb-4 px-4 sm:px-6 overflow-hidden">
+      <section className="relative pt-20 sm:pt-32 pb-8 px-4 sm:px-6">
         <SEO 
         title="Conference Program & Schedule" 
         description="Explore the ANM 2026 conference schedule. Featuring keynote speakers, technical sessions on graphene and energy materials, and networking events in Aveiro, Portugal."
@@ -16,18 +16,15 @@ export default function Program() {
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-violet-200/20 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl" />
         
-        <div className="max-w-5xl mx-auto text-center relative z-10">
+        <div className="max-w-5xl mx-auto text-center relative z-20">
           
           {/* Badge */}
           <a
    href="/ANM2026-Programme at a glance.pdf"
             download
             style={{ animation: 'breathe 3s ease-in-out infinite' }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/60 backdrop-blur-md border border-violet-200/50 rounded-full mb-6 cursor-pointer hover:bg-white/80 hover:shadow-md transition-all duration-200 active:scale-95"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/60 backdrop-blur-md border border-violet-200/50 rounded-full cursor-pointer hover:bg-white/80 hover:shadow-md transition-all duration-200 active:scale-95"
           >
-            <svg className="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
             <span className="text-xs sm:text-sm uppercase tracking-widest font-semibold text-violet-700">
               Programme at a Glance
             </span>
@@ -50,7 +47,7 @@ export default function Program() {
       </section>
 
       {/* ================= MAIN CONTENT ================= */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20 space-y-12">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20 pt-0 space-y-12">
         <div className="sr-only">
           <h2>Scientific Program Tracks - Nano Portugal 2026</h2>
           <p>Our technical sessions cover advanced topics in: Energy materials research, Graphene applications, Polymer chemistry, and Magnetic nanomaterials.</p>
@@ -60,7 +57,7 @@ export default function Program() {
         {/* Program Access Card */}
         <div className="bg-white/90 backdrop-blur-xl rounded-[2rem] shadow-xl border border-violet-100/50 overflow-hidden">
           
-          <div className="p-8 sm:p-16 text-center space-y-6">
+          <div className="px-8 pt-6 pb-10 sm:px-16 sm:pt-8 sm:pb-14 text-center space-y-6">
 
             {/* CTA Button */}
             <a href="https://drive.google.com/drive/folders/1t_1mOkkqswrKInHaoy7kdfR_XIXWm3mf?usp=drive_link" target="_blank"
