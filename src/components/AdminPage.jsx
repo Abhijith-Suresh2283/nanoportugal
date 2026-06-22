@@ -55,9 +55,19 @@ function getCroppedBlob(imageSrc, cropPixels) {
 export default function AdminPage() {
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
+
+  // which management view: null (selector) | 'speakers' | 'projects'
+  const [view, setView] = useState(null);
+
   const [speakers, setSpeakers] = useState([]);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({});
+
+  // projects state
+  const [projects, setProjects] = useState([]);
+  const [editingProject, setEditingProject] = useState(null);
+  const [projectForm, setProjectForm] = useState({});
+  const [collabInput, setCollabInput] = useState('');
 
   // auth form state
   const [email, setEmail] = useState('');
@@ -91,8 +101,9 @@ export default function AdminPage() {
   const isAdmin = session?.user?.email === ADMIN_EMAIL;
 
   useEffect(() => {
-    if (isAdmin) loadSpeakers();
-  }, [isAdmin]);
+    if (isAdmin && view === 'speakers') loadSpeakers();
+    if (isAdmin && view === 'projects') loadProjects();
+  }, [isAdmin, view]);
 
   async function loadSpeakers() {
     const { data } = await supabase
@@ -100,6 +111,14 @@ export default function AdminPage() {
       .select('*')
       .order('created_at', { ascending: false });
     setSpeakers(data || []);
+  }
+
+  async function loadProjects() {
+    const { data } = await supabase
+      .from('projects')
+      .select('*')
+      .order('created_at', { ascending: false });
+    setProjects(data || []);
   }
 
   // Ranks (1–5) already assigned to OTHER plenary speakers
@@ -120,6 +139,7 @@ export default function AdminPage() {
 
   async function signOut() {
     await supabase.auth.signOut();
+    setView(null);
   }
 
   // ---- FILE UPLOAD ----
@@ -202,7 +222,7 @@ export default function AdminPage() {
     setRawImageSrc(null);
   };
 
-  // ---- CRUD ----
+  // ---- SPEAKER CRUD ----
   async function approve(id, status) {
     await supabase.from('speakers').update({ status }).eq('id', id);
     loadSpeakers();
@@ -236,6 +256,68 @@ export default function AdminPage() {
       .eq('id', id);
     setEditing(null);
     loadSpeakers();
+  }
+
+  // ---- PROJECT CRUD ----
+  async function approveProject(id, status) {
+    await supabase.from('projects').update({ status }).eq('id', id);
+    loadProjects();
+  }
+
+  async function removeProject(id) {
+    if (!confirm('Delete this project submission?')) return;
+    await supabase.from('projects').delete().eq('id', id);
+    loadProjects();
+  }
+
+  function startEditProject(p) {
+    setEditingProject(p.id);
+    setProjectForm({
+      ...p,
+      collaborative_countries: p.collaborative_countries || [],
+    });
+    setCollabInput('');
+  }
+
+  function addCollab() {
+    const v = collabInput.trim();
+    if (v && !(projectForm.collaborative_countries || []).includes(v)) {
+      setProjectForm((f) => ({
+        ...f,
+        collaborative_countries: [...(f.collaborative_countries || []), v],
+      }));
+    }
+    setCollabInput('');
+  }
+
+  function removeCollab(name) {
+    setProjectForm((f) => ({
+      ...f,
+      collaborative_countries: (f.collaborative_countries || []).filter((c) => c !== name),
+    }));
+  }
+
+  async function saveProjectEdit() {
+    const {
+      id, full_name, email: pEmail, affiliation, country,
+      url, deadline, lead_country, collaborative_countries, status,
+    } = projectForm;
+    await supabase
+      .from('projects')
+      .update({
+        full_name,
+        email: pEmail,
+        affiliation,
+        country,
+        url: url || null,
+        deadline: deadline || null,
+        lead_country,
+        collaborative_countries: collaborative_countries || [],
+        status,
+      })
+      .eq('id', id);
+    setEditingProject(null);
+    loadProjects();
   }
 
   if (authLoading)
@@ -299,12 +381,312 @@ export default function AdminPage() {
     );
   }
 
-  // ---- ADMIN DASHBOARD ----
+  // ---- MANAGEMENT SELECTOR (logged in as admin, no section chosen) ----
+  if (!view) {
+    return (
+      <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 py-12 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-between mb-10">
+            <h1 className="text-3xl font-extralight">Admin Dashboard</h1>
+            <button
+              onClick={signOut}
+              className="px-5 py-2 rounded-full bg-white border border-violet-200 text-violet-600 hover:bg-violet-50"
+            >
+              Sign out
+            </button>
+          </div>
+
+          <p className="text-gray-600 font-light mb-8">Choose what you'd like to manage:</p>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            {/* Speaker Management */}
+            <button
+              onClick={() => setView('speakers')}
+              className="group bg-white/90 backdrop-blur-xl rounded-[2rem] shadow border border-violet-100/50 overflow-hidden text-left hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400" />
+              <div className="p-8">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-100 to-purple-100 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                  <svg className="w-7 h-7 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <h2 className="text-xl font-medium mb-2">Speaker Management</h2>
+                <p className="text-sm text-gray-600 font-light">
+                  Approve, edit, and remove speaker submissions, photos, and abstracts.
+                </p>
+                <span className="inline-flex items-center gap-1 mt-5 text-sm font-medium text-violet-700 group-hover:gap-2 transition-all">
+                  Manage speakers
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
+              </div>
+            </button>
+
+            {/* Project Management */}
+            <button
+              onClick={() => setView('projects')}
+              className="group bg-white/90 backdrop-blur-xl rounded-[2rem] shadow border border-violet-100/50 overflow-hidden text-left hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400" />
+              <div className="p-8">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-100 to-purple-100 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                  <svg className="w-7 h-7 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <h2 className="text-xl font-medium mb-2">Project Management</h2>
+                <p className="text-sm text-gray-600 font-light">
+                  Approve, edit, and remove Projects &amp; Collaboration submissions.
+                </p>
+                <span className="inline-flex items-center gap-1 mt-5 text-sm font-medium text-violet-700 group-hover:gap-2 transition-all">
+                  Manage projects
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ---- PROJECT DASHBOARD ----
+  if (view === 'projects') {
+    return (
+      <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 py-12 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center justify-between mb-8 gap-4 flex-wrap">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setView(null)}
+                className="px-4 py-2 rounded-full bg-white border border-violet-200 text-violet-600 hover:bg-violet-50 text-sm"
+              >
+                ← Back
+              </button>
+              <h1 className="text-3xl font-extralight">Project Admin</h1>
+            </div>
+            <button
+              onClick={signOut}
+              className="px-5 py-2 rounded-full bg-white border border-violet-200 text-violet-600 hover:bg-violet-50"
+            >
+              Sign out
+            </button>
+          </div>
+
+          {projects.length === 0 && (
+            <p className="text-gray-600 font-light">No project submissions yet.</p>
+          )}
+
+          <div className="space-y-4">
+            {projects.map((p) => (
+              <div
+                key={p.id}
+                className="bg-white/90 backdrop-blur-xl rounded-2xl shadow border border-violet-100/50 p-6"
+              >
+                {editingProject === p.id ? (
+                  <div className="space-y-3">
+                    {[
+                      ['full_name', 'Full Name'],
+                      ['email', 'Email'],
+                      ['affiliation', 'Affiliation'],
+                      ['country', 'Country'],
+                      ['url', 'Project URL'],
+                      ['lead_country', 'Lead Country'],
+                    ].map(([key, label]) => (
+                      <div key={key}>
+                        <label className="block text-xs font-medium text-gray-500 mb-1">{label}</label>
+                        <input
+                          value={projectForm[key] || ''}
+                          placeholder={label}
+                          onChange={(e) => setProjectForm({ ...projectForm, [key]: e.target.value })}
+                          className="w-full px-3 py-2 rounded-lg border border-violet-200"
+                        />
+                      </div>
+                    ))}
+
+                    {/* Deadline */}
+                    <div>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">Project Deadline</label>
+                      <input
+                        type="date"
+                        value={projectForm.deadline || ''}
+                        onChange={(e) => setProjectForm({ ...projectForm, deadline: e.target.value })}
+                        className="px-3 py-2 rounded-lg border border-violet-200"
+                      />
+                    </div>
+
+                    {/* Expected Collaborative Countries */}
+                    <div>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">
+                        Expected Collaborative Countries
+                      </label>
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        {(projectForm.collaborative_countries || []).map((c) => (
+                          <span
+                            key={c}
+                            className="inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full bg-violet-100 text-violet-700"
+                          >
+                            {c}
+                            <button
+                              type="button"
+                              onClick={() => removeCollab(c)}
+                              className="leading-none hover:text-violet-900"
+                              aria-label={`Remove ${c}`}
+                            >
+                              ✕
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex gap-2">
+                        <input
+                          value={collabInput}
+                          placeholder="Type a country and press Enter"
+                          onChange={(e) => setCollabInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ',') {
+                              e.preventDefault();
+                              addCollab();
+                            }
+                          }}
+                          className="flex-1 px-3 py-2 rounded-lg border border-violet-200"
+                        />
+                        <button
+                          type="button"
+                          onClick={addCollab}
+                          className="px-4 py-2 rounded-full bg-violet-100 text-violet-700 text-sm hover:bg-violet-200"
+                        >
+                          + Add
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Status */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                      <select
+                        value={projectForm.status}
+                        onChange={(e) => setProjectForm({ ...projectForm, status: e.target.value })}
+                        className="px-3 py-2 rounded-lg border border-violet-200"
+                      >
+                        <option value="pending">pending</option>
+                        <option value="approved">approved</option>
+                      </select>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <button
+                        onClick={saveProjectEdit}
+                        className="px-4 py-2 rounded-full bg-violet-600 text-white"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={() => setEditingProject(null)}
+                        className="px-4 py-2 rounded-full bg-gray-200"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+                    <div className="flex-1">
+                      <p className="font-medium">
+                        {p.full_name}
+                        <span
+                          className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
+                            p.status === 'approved'
+                              ? 'bg-green-100 text-green-700'
+                              : 'bg-yellow-100 text-yellow-700'
+                          }`}
+                        >
+                          {p.status}
+                        </span>
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        {p.affiliation} — {p.country}
+                      </p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        Lead: {p.lead_country || '—'}
+                        {p.deadline ? ` · Deadline: ${p.deadline}` : ''}
+                      </p>
+                      {p.collaborative_countries && p.collaborative_countries.length > 0 && (
+                        <p className="text-xs text-gray-500 mt-1">
+                          Collaborating: {p.collaborative_countries.join(', ')}
+                        </p>
+                      )}
+                      <div className="flex gap-3 mt-1 text-xs">
+                        {p.email && <span className="text-gray-500">{p.email}</span>}
+                        {p.url && (
+                          <a
+                            href={p.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-violet-600 underline"
+                          >
+                            View link
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex gap-2 flex-wrap">
+                      {p.status !== 'approved' ? (
+                        <button
+                          onClick={() => approveProject(p.id, 'approved')}
+                          className="px-4 py-2 rounded-full bg-green-600 text-white text-sm"
+                        >
+                          Approve
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => approveProject(p.id, 'pending')}
+                          className="px-4 py-2 rounded-full bg-yellow-500 text-white text-sm"
+                        >
+                          Unpublish
+                        </button>
+                      )}
+                      <button
+                        onClick={() => startEditProject(p)}
+                        className="px-4 py-2 rounded-full bg-violet-600 text-white text-sm"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => removeProject(p.id)}
+                        className="px-4 py-2 rounded-full bg-red-500 text-white text-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ---- SPEAKER DASHBOARD ----
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 py-12 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-extralight">Speaker Admin</h1>
+        <div className="flex items-center justify-between mb-8 gap-4 flex-wrap">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setView(null)}
+              className="px-4 py-2 rounded-full bg-white border border-violet-200 text-violet-600 hover:bg-violet-50 text-sm"
+            >
+              ← Back
+            </button>
+            <h1 className="text-3xl font-extralight">Speaker Admin</h1>
+          </div>
           <button
             onClick={signOut}
             className="px-5 py-2 rounded-full bg-white border border-violet-200 text-violet-600 hover:bg-violet-50"

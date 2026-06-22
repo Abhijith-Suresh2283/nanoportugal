@@ -1,80 +1,28 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../lib/supabaseClient";
 
 /* =====================================================================
-   PROJECTS & COLLABORATION 
+   PROJECTS & COLLABORATION
    ---------------------------------------------------------------------
    A deliberately distinct visual identity from the violet conference
    theme. Concept: a "scientific atlas / specimen archive" — warm paper
    background, ink text, hairline grid rules, catalogue index numbers,
    and a single electric cobalt accent. Serif display + monospace meta.
 
-   Demo data below is shaped exactly like the future Supabase rows, so
-   swapping to a live fetch later only means replacing DEMO_PROJECTS.
+   Data is fetched live from the Supabase `projects` table (approved
+   rows only). Column mapping (DB -> card):
+     full_name               -> person
+     affiliation             -> affiliation
+     country                 -> country
+     url                     -> url
+     lead_country            -> lead country
+     collaborative_countries -> collaborating countries (array)
+     deadline                -> deadline
    ===================================================================== */
 
-const DEMO_PROJECTS = [
-  {
-    id: 1,
-    title: "Scalable Green Hydrogen via Photocatalytic Water Splitting",
-    summary:
-      "A perovskite-based catalyst architecture that improves solar-to-hydrogen efficiency under ambient conditions, targeting low-cost decentralized production.",
-    person: "Dr. Helena Marques",
-    affiliation: "University of Aveiro",
-    country: "Portugal",
-    url: "https://example.com/hydrogen",
-  },
-  {
-    id: 2,
-    title: "Spin-Polarized Graphene Interfaces for Quantum Memory",
-    summary:
-      "Engineering room-temperature spin coherence at graphene–ferromagnet junctions, with applications in non-volatile quantum-classical hybrid storage.",
-    person: "Prof. Jonas Reinhardt",
-    affiliation: "Max Planck Institute",
-    country: "Germany",
-    url: "https://example.com/spintronics",
-  },
-  {
-    id: 3,
-    title: "Self-Healing Polymer Nanocomposites for Aerospace",
-    summary:
-      "Microcapsule-embedded carbon-fiber laminates that autonomously repair micro-fractures, extending fatigue life of structural components.",
-    person: "Dr. Aiko Tanaka",
-    affiliation: "Tohoku University",
-    country: "Japan",
-    url: "https://example.com/polymers",
-  },
-  {
-    id: 4,
-    title: "Sodium-Ion Battery Cathodes from Abundant Minerals",
-    summary:
-      "A layered-oxide cathode chemistry that removes cobalt and nickel dependence, designed for grid-scale storage in resource-constrained regions.",
-    person: "Dr. Rohan Mehta",
-    affiliation: "Indian Institute of Science",
-    country: "India",
-    url: "https://example.com/batteries",
-  },
-  {
-    id: 5,
-    title: "Biodegradable Nanosensors for In-Field Crop Diagnostics",
-    summary:
-      "Printable, soil-degradable sensor arrays that report plant stress and nutrient levels wirelessly, then dissolve without residue.",
-    person: "Dr. Camila Rossi",
-    affiliation: "University of São Paulo",
-    country: "Brazil",
-    url: "https://example.com/biosensors",
-  },
-  {
-    id: 6,
-    title: "2D Material Membranes for Carbon Capture",
-    summary:
-      "Atomically thin molybdenum-disulfide membranes with tuned pore geometry achieving high CO₂ selectivity at industrial flue-gas throughput.",
-    person: "Prof. Sarah Okonkwo",
-    affiliation: "University of Cape Town",
-    country: "South Africa",
-    url: "https://example.com/membranes",
-  },
-];
+/* Nine entries per page — a 3 × 3 catalogue spread. */
+const PROJECTS_PER_PAGE = 9;
 
 /* Small hook: reveal-on-scroll, respects reduced motion. */
 function useReveal() {
@@ -108,26 +56,101 @@ export default function ProjectsAndCollaboration() {
   const [query, setQuery] = useState("");
   const [activeCountry, setActiveCountry] = useState("All");
 
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const gridRef = useRef(null);
+
   useReveal();
 
+  // Fetch approved projects from Supabase on mount.
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      setLoading(true);
+      setLoadError("");
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .eq("status", "approved")
+        .order("created_at", { ascending: false });
+
+      if (!active) return;
+
+      if (error) {
+        setLoadError(error.message || "Could not load projects.");
+        setProjects([]);
+      } else {
+        // Normalize DB columns to the shape the cards use.
+        const mapped = (data || []).map((row) => ({
+          id: row.id,
+          person: row.full_name,
+          affiliation: row.affiliation,
+          country: row.country,
+          url: row.url,
+          leadCountry: row.lead_country,
+          collaborativeCountries: row.collaborative_countries || [],
+          deadline: row.deadline,
+        }));
+        setProjects(mapped);
+      }
+      setLoading(false);
+    })();
+    return () => {
+      active = false;
+    };
+  }, []);
+
   const countries = useMemo(
-    () => ["All", ...Array.from(new Set(DEMO_PROJECTS.map((p) => p.country)))],
-    []
+    () => ["All", ...Array.from(new Set(projects.map((p) => p.country).filter(Boolean)))],
+    [projects]
   );
 
   const filtered = useMemo(() => {
-    return DEMO_PROJECTS.filter((p) => {
+    return projects.filter((p) => {
       const matchesCountry = activeCountry === "All" || p.country === activeCountry;
       const q = query.trim().toLowerCase();
       const matchesQuery =
         !q ||
-        p.title.toLowerCase().includes(q) ||
-        p.summary.toLowerCase().includes(q) ||
-        p.person.toLowerCase().includes(q) ||
-        p.affiliation.toLowerCase().includes(q);
+        (p.person && p.person.toLowerCase().includes(q)) ||
+        (p.affiliation && p.affiliation.toLowerCase().includes(q)) ||
+        (p.country && p.country.toLowerCase().includes(q)) ||
+        (p.leadCountry && p.leadCountry.toLowerCase().includes(q)) ||
+        (p.collaborativeCountries || []).some((c) => c.toLowerCase().includes(q));
       return matchesCountry && matchesQuery;
     });
-  }, [query, activeCountry]);
+  }, [query, activeCountry, projects]);
+
+  // ---- pagination (client-side, over the filtered list) ----
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PROJECTS_PER_PAGE));
+  const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
+  const endIndex = startIndex + PROJECTS_PER_PAGE;
+  const currentProjects = filtered.slice(startIndex, endIndex);
+
+  // If filters/search shrink the list below the current page, snap back.
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(1);
+  }, [totalPages, currentPage]);
+
+  const scrollToGrid = () => {
+    if (gridRef.current) {
+      gridRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const goToPage = (page) => {
+    setCurrentPage(page);
+    scrollToGrid();
+  };
+  const nextPage = () => {
+    if (currentPage < totalPages) goToPage(currentPage + 1);
+  };
+  const prevPage = () => {
+    if (currentPage > 1) goToPage(currentPage - 1);
+  };
 
   return (
     <div className="atlas-root min-h-screen">
@@ -143,7 +166,7 @@ export default function ProjectsAndCollaboration() {
           --rule: #d6cfbe;
           --cobalt: #1d4ed8;
           --cobalt-bright: #2563eb;
-          background-color: var(--paper);
+          background-color: var(--paper-2);
           color: var(--ink);
           font-family: 'Fraunces', Georgia, serif;
           background-image:
@@ -169,8 +192,8 @@ export default function ProjectsAndCollaboration() {
         .atlas-reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
         .atlas-reveal[data-shown="true"] { opacity: 1; transform: none; }
 
-        .atlas-card { transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; }
-        .atlas-card:hover { transform: translateY(-4px); }
+        .atlas-card { transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; box-shadow: 0 1px 2px rgba(20,19,15,0.04), 0 8px 24px -12px rgba(20,19,15,0.12); }
+        .atlas-card:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(20,19,15,0.06), 0 16px 32px -12px rgba(20,19,15,0.18); }
         .atlas-link-row { transition: color .25s ease, gap .25s ease; }
 
         @media (prefers-reduced-motion: reduce) {
@@ -233,7 +256,7 @@ export default function ProjectsAndCollaboration() {
             and energy science worldwide.
           </p>
           <p className="atlas-mono text-xs uppercase tracking-[0.2em] sm:text-right" style={{ color: "var(--ink-soft)" }}>
-            {DEMO_PROJECTS.length.toString().padStart(2, "0")} Entries
+            {projects.length.toString().padStart(2, "0")} Entries
             <br />
             {countries.length - 1} Countries
           </p>
@@ -291,32 +314,60 @@ export default function ProjectsAndCollaboration() {
       </section>
 
       {/* ---------- catalogue grid ---------- */}
-      <section className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 pb-24">
-        {filtered.length === 0 ? (
+      <section ref={gridRef} className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 pb-24">
+        {loading ? (
+          <div className="py-24 text-center">
+            <p className="atlas-mono text-sm uppercase tracking-[0.2em] animate-pulse" style={{ color: "var(--ink-soft)" }}>
+              Loading catalogue…
+            </p>
+          </div>
+        ) : loadError ? (
+          <div className="py-24 text-center">
+            <p className="atlas-mono text-sm uppercase tracking-[0.2em]" style={{ color: "var(--error, #b3261e)" }}>
+              {loadError}
+            </p>
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="py-24 text-center">
             <p className="atlas-mono text-sm uppercase tracking-[0.2em]" style={{ color: "var(--ink-soft)" }}>
-              No entries match this filter.
+              {projects.length === 0
+                ? "No entries catalogued yet."
+                : "No entries match this filter."}
             </p>
-            <button
-              onClick={() => {
-                setQuery("");
-                setActiveCountry("All");
-              }}
-              className="atlas-mono atlas-focus mt-4 text-xs uppercase tracking-[0.2em] underline"
-              style={{ color: "var(--cobalt)" }}
-            >
-              Reset catalogue
-            </button>
+            {projects.length === 0 ? (
+              <button
+                onClick={() => {
+                  navigate("/projectsubmission");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="atlas-mono atlas-focus mt-4 text-xs uppercase tracking-[0.2em] underline"
+                style={{ color: "var(--cobalt)" }}
+              >
+                Submit the first project
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setQuery("");
+                  setActiveCountry("All");
+                }}
+                className="atlas-mono atlas-focus mt-4 text-xs uppercase tracking-[0.2em] underline"
+                style={{ color: "var(--cobalt)" }}
+              >
+                Reset catalogue
+              </button>
+            )}
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px" style={{ backgroundColor: "var(--rule)" }}>
-            {filtered.map((p, i) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-transparent">
+            {currentProjects.map((p, i) => (
               <article
                 key={p.id}
                 data-reveal
-                className="atlas-reveal atlas-card group relative flex flex-col p-7 sm:p-8"
+                className="atlas-reveal atlas-card group relative flex flex-col p-7 sm:p-8 border"
                 style={{
                   backgroundColor: "var(--paper)",
+                  borderColor: "var(--rule)",
                   transitionDelay: `${(i % 3) * 80}ms`,
                 }}
               >
@@ -326,7 +377,7 @@ export default function ProjectsAndCollaboration() {
                     className="atlas-mono text-xs tracking-[0.2em]"
                     style={{ color: "var(--cobalt)" }}
                   >
-                    No. {p.id.toString().padStart(3, "0")}
+                    No. {(startIndex + i + 1).toString().padStart(3, "0")}
                   </span>
                   <span
                     className="atlas-mono text-[10px] uppercase tracking-[0.2em]"
@@ -336,43 +387,76 @@ export default function ProjectsAndCollaboration() {
                   </span>
                 </div>
 
-                {/* title */}
-                <h2 className="text-2xl font-light leading-snug tracking-tight mb-4">
-                  {p.title}
+                {/* lead: person */}
+                <h2 className="text-2xl font-light leading-snug tracking-tight mb-1">
+                  {p.person}
                 </h2>
-
-                {/* summary */}
                 <p
-                  className="text-[15px] font-light leading-relaxed mb-6 flex-grow"
+                  className="atlas-mono text-[11px] uppercase tracking-[0.12em] mb-5"
                   style={{ color: "var(--ink-soft)" }}
                 >
-                  {p.summary}
+                  {p.affiliation}
                 </p>
 
-                {/* meta: person + affiliation */}
-                <div className="border-t pt-4 mb-5" style={{ borderColor: "var(--rule)" }}>
-                  <p className="text-base font-medium">{p.person}</p>
-                  <p
-                    className="atlas-mono text-[11px] uppercase tracking-[0.12em] mt-1"
-                    style={{ color: "var(--ink-soft)" }}
-                  >
-                    {p.affiliation}
-                  </p>
-                </div>
+                {/* meta rows */}
+                <dl className="flex-grow space-y-3 mb-6">
+                  <div className="flex items-baseline justify-between gap-4 border-t pt-3" style={{ borderColor: "var(--rule)" }}>
+                    <dt className="atlas-mono text-[10px] uppercase tracking-[0.15em]" style={{ color: "var(--ink-soft)" }}>
+                      Lead Country
+                    </dt>
+                    <dd className="text-sm text-right">{p.leadCountry || "—"}</dd>
+                  </div>
+
+                  <div className="border-t pt-3" style={{ borderColor: "var(--rule)" }}>
+                    <dt className="atlas-mono text-[10px] uppercase tracking-[0.15em] mb-2" style={{ color: "var(--ink-soft)" }}>
+                      Collaborating Countries
+                    </dt>
+                    <dd className="flex flex-wrap gap-1.5">
+                      {p.collaborativeCountries && p.collaborativeCountries.length > 0 ? (
+                        p.collaborativeCountries.map((c) => (
+                          <span
+                            key={c}
+                            className="atlas-mono text-[10px] uppercase tracking-[0.1em] px-2 py-1 rounded-full border"
+                            style={{ borderColor: "var(--rule)", color: "var(--ink-soft)" }}
+                          >
+                            {c}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-sm" style={{ color: "var(--ink-soft)" }}>—</span>
+                      )}
+                    </dd>
+                  </div>
+
+                  {p.deadline && (
+                    <div className="flex items-baseline justify-between gap-4 border-t pt-3" style={{ borderColor: "var(--rule)" }}>
+                      <dt className="atlas-mono text-[10px] uppercase tracking-[0.15em]" style={{ color: "var(--ink-soft)" }}>
+                        Deadline
+                      </dt>
+                      <dd className="atlas-mono text-xs text-right">{p.deadline}</dd>
+                    </div>
+                  )}
+                </dl>
 
                 {/* url */}
-                <a
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="atlas-link-row atlas-mono atlas-focus inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] group-hover:gap-3"
-                  style={{ color: "var(--ink)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--cobalt)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--ink)")}
-                >
-                  View Project
-                  <span aria-hidden="true">→</span>
-                </a>
+                {p.url ? (
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="atlas-link-row atlas-mono atlas-focus inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] group-hover:gap-3"
+                    style={{ color: "var(--ink)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--cobalt)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--ink)")}
+                  >
+                    View Project
+                    <span aria-hidden="true">→</span>
+                  </a>
+                ) : (
+                  <span className="atlas-mono text-xs uppercase tracking-[0.2em]" style={{ color: "var(--ink-soft)" }}>
+                    No link provided
+                  </span>
+                )}
 
                 {/* corner accent that grows on hover */}
                 <span
@@ -382,6 +466,60 @@ export default function ProjectsAndCollaboration() {
                 />
               </article>
             ))}
+          </div>
+        )}
+
+        {/* ---------- pagination ---------- */}
+        {!loading && !loadError && totalPages > 1 && (
+          <div className="mt-12 flex flex-col items-center gap-5">
+            <div className="flex items-center gap-2 flex-wrap justify-center">
+              {/* Previous */}
+              <button
+                onClick={prevPage}
+                disabled={currentPage === 1}
+                className="atlas-mono atlas-focus text-[11px] uppercase tracking-[0.18em] px-4 py-2 rounded-full border transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                style={{ borderColor: "var(--rule)", color: "var(--ink-soft)" }}
+              >
+                ← Prev
+              </button>
+
+              {/* Numbered pages */}
+              {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => {
+                const active = page === currentPage;
+                return (
+                  <button
+                    key={page}
+                    onClick={() => goToPage(page)}
+                    aria-current={active ? "page" : undefined}
+                    className="atlas-mono atlas-focus text-[11px] tracking-[0.15em] w-9 h-9 rounded-full border transition-colors"
+                    style={{
+                      borderColor: active ? "var(--cobalt)" : "var(--rule)",
+                      backgroundColor: active ? "var(--cobalt)" : "transparent",
+                      color: active ? "#fff" : "var(--ink-soft)",
+                    }}
+                  >
+                    {page.toString().padStart(2, "0")}
+                  </button>
+                );
+              })}
+
+              {/* Next */}
+              <button
+                onClick={nextPage}
+                disabled={currentPage === totalPages}
+                className="atlas-mono atlas-focus text-[11px] uppercase tracking-[0.18em] px-4 py-2 rounded-full border transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                style={{ borderColor: "var(--rule)", color: "var(--ink-soft)" }}
+              >
+                Next →
+              </button>
+            </div>
+
+            {/* Showing X–Y of Z */}
+            <p className="atlas-mono text-[10px] uppercase tracking-[0.2em]" style={{ color: "var(--ink-soft)" }}>
+              Showing {(startIndex + 1).toString().padStart(2, "0")}–
+              {Math.min(endIndex, filtered.length).toString().padStart(2, "0")} of{" "}
+              {filtered.length.toString().padStart(2, "0")}
+            </p>
           </div>
         )}
       </section>
