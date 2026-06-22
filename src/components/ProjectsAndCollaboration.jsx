@@ -65,6 +65,7 @@ export default function ProjectsAndCollaboration() {
       } else {
         const mapped = (data || []).map((row) => ({
           id: row.id,
+          entryType: row.entry_type,
           title: row.title,
           summary: row.summary,
           person: row.full_name,
@@ -93,6 +94,7 @@ export default function ProjectsAndCollaboration() {
       const q = query.trim().toLowerCase();
       const matchesQuery =
         !q ||
+        (p.entryType && p.entryType.toLowerCase().includes(q)) ||
         (p.title && p.title.toLowerCase().includes(q)) ||
         (p.summary && p.summary.toLowerCase().includes(q)) ||
         (p.person && p.person.toLowerCase().includes(q)) ||
@@ -320,6 +322,15 @@ export default function ProjectsAndCollaboration() {
                   </span>
                 </div>
 
+                {p.entryType && (
+                  <span
+                    className="atlas-mono self-start text-[10px] uppercase tracking-[0.18em] px-2.5 py-1 rounded-full mb-3"
+                    style={{ color: "var(--emerald)", backgroundColor: "rgba(13,148,136,0.10)", border: "1px solid rgba(13,148,136,0.3)" }}
+                  >
+                    {p.entryType}
+                  </span>
+                )}
+
                 <h2 className="text-2xl font-light leading-snug tracking-tight mb-2">
                   {p.title || p.person}
                 </h2>
@@ -384,7 +395,7 @@ export default function ProjectsAndCollaboration() {
                     onMouseEnter={(e) => (e.currentTarget.style.color = "var(--emerald)")}
                     onMouseLeave={(e) => (e.currentTarget.style.color = "var(--ink)")}
                   >
-                    View Project
+                    Visit Institution 
                     <span aria-hidden="true">→</span>
                   </a>
                 ) : (

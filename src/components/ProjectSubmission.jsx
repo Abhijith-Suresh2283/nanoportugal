@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabaseClient';
 
 export default function ProjectSubmissionPage() {
   const [form, setForm] = useState({
+    entry_type: '',
     title: '',
     summary: '',
     full_name: '',
@@ -47,6 +48,10 @@ export default function ProjectSubmissionPage() {
 
   async function handleSubmit() {
     // ---- required fields (sequential, one message at a time) ----
+    if (!form.entry_type.trim()) {
+      setError('Please select Project or Proposal.');
+      return;
+    }
     if (!form.title.trim()) {
       setError('Project title is required.');
       return;
@@ -75,12 +80,24 @@ export default function ProjectSubmissionPage() {
       setError('Country is required.');
       return;
     }
-    if (form.url && !/^https?:\/\/.+/.test(form.url)) {
-      setError('URL must start with http:// or https://');
+    if (!form.url.trim()) {
+      setError('Institution URL is required.');
+      return;
+    }
+    if (!/^https?:\/\/.+/.test(form.url)) {
+      setError('Institution URL must start with http:// or https://');
+      return;
+    }
+    if (!form.deadline.trim()) {
+      setError('Project deadline is required.');
       return;
     }
     if (!form.lead_country.trim()) {
       setError('Lead country is required.');
+      return;
+    }
+    if (collabCountries.length === 0) {
+      setError('Please add at least one expected collaborative country.');
       return;
     }
 
@@ -89,14 +106,15 @@ export default function ProjectSubmissionPage() {
     try {
       const { error } = await supabase.from('projects').insert([
         {
+          entry_type: form.entry_type,
           title: form.title,
           summary: form.summary,
           full_name: form.full_name,
           email: form.email,
           affiliation: form.affiliation,
           country: form.country,
-          url: form.url || null,
-          deadline: form.deadline || null,
+          url: form.url,
+          deadline: form.deadline,
           lead_country: form.lead_country,
           collaborative_countries: collabCountries,
           status: 'pending',
@@ -150,6 +168,21 @@ export default function ProjectSubmissionPage() {
         <div className="bg-white/90 backdrop-blur-xl rounded-[2rem] shadow-xl border border-violet-100/50 overflow-hidden">
           <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400" />
           <div className="p-8 space-y-5">
+
+            {/* Project / Proposal */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project/Proposal *</label>
+              <select
+                name="entry_type"
+                value={form.entry_type}
+                onChange={handleChange}
+                className={inputClass}
+              >
+                <option value="" disabled>Select one…</option>
+                <option value="Project">Project</option>
+                <option value="Proposal">Proposal</option>
+              </select>
+            </div>
 
             {/* Project Title */}
             <div>
@@ -229,9 +262,9 @@ export default function ProjectSubmissionPage() {
               />
             </div>
 
-            {/* Project URL */}
+            {/* Institution URL */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Project URL</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Institution URL *</label>
               <input
                 name="url"
                 type="url"
@@ -244,7 +277,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Project Deadline */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Project Deadline</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project Deadline *</label>
               <input
                 name="deadline"
                 type="date"
@@ -268,7 +301,7 @@ export default function ProjectSubmissionPage() {
             {/* Expected Collaborative Countries */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Expected Collaborative Countries
+                Expected Collaborative Countries *
               </label>
               <p className="text-xs text-gray-400 mb-2">Add one or more countries you expect to collaborate with.</p>
 

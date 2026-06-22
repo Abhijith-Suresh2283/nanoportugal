@@ -307,12 +307,15 @@ export default function AdminPage() {
 
   async function saveProjectEdit() {
     const {
-      id, full_name, email: pEmail, affiliation, country,
+      id, entry_type, title, summary, full_name, email: pEmail, affiliation, country,
       url, deadline, lead_country, collaborative_countries, status,
     } = projectForm;
     await supabase
       .from('projects')
       .update({
+        entry_type,
+        title,
+        summary,
         full_name,
         email: pEmail,
         affiliation,
@@ -497,12 +500,49 @@ export default function AdminPage() {
               >
                 {editingProject === p.id ? (
                   <div className="space-y-3">
+                    {/* Project / Proposal */}
+                    <div>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">Project/Proposal</label>
+                      <select
+                        value={projectForm.entry_type || ''}
+                        onChange={(e) => setProjectForm({ ...projectForm, entry_type: e.target.value })}
+                        className="w-full px-3 py-2 rounded-lg border border-violet-200"
+                      >
+                        <option value="" disabled>Select one…</option>
+                        <option value="Project">Project</option>
+                        <option value="Proposal">Proposal</option>
+                      </select>
+                    </div>
+
+                    {/* Title */}
+                    <div>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">Project Title</label>
+                      <input
+                        value={projectForm.title || ''}
+                        placeholder="Project Title"
+                        onChange={(e) => setProjectForm({ ...projectForm, title: e.target.value })}
+                        className="w-full px-3 py-2 rounded-lg border border-violet-200"
+                      />
+                    </div>
+
+                    {/* Summary */}
+                    <div>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">Summary</label>
+                      <textarea
+                        value={projectForm.summary || ''}
+                        placeholder="Summary"
+                        rows={5}
+                        onChange={(e) => setProjectForm({ ...projectForm, summary: e.target.value })}
+                        className="w-full px-3 py-2 rounded-lg border border-violet-200 resize-y leading-relaxed"
+                      />
+                    </div>
+
                     {[
                       ['full_name', 'Full Name'],
                       ['email', 'Email'],
                       ['affiliation', 'Affiliation'],
                       ['country', 'Country'],
-                      ['url', 'Project URL'],
+                      ['url', 'Institution URL'],
                       ['lead_country', 'Lead Country'],
                     ].map(([key, label]) => (
                       <div key={key}>
@@ -605,7 +645,7 @@ export default function AdminPage() {
                   <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                     <div className="flex-1">
                       <p className="font-medium">
-                        {p.full_name}
+                        {p.title || p.full_name}
                         <span
                           className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
                             p.status === 'approved'
@@ -615,10 +655,20 @@ export default function AdminPage() {
                         >
                           {p.status}
                         </span>
+                        {p.entry_type && (
+                          <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-violet-100 text-violet-700">
+                            {p.entry_type}
+                          </span>
+                        )}
                       </p>
                       <p className="text-sm text-gray-600">
-                        {p.affiliation} — {p.country}
+                        {p.full_name}{p.affiliation ? ` — ${p.affiliation}` : ''}{p.country ? ` — ${p.country}` : ''}
                       </p>
+                      {p.summary && (
+                        <p className="text-sm text-gray-500 mt-2 leading-relaxed">
+                          {p.summary}
+                        </p>
+                      )}
                       <p className="text-sm text-gray-500 mt-1">
                         Lead: {p.lead_country || '—'}
                         {p.deadline ? ` · Deadline: ${p.deadline}` : ''}
