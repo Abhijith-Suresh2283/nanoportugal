@@ -91,8 +91,7 @@ export default function RegistrationPage() {
                 <tr className="border-b border-gray-300 bg-blue-50/50">
                   <td className="p-3 border-r border-gray-300 text-sm font-semibold">Projects &amp; Collaboration</td>
                   <td className="p-3 text-sm" colSpan={2}>
-                    <span className="font-semibold">1000</span>
-                    <span className="text-gray-600 italic ml-2">(No deadline — flat fee, applies anytime)</span>
+                    <span className="font-semibold">1000 Euros</span>
                   </td>
                 </tr>
               </tbody>
