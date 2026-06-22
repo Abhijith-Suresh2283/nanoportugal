@@ -87,6 +87,14 @@ export default function RegistrationPage() {
                     <td className="p-3 border-r border-gray-300 text-sm">{row[2]}</td>
                   </tr>
                 ))}
+                {/* Projects & Collaboration - flat fee, no deadline (spans both fee columns) */}
+                <tr className="border-b border-gray-300 bg-blue-50/50">
+                  <td className="p-3 border-r border-gray-300 text-sm font-semibold">Projects &amp; Collaboration</td>
+                  <td className="p-3 text-sm" colSpan={2}>
+                    <span className="font-semibold">1000</span>
+                    <span className="text-gray-600 italic ml-2">(No deadline — flat fee, applies anytime)</span>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -115,25 +123,17 @@ export default function RegistrationPage() {
                 </div>
               </div>
             ))}
-          </div>
 
-          {/* Projects & Collaboration - Separate flat-rate entry (no deadline) */}
-          <div className="mt-6 border-2 border-[#000080] rounded-lg overflow-hidden">
-            <div className="bg-[#000080] px-4 py-2">
-              <p className="text-white font-semibold text-sm sm:text-base">
-                Projects & Collaboration
-              </p>
-            </div>
-            <div className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <p className="text-sm sm:text-base text-gray-900 leading-relaxed">
-                A flat registration fee applies for Projects & Collaboration participation.
-                <span className="block text-gray-600 text-xs sm:text-sm mt-1">
-                  This category has no early or late deadline — the fee remains fixed.
-                </span>
-              </p>
-              <p className="font-bold text-lg sm:text-xl text-[#000080] whitespace-nowrap">
-                € 1000
-              </p>
+            {/* Projects & Collaboration - flat fee, no deadline */}
+            <div className="border border-gray-300 p-4 rounded-lg space-y-3 bg-blue-50/50">
+              <p className="font-semibold text-sm text-gray-900">Projects &amp; Collaboration</p>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Flat fee (No deadline):</span>
+                  <span className="font-semibold">€1000</span>
+                </div>
+                <p className="text-gray-600 italic text-xs">This category has no early or late deadline — the fee applies anytime.</p>
+              </div>
             </div>
           </div>
         </div>
