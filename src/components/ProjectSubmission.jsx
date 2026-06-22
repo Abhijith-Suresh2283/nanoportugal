@@ -56,7 +56,7 @@ export default function ProjectSubmissionPage() {
       return;
     }
     if (!form.full_name.trim()) {
-      setError('Contact person full name is required.');
+      setError('Full name is required.');
       return;
     }
     if (!form.email.trim()) {
@@ -111,38 +111,18 @@ export default function ProjectSubmissionPage() {
     }
   }
 
-  // Reusable Advertise (submit) button — placed top and bottom of the form.
-  const AdvertiseButton = () => (
-    <button
-      onClick={handleSubmit}
-      disabled={submitting}
-      className="atlas-mono group w-full inline-flex items-center justify-center gap-2 text-xs uppercase tracking-[0.2em] px-8 py-4 rounded-full transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-      style={{ backgroundColor: 'var(--cobalt)', color: '#fff' }}
-      onMouseEnter={(e) => { if (!submitting) e.currentTarget.style.backgroundColor = 'var(--cobalt-bright)'; }}
-      onMouseLeave={(e) => { if (!submitting) e.currentTarget.style.backgroundColor = 'var(--cobalt)'; }}
-    >
-      {submitting ? 'Submitting…' : 'Advertise'}
-      {!submitting && <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">&rarr;</span>}
-    </button>
-  );
+  const inputClass =
+    'w-full px-4 py-3 rounded-xl border border-violet-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-violet-400';
 
   if (done) {
     return (
-      <div className="atlas-root min-h-screen flex items-center justify-center px-4">
-        <style>{ATLAS_CSS}</style>
-        <div
-          className="relative z-10 text-center max-w-md w-full rounded-[2rem] p-12 border"
-          style={{ backgroundColor: 'var(--paper)', borderColor: 'var(--rule)' }}
-        >
-          <p className="atlas-mono text-xs uppercase tracking-[0.3em]" style={{ color: 'var(--cobalt)' }}>
-            Entry Received
-          </p>
-          <h2 className="mt-4 font-light leading-[0.95] tracking-tight" style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)' }}>
-            Thank you<span style={{ color: 'var(--cobalt)' }}>.</span>
-          </h2>
-          <p className="mt-5 font-light" style={{ color: 'var(--ink-soft)' }}>
-            Your project has been catalogued for review. Once approved, it will
-            appear in the Projects Atlas.
+      <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen flex items-center justify-center px-4">
+        <div className="bg-white/90 backdrop-blur-xl rounded-[2rem] shadow-xl border border-violet-100/50 p-12 text-center max-w-md">
+          <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400 -mt-12 mb-8 rounded-full" />
+          <h2 className="text-2xl font-light text-gray-900 mb-3">Thank you!</h2>
+          <p className="text-gray-600 font-light">
+            Your project has been received. Once approved, it will appear on the
+            Projects and Collaboration page.
           </p>
         </div>
       </div>
@@ -150,56 +130,44 @@ export default function ProjectSubmissionPage() {
   }
 
   return (
-    <div className="atlas-root min-h-screen py-20 px-4 sm:px-6">
-      <style>{ATLAS_CSS}</style>
-
-      <div className="relative z-10 max-w-2xl mx-auto">
-        {/* heading */}
+    <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 py-20 px-4 sm:px-6">
+      <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
-          <h1 className="font-light leading-[0.95] tracking-tight" style={{ fontSize: 'clamp(2.25rem, 6vw, 3.75rem)' }}>
-            Projects &amp;{' '}
-            <span style={{ fontStyle: 'italic', fontWeight: 400 }}>Collaborations</span>
-            <span style={{ color: 'var(--cobalt)' }}>.</span>
+          <h1 className="text-3xl sm:text-4xl font-extralight mb-4">
+            Project{' '}
+            <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent font-light">
+              Submission
+            </span>
           </h1>
+          <p className="text-gray-600 font-light">
+            Fill in your details to add your work to the Projects and Collaboration page.
+          </p>
         </div>
 
-        {/* card */}
-        <div
-          className="rounded-[2rem] overflow-hidden border"
-          style={{ backgroundColor: 'var(--paper)', borderColor: 'var(--rule)' }}
-        >
-          <div className="h-1" style={{ background: 'var(--cobalt)' }} />
-          <div className="p-8 space-y-6">
-
-            {/* TOP ADVERTISE BUTTON */}
-            <AdvertiseButton />
+        <div className="bg-white/90 backdrop-blur-xl rounded-[2rem] shadow-xl border border-violet-100/50 overflow-hidden">
+          <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400" />
+          <div className="p-8 space-y-5">
 
             {/* Project Title */}
             <div>
-              <label className="atlas-mono block text-[11px] uppercase tracking-[0.18em] mb-2" style={{ color: 'var(--ink-soft)' }}>
-                Project Title <span style={{ color: 'var(--cobalt)' }}>*</span>
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project Title *</label>
               <input
                 name="title"
-                type="text"
                 value={form.title}
                 onChange={handleChange}
+                className={inputClass}
                 placeholder="e.g. Scalable Green Hydrogen via Photocatalytic Water Splitting"
-                className="atlas-input"
               />
             </div>
 
             {/* Summary */}
             <div>
-              <label className="atlas-mono block text-[11px] uppercase tracking-[0.18em] mb-2" style={{ color: 'var(--ink-soft)' }}>
-                Summary <span style={{ color: 'var(--cobalt)' }}>*</span>
-              </label>
-              <p className="text-sm font-light mb-2 leading-relaxed" style={{ color: 'var(--ink-soft)' }}>
-                In 60&ndash;150 words, please describe: (1) the research objective or
-                problem addressed, (2) the approach or methodology, (3) the
-                expected outcomes or impact, and (4) the type of collaboration
-                you are seeking. Write in clear, non-specialist language so
-                researchers from adjacent fields can understand it.
+              <label className="block text-sm font-medium text-gray-700 mb-1">Summary *</label>
+              <p className="text-xs text-gray-400 mb-2 leading-relaxed">
+                In 60&ndash;150 words, please describe: (1) the research objective or problem
+                addressed, (2) the approach or methodology, (3) the expected outcomes or
+                impact, and (4) the type of collaboration you are seeking. Write in clear,
+                non-specialist language so researchers from adjacent fields can understand it.
               </p>
               <textarea
                 name="summary"
@@ -207,87 +175,115 @@ export default function ProjectSubmissionPage() {
                 onChange={handleChange}
                 rows={6}
                 placeholder="Describe your project following the points above…"
-                className="atlas-input atlas-textarea"
+                className={`${inputClass} resize-y leading-relaxed`}
               />
             </div>
 
-            {/* Contact Person — Full Name + Email side by side */}
+            {/* Full Name */}
             <div>
-              <p className="atlas-mono text-[11px] uppercase tracking-[0.18em] mb-3" style={{ color: 'var(--cobalt)' }}>
-                Contact Person
-              </p>
-              <div className="grid sm:grid-cols-2 gap-x-6 gap-y-5">
-                <div>
-                  <label className="atlas-mono block text-[11px] uppercase tracking-[0.18em] mb-2" style={{ color: 'var(--ink-soft)' }}>
-                    Full Name <span style={{ color: 'var(--cobalt)' }}>*</span>
-                  </label>
-                  <input
-                    name="full_name"
-                    type="text"
-                    value={form.full_name}
-                    onChange={handleChange}
-                    placeholder="Dr. Helena Marques"
-                    className="atlas-input"
-                  />
-                </div>
-                <div>
-                  <label className="atlas-mono block text-[11px] uppercase tracking-[0.18em] mb-2" style={{ color: 'var(--ink-soft)' }}>
-                    Email <span style={{ color: 'var(--cobalt)' }}>*</span>
-                  </label>
-                  <input
-                    name="email"
-                    type="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    placeholder="name@institution.edu"
-                    className="atlas-input"
-                  />
-                </div>
-              </div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+              <input
+                name="full_name"
+                value={form.full_name}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="Dr. Helena Marques"
+              />
             </div>
 
-            {/* Remaining single-column fields */}
-            {[
-              { name: 'affiliation', label: 'Affiliation', placeholder: 'University of Aveiro', type: 'text' },
-              { name: 'country', label: 'Country', placeholder: 'Portugal', type: 'text' },
-              { name: 'url', label: 'URL', placeholder: 'https://…', type: 'url', optional: true },
-              { name: 'deadline', label: 'Project Deadline', placeholder: '', type: 'date', optional: true },
-              { name: 'lead_country', label: 'Lead Country', placeholder: 'Portugal', type: 'text' },
-            ].map((field) => (
-              <div key={field.name}>
-                <label className="atlas-mono block text-[11px] uppercase tracking-[0.18em] mb-2" style={{ color: 'var(--ink-soft)' }}>
-                  {field.label} {!field.optional && <span style={{ color: 'var(--cobalt)' }}>*</span>}
-                </label>
-                <input
-                  name={field.name}
-                  type={field.type}
-                  value={form[field.name]}
-                  onChange={handleChange}
-                  placeholder={field.placeholder}
-                  className="atlas-input"
-                />
-              </div>
-            ))}
+            {/* Email */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+              <input
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="name@institution.edu"
+              />
+            </div>
+
+            {/* Affiliation */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Affiliation *</label>
+              <input
+                name="affiliation"
+                value={form.affiliation}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="University of Aveiro"
+              />
+            </div>
+
+            {/* Country */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Country *</label>
+              <input
+                name="country"
+                value={form.country}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="Portugal"
+              />
+            </div>
+
+            {/* Project URL */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project URL</label>
+              <input
+                name="url"
+                type="url"
+                value={form.url}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="https://…"
+              />
+            </div>
+
+            {/* Project Deadline */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project Deadline</label>
+              <input
+                name="deadline"
+                type="date"
+                value={form.deadline}
+                onChange={handleChange}
+                className={inputClass}
+              />
+            </div>
+
+            {/* Lead Country */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Lead Country *</label>
+              <input
+                name="lead_country"
+                value={form.lead_country}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="Portugal"
+              />
+            </div>
 
             {/* Expected Collaborative Countries */}
             <div>
-              <label className="atlas-mono block text-[11px] uppercase tracking-[0.18em] mb-2" style={{ color: 'var(--ink-soft)' }}>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Expected Collaborative Countries
               </label>
+              <p className="text-xs text-gray-400 mb-2">Add one or more countries you expect to collaborate with.</p>
 
               {collabCountries.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-2">
                   {collabCountries.map((c) => (
                     <span
                       key={c}
-                      className="atlas-mono inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.12em] pl-3 pr-2 py-1.5 rounded-full"
-                      style={{ backgroundColor: 'var(--cobalt)', color: '#fff' }}
+                      className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full bg-violet-100 text-violet-700"
                     >
                       {c}
                       <button
                         type="button"
                         onClick={() => removeCollab(c)}
-                        className="leading-none hover:opacity-70"
+                        className="leading-none hover:text-violet-900"
                         aria-label={`Remove ${c}`}
                       >
                         &times;
@@ -297,83 +293,37 @@ export default function ProjectSubmissionPage() {
                 </div>
               )}
 
-              <div className="flex items-end gap-3">
+              <div className="flex items-center gap-3">
                 <input
                   type="text"
                   value={collabInput}
                   placeholder="Type a country and press Enter"
                   onChange={(e) => setCollabInput(e.target.value)}
                   onKeyDown={handleCollabKey}
-                  className="atlas-input flex-1"
+                  className={`${inputClass} flex-1`}
                 />
                 <button
                   type="button"
                   onClick={addCollab}
-                  className="atlas-mono text-[11px] uppercase tracking-[0.2em] px-4 py-2 rounded-full border whitespace-nowrap transition-colors"
-                  style={{ borderColor: 'var(--cobalt)', color: 'var(--cobalt)' }}
+                  className="px-5 py-3 rounded-full bg-violet-100 text-violet-700 text-sm font-medium hover:bg-violet-200 transition whitespace-nowrap"
                 >
                   + Add
                 </button>
               </div>
-              <p className="atlas-mono text-[10px] uppercase tracking-[0.12em] mt-2" style={{ color: 'var(--ink-soft)' }}>
-                Add one or more countries you expect to collaborate with.
-              </p>
             </div>
 
-            {error && (
-              <p className="atlas-mono text-xs uppercase tracking-[0.12em]" style={{ color: 'var(--error)' }}>
-                {error}
-              </p>
-            )}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
-            {/* BOTTOM ADVERTISE BUTTON */}
-            <AdvertiseButton />
+            <button
+              onClick={handleSubmit}
+              disabled={submitting}
+              className="w-full px-8 py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-medium tracking-widest uppercase rounded-full hover:shadow-lg hover:shadow-violet-300/50 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:hover:scale-100"
+            >
+              {submitting ? 'Submitting…' : 'Submit'}
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-/* Atlas theme — no engineering-grid background (solid paper-2 backing). */
-const ATLAS_CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&display=swap');
-
-  .atlas-root {
-    --paper: #f4f1ea;
-    --paper-2: #ece7db;
-    --ink: #14130f;
-    --ink-soft: #514c40;
-    --rule: #d6cfbe;
-    --cobalt: #1d4ed8;
-    --cobalt-bright: #2563eb;
-    --error: #b3261e;
-    background-color: var(--paper-2);
-    color: var(--ink);
-    font-family: 'Fraunces', Georgia, serif;
-  }
-  .atlas-mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
-
-  .atlas-input {
-    background: transparent;
-    border: none;
-    border-bottom: 1.5px solid var(--rule);
-    color: var(--ink);
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.05rem;
-    padding: 0.5rem 0;
-    width: 100%;
-    transition: border-color .25s ease;
-  }
-  .atlas-input::placeholder { color: var(--ink-soft); opacity: .55; }
-  .atlas-input:focus { outline: none; border-bottom-color: var(--cobalt); }
-
-  .atlas-textarea {
-    border: 1.5px solid var(--rule);
-    border-radius: 0.75rem;
-    padding: 0.75rem 1rem;
-    resize: vertical;
-    line-height: 1.6;
-  }
-  .atlas-textarea:focus { border-color: var(--cobalt); }
-`;     
