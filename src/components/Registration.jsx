@@ -116,6 +116,26 @@ export default function RegistrationPage() {
               </div>
             ))}
           </div>
+
+          {/* Projects & Collaboration - Separate flat-rate entry (no deadline) */}
+          <div className="mt-6 border-2 border-[#000080] rounded-lg overflow-hidden">
+            <div className="bg-[#000080] px-4 py-2">
+              <p className="text-white font-semibold text-sm sm:text-base">
+                Projects & Collaboration
+              </p>
+            </div>
+            <div className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <p className="text-sm sm:text-base text-gray-900 leading-relaxed">
+                A flat registration fee applies for Projects & Collaboration participation.
+                <span className="block text-gray-600 text-xs sm:text-sm mt-1">
+                  This category has no early or late deadline — the fee remains fixed.
+                </span>
+              </p>
+              <p className="font-bold text-lg sm:text-xl text-[#000080] whitespace-nowrap">
+                € 1000
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Physical Participation */}
