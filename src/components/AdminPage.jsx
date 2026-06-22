@@ -106,18 +106,26 @@ export default function AdminPage() {
   }, [isAdmin, view]);
 
   async function loadSpeakers() {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('speakers')
       .select('*')
       .order('created_at', { ascending: false });
+    if (error) {
+      console.error('Failed to load speakers:', error);
+      alert('Could not load speakers: ' + error.message);
+    }
     setSpeakers(data || []);
   }
 
   async function loadProjects() {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('projects')
       .select('*')
       .order('created_at', { ascending: false });
+    if (error) {
+      console.error('Failed to load projects:', error);
+      alert('Could not load projects: ' + error.message);
+    }
     setProjects(data || []);
   }
 
@@ -694,6 +702,10 @@ export default function AdminPage() {
             Sign out
           </button>
         </div>
+
+        {speakers.length === 0 && (
+          <p className="text-gray-600 font-light">No speaker submissions yet.</p>
+        )}
 
         <div className="space-y-4">
           {speakers.map((s) => (
