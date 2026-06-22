@@ -134,13 +134,16 @@ export default function ProjectSubmissionPage() {
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
           <h1 className="text-3xl sm:text-4xl font-extralight mb-4">
-            Project{' '}
+            Research{' '}
             <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent font-light">
-              Submission
+              Submission Form
             </span>
           </h1>
           <p className="text-gray-600 font-light">
             Fill in your details to add your work to the Projects and Collaboration page.
+          </p>
+          <p className="text-gray-600 font-light">
+            Fill all the details before submitting the form.
           </p>
         </div>
 
@@ -156,7 +159,6 @@ export default function ProjectSubmissionPage() {
                 value={form.title}
                 onChange={handleChange}
                 className={inputClass}
-                placeholder="e.g. Scalable Green Hydrogen via Photocatalytic Water Splitting"
               />
             </div>
 
@@ -187,7 +189,7 @@ export default function ProjectSubmissionPage() {
                 value={form.full_name}
                 onChange={handleChange}
                 className={inputClass}
-                placeholder="Dr. Helena Marques"
+                placeholder="Dr. FirstName LastName"
               />
             </div>
 
@@ -212,7 +214,7 @@ export default function ProjectSubmissionPage() {
                 value={form.affiliation}
                 onChange={handleChange}
                 className={inputClass}
-                placeholder="University of Aveiro"
+                placeholder="University of"
               />
             </div>
 
@@ -224,7 +226,6 @@ export default function ProjectSubmissionPage() {
                 value={form.country}
                 onChange={handleChange}
                 className={inputClass}
-                placeholder="Portugal"
               />
             </div>
 
@@ -261,7 +262,6 @@ export default function ProjectSubmissionPage() {
                 value={form.lead_country}
                 onChange={handleChange}
                 className={inputClass}
-                placeholder="Portugal"
               />
             </div>
 
