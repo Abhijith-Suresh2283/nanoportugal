@@ -68,6 +68,8 @@ export default function ProjectsAndCollaboration() {
           entryType: row.entry_type,
           title: row.title,
           summary: row.summary,
+          shareLink: row.share_link,
+          keywords: row.keywords || [],
           person: row.full_name,
           affiliation: row.affiliation,
           country: row.country,
@@ -101,7 +103,8 @@ export default function ProjectsAndCollaboration() {
         (p.affiliation && p.affiliation.toLowerCase().includes(q)) ||
         (p.country && p.country.toLowerCase().includes(q)) ||
         (p.leadCountry && p.leadCountry.toLowerCase().includes(q)) ||
-        (p.collaborativeCountries || []).some((c) => c.toLowerCase().includes(q));
+        (p.collaborativeCountries || []).some((c) => c.toLowerCase().includes(q)) ||
+        (p.keywords || []).some((k) => k.toLowerCase().includes(q));
       return matchesCountry && matchesQuery;
     });
   }, [query, activeCountry, projects]);
@@ -383,7 +386,33 @@ export default function ProjectsAndCollaboration() {
                       <dd className="atlas-mono text-xs text-right">{p.deadline}</dd>
                     </div>
                   )}
+                  {p.keywords && p.keywords.length > 0 && (
+                    <div className="border-t pt-3" style={{ borderColor: "var(--rule)" }}>
+                      <dt className="atlas-mono text-[10px] uppercase tracking-[0.15em] mb-2" style={{ color: "var(--ink-soft)" }}>Keywords</dt>
+                      <dd className="flex flex-wrap gap-1.5">
+                        {p.keywords.map((k) => (
+                          <span key={k} className="atlas-mono text-[10px] uppercase tracking-[0.1em] px-2 py-1 rounded-full border"
+                            style={{ borderColor: "rgba(13,148,136,0.3)", color: "var(--emerald)", backgroundColor: "rgba(13,148,136,0.06)" }}>
+                            {k}
+                          </span>
+                        ))}
+                      </dd>
+                    </div>
+                  )}
                 </dl>
+
+                {p.shareLink && (
+                  <a
+                    href={p.shareLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="atlas-link-row atlas-mono atlas-focus inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] mb-3 group-hover:gap-3"
+                    style={{ color: "var(--emerald)" }}
+                  >
+                    Shared Link
+                    <span aria-hidden="true">→</span>
+                  </a>
+                )}
 
                 {p.url ? (
                   <a
@@ -395,7 +424,7 @@ export default function ProjectsAndCollaboration() {
                     onMouseEnter={(e) => (e.currentTarget.style.color = "var(--emerald)")}
                     onMouseLeave={(e) => (e.currentTarget.style.color = "var(--ink)")}
                   >
-                    Visit Institution 
+                    View Institution
                     <span aria-hidden="true">→</span>
                   </a>
                 ) : (
