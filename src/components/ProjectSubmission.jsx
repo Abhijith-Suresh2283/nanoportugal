@@ -8,6 +8,7 @@ export default function ProjectSubmissionPage() {
     entry_type: '',
     title: '',
     summary: '',
+    share_link: '',
     full_name: '',
     email: '',
     affiliation: '',
@@ -20,6 +21,10 @@ export default function ProjectSubmissionPage() {
   // Expected Collaborative Countries (multi-tag)
   const [collabCountries, setCollabCountries] = useState([]);
   const [collabInput, setCollabInput] = useState('');
+
+  // Keywords (multi-tag, up to 5)
+  const [keywords, setKeywords] = useState([]);
+  const [keywordInput, setKeywordInput] = useState('');
 
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -43,6 +48,25 @@ export default function ProjectSubmissionPage() {
     if (e.key === 'Enter' || e.key === ',') {
       e.preventDefault();
       addCollab();
+    }
+  };
+
+  const addKeyword = () => {
+    const v = keywordInput.trim();
+    if (v && keywords.length < 5 && !keywords.includes(v)) {
+      setKeywords((k) => [...k, v]);
+    }
+    setKeywordInput('');
+  };
+
+  const removeKeyword = (word) => {
+    setKeywords((k) => k.filter((x) => x !== word));
+  };
+
+  const handleKeywordKey = (e) => {
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault();
+      addKeyword();
     }
   };
 
@@ -100,6 +124,10 @@ export default function ProjectSubmissionPage() {
       setError('Please add at least one expected collaborative country.');
       return;
     }
+    if (form.share_link && !/^https?:\/\/.+/.test(form.share_link)) {
+      setError('Link to share must start with http:// or https://');
+      return;
+    }
 
     setSubmitting(true);
     setError(null);
@@ -109,6 +137,8 @@ export default function ProjectSubmissionPage() {
           entry_type: form.entry_type,
           title: form.title,
           summary: form.summary,
+          share_link: form.share_link || null,
+          keywords: keywords,
           full_name: form.full_name,
           email: form.email,
           affiliation: form.affiliation,
@@ -171,6 +201,17 @@ export default function ProjectSubmissionPage() {
           <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400" />
           <div className="p-8 space-y-5">
 
+            {/* Project Title */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project Title *</label>
+              <input
+                name="title"
+                value={form.title}
+                onChange={handleChange}
+                className={inputClass}
+              />
+            </div>
+
             {/* Project / Proposal */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Project/Proposal *</label>
@@ -186,25 +227,15 @@ export default function ProjectSubmissionPage() {
               </select>
             </div>
 
-            {/* Project Title */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Project Title *</label>
-              <input
-                name="title"
-                value={form.title}
-                onChange={handleChange}
-                className={inputClass}
-              />
-            </div>
-
             {/* Summary */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Summary *</label>
               <p className="text-xs text-gray-400 mb-2 leading-relaxed">
-                In 60&ndash;150 words, please describe: (1) the research objective or problem
-                addressed, (2) the approach or methodology, (3) the expected outcomes or
-                impact, and (4) the type of collaboration you are seeking. Write in clear,
-                non-specialist language so researchers from adjacent fields can understand it.
+                Please provide a brief description of your project, including the scientific
+                question, challenge, or unmet need it addresses, the methods or approaches being
+                used, the expected outcomes and potential impact, the types of expertise, resources,
+                or collaborators being sought, and any relevant funding information (current funding,
+                funding source, or funding opportunities, if applicable).
               </p>
               <textarea
                 name="summary"
@@ -214,6 +245,71 @@ export default function ProjectSubmissionPage() {
                 placeholder="Describe your project following the points above…"
                 className={`${inputClass} resize-y leading-relaxed`}
               />
+            </div>
+
+            {/* Link to Share (optional) */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Link to Share (if any)</label>
+              <input
+                name="share_link"
+                type="url"
+                value={form.share_link}
+                onChange={handleChange}
+                className={inputClass}
+                placeholder="https://…"
+              />
+            </div>
+
+            {/* Keywords (up to 5) */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Keywords</label>
+              <p className="text-xs text-gray-400 mb-2">
+                Add up to 5 keywords (e.g. hydrogen storage, alternative energy).
+              </p>
+
+              {keywords.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {keywords.map((k) => (
+                    <span
+                      key={k}
+                      className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full bg-violet-100 text-violet-700"
+                    >
+                      {k}
+                      <button
+                        type="button"
+                        onClick={() => removeKeyword(k)}
+                        className="leading-none hover:text-violet-900"
+                        aria-label={`Remove ${k}`}
+                      >
+                        &times;
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <div className="flex items-center gap-3">
+                <input
+                  type="text"
+                  value={keywordInput}
+                  placeholder="Type a keyword and press Enter"
+                  onChange={(e) => setKeywordInput(e.target.value)}
+                  onKeyDown={handleKeywordKey}
+                  disabled={keywords.length >= 5}
+                  className={`${inputClass} flex-1 disabled:opacity-50`}
+                />
+                <button
+                  type="button"
+                  onClick={addKeyword}
+                  disabled={keywords.length >= 5}
+                  className="px-5 py-3 rounded-full bg-violet-100 text-violet-700 text-sm font-medium hover:bg-violet-200 transition whitespace-nowrap disabled:opacity-50 disabled:hover:bg-violet-100"
+                >
+                  + Add
+                </button>
+              </div>
+              {keywords.length >= 5 && (
+                <p className="text-xs text-gray-400 mt-1">Maximum of 5 keywords reached.</p>
+              )}
             </div>
 
             {/* Full Name */}

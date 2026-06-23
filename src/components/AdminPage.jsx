@@ -68,6 +68,7 @@ export default function AdminPage() {
   const [editingProject, setEditingProject] = useState(null);
   const [projectForm, setProjectForm] = useState({});
   const [collabInput, setCollabInput] = useState('');
+  const [keywordInput, setKeywordInput] = useState('');
 
   // auth form state
   const [email, setEmail] = useState('');
@@ -283,8 +284,10 @@ export default function AdminPage() {
     setProjectForm({
       ...p,
       collaborative_countries: p.collaborative_countries || [],
+      keywords: p.keywords || [],
     });
     setCollabInput('');
+    setKeywordInput('');
   }
 
   function addCollab() {
@@ -305,9 +308,28 @@ export default function AdminPage() {
     }));
   }
 
+  function addKeyword() {
+    const v = keywordInput.trim();
+    const current = projectForm.keywords || [];
+    if (v && current.length < 5 && !current.includes(v)) {
+      setProjectForm((f) => ({
+        ...f,
+        keywords: [...(f.keywords || []), v],
+      }));
+    }
+    setKeywordInput('');
+  }
+
+  function removeKeyword(word) {
+    setProjectForm((f) => ({
+      ...f,
+      keywords: (f.keywords || []).filter((k) => k !== word),
+    }));
+  }
+
   async function saveProjectEdit() {
     const {
-      id, entry_type, title, summary, full_name, email: pEmail, affiliation, country,
+      id, entry_type, title, summary, share_link, keywords, full_name, email: pEmail, affiliation, country,
       url, deadline, lead_country, collaborative_countries, status,
     } = projectForm;
     await supabase
@@ -316,6 +338,8 @@ export default function AdminPage() {
         entry_type,
         title,
         summary,
+        share_link: share_link || null,
+        keywords: keywords || [],
         full_name,
         email: pEmail,
         affiliation,
@@ -537,6 +561,17 @@ export default function AdminPage() {
                       />
                     </div>
 
+                    {/* Link to Share (optional) */}
+                    <div>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">Link to Share (if any)</label>
+                      <input
+                        value={projectForm.share_link || ''}
+                        placeholder="https://…"
+                        onChange={(e) => setProjectForm({ ...projectForm, share_link: e.target.value })}
+                        className="w-full px-3 py-2 rounded-lg border border-violet-200"
+                      />
+                    </div>
+
                     {[
                       ['full_name', 'Full Name'],
                       ['email', 'Email'],
@@ -613,6 +648,55 @@ export default function AdminPage() {
                       </div>
                     </div>
 
+                    {/* Keywords (up to 5) */}
+                    <div>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">Keywords</label>
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        {(projectForm.keywords || []).map((k) => (
+                          <span
+                            key={k}
+                            className="inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full bg-violet-100 text-violet-700"
+                          >
+                            {k}
+                            <button
+                              type="button"
+                              onClick={() => removeKeyword(k)}
+                              className="leading-none hover:text-violet-900"
+                              aria-label={`Remove ${k}`}
+                            >
+                              ✕
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex gap-2">
+                        <input
+                          value={keywordInput}
+                          placeholder="Type a keyword and press Enter"
+                          onChange={(e) => setKeywordInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ',') {
+                              e.preventDefault();
+                              addKeyword();
+                            }
+                          }}
+                          disabled={(projectForm.keywords || []).length >= 5}
+                          className="flex-1 px-3 py-2 rounded-lg border border-violet-200 disabled:opacity-50"
+                        />
+                        <button
+                          type="button"
+                          onClick={addKeyword}
+                          disabled={(projectForm.keywords || []).length >= 5}
+                          className="px-4 py-2 rounded-full bg-violet-100 text-violet-700 text-sm hover:bg-violet-200 disabled:opacity-50"
+                        >
+                          + Add
+                        </button>
+                      </div>
+                      {(projectForm.keywords || []).length >= 5 && (
+                        <p className="text-xs text-gray-400 mt-1">Maximum of 5 keywords reached.</p>
+                      )}
+                    </div>
+
                     {/* Status */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
@@ -678,6 +762,11 @@ export default function AdminPage() {
                           Collaborating: {p.collaborative_countries.join(', ')}
                         </p>
                       )}
+                      {p.keywords && p.keywords.length > 0 && (
+                        <p className="text-xs text-gray-500 mt-1">
+                          Keywords: {p.keywords.join(', ')}
+                        </p>
+                      )}
                       <div className="flex gap-3 mt-1 text-xs">
                         {p.email && <span className="text-gray-500">{p.email}</span>}
                         {p.url && (
@@ -688,6 +777,16 @@ export default function AdminPage() {
                             className="text-violet-600 underline"
                           >
                             View link
+                          </a>
+                        )}
+                        {p.share_link && (
+                          <a
+                            href={p.share_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-violet-600 underline"
+                          >
+                            Shared link
                           </a>
                         )}
                       </div>
