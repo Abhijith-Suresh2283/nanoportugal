@@ -73,7 +73,7 @@ export default function ProjectSubmissionPage() {
   async function handleSubmit() {
     // ---- required fields (sequential, one message at a time) ----
     if (!form.entry_type.trim()) {
-      setError('Please select Project or Proposal.');
+      setError('Project type is required.');
       return;
     }
     if (!form.title.trim()) {
@@ -212,19 +212,15 @@ export default function ProjectSubmissionPage() {
               />
             </div>
 
-            {/* Project / Proposal */}
+            {/* Project Type */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Project/Proposal *</label>
-              <select
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project Type *</label>
+              <input
                 name="entry_type"
                 value={form.entry_type}
                 onChange={handleChange}
                 className={inputClass}
-              >
-                <option value="" disabled>Select one…</option>
-                <option value="Project">Project</option>
-                <option value="Proposal">Proposal</option>
-              </select>
+              />
             </div>
 
             {/* Summary */}
