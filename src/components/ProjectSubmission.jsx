@@ -232,8 +232,7 @@ export default function ProjectSubmissionPage() {
                 used, the expected outcomes and potential impact, the types of expertise, resources,
                 or collaborators being sought, and any relevant funding information (current funding,
                 funding source, or funding opportunities, if applicable). Present your project
-                addressing key points. Additional information can be presented as supplementary
-                information via a personal link.
+                addressing key points. The summary should be within the 200-word limit. For supplementary information, please use the field below.
               </p>
               <textarea
                 name="summary"
