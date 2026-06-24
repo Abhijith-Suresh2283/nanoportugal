@@ -248,6 +248,9 @@ export default function ProjectSubmissionPage() {
             {/* Link to Share (optional) */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Link to Share (if any)</label>
+              <p className="text-xs text-gray-400 mb-2">
+                Additional information can be presented as supplementary information via a personal link.
+              </p>
               <input
                 name="share_link"
                 type="url"
