@@ -239,7 +239,7 @@ export default function ProjectSubmissionPage() {
                 value={form.summary}
                 onChange={handleChange}
                 rows={6}
-                placeholder="Describe your project following the points above…"
+                placeholder="Present your project addressing key points. The summary should be within the 200-word limit. For supplementary information, please use the field below."
                 className={`${inputClass} resize-y leading-relaxed`}
               />
             </div>
