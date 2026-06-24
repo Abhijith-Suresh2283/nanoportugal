@@ -32,6 +32,13 @@ export default function ProjectSubmissionPage() {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
+  // Word count for the summary (200-word limit)
+  const SUMMARY_WORD_LIMIT = 200;
+  const SHARE_LINK_MAX = 500;
+  const countWords = (text) => (text.trim() ? text.trim().split(/\s+/).length : 0);
+  const summaryWords = countWords(form.summary);
+  const summaryOverLimit = summaryWords > SUMMARY_WORD_LIMIT;
+
   const addCollab = () => {
     const v = collabInput.trim();
     if (v && !collabCountries.includes(v)) {
@@ -84,6 +91,10 @@ export default function ProjectSubmissionPage() {
       setError('Summary is required.');
       return;
     }
+    if (summaryWords > SUMMARY_WORD_LIMIT) {
+      setError(`Summary must be within ${SUMMARY_WORD_LIMIT} words (currently ${summaryWords}).`);
+      return;
+    }
     if (!form.full_name.trim()) {
       setError('Full name is required.');
       return;
@@ -126,6 +137,10 @@ export default function ProjectSubmissionPage() {
     }
     if (form.share_link && !/^https?:\/\/.+/.test(form.share_link)) {
       setError('Link to share must start with http:// or https://');
+      return;
+    }
+    if (form.share_link && form.share_link.length > SHARE_LINK_MAX) {
+      setError(`Link to share must be ${SHARE_LINK_MAX} characters or fewer.`);
       return;
     }
 
@@ -232,7 +247,8 @@ export default function ProjectSubmissionPage() {
                 used, the expected outcomes and potential impact, the types of expertise, resources,
                 or collaborators being sought, and any relevant funding information (current funding,
                 funding source, or funding opportunities, if applicable). Present your project
-                addressing key points. The summary should be within the 200-word limit. For supplementary information, please use the field below.
+                addressing key points. Additional information can be presented as supplementary
+                information via a personal link.
               </p>
               <textarea
                 name="summary"
@@ -242,6 +258,9 @@ export default function ProjectSubmissionPage() {
                 placeholder="Present your project addressing key points. The summary should be within the 200-word limit. For supplementary information, please use the field below."
                 className={`${inputClass} resize-y leading-relaxed`}
               />
+              <p className={`text-xs mt-1 text-right ${summaryOverLimit ? 'text-red-500' : 'text-gray-400'}`}>
+                {summaryWords} / {SUMMARY_WORD_LIMIT} words
+              </p>
             </div>
 
             {/* Link to Share (optional) */}
@@ -255,6 +274,7 @@ export default function ProjectSubmissionPage() {
                 type="url"
                 value={form.share_link}
                 onChange={handleChange}
+                maxLength={SHARE_LINK_MAX}
                 className={inputClass}
                 placeholder="https://…"
               />
