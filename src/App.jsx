@@ -25,6 +25,7 @@ import SpeakerSubmissionPage from "./components/SpeakerSubmissionPage";
 import SpeakersPage2026 from "./components/Speakers2026";
 import ProjectsAndCollaboration from "./components/ProjectsAndCollaboration";
 import ProjectSubmission from "./components/ProjectSubmission";
+import HomePagedummy from "./components/HomePagedummy";
 
 // 1. Helper component to handle Google Analytics page tracking
 function AnalyticsTracker() {
@@ -71,6 +72,7 @@ function App() {
         <Route path="/speakersubmission" element={<SpeakerSubmissionPage/>} />
         <Route path="/projectsandcollaboration" element={<ProjectsAndCollaboration/>} />
         <Route path="/projectsubmission" element={<ProjectSubmission/>} />
+        <Route path="/dummyhome" element={<HomePagedummy/>} />
       </Routes>
     </Router>
   );

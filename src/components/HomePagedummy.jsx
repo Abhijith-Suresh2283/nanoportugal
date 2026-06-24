@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SEO from "./SEO";
 import PhotoGalleryGrid from "./Gallery";
 import { Helmet } from "react-helmet-async";
-export default function HomePage() {
+export default function HomePagedummy() {
   const navigate = useNavigate();
 
 const handlePageNavigation = (route) => {
