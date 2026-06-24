@@ -32,8 +32,8 @@ export default function ProjectSubmissionPage() {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  // Word count for the summary (200-word limit)
-  const SUMMARY_WORD_LIMIT = 200;
+  // Word count for the summary (1000-word limit)
+  const SUMMARY_WORD_LIMIT = 1000;
   const SHARE_LINK_MAX = 500;
   const countWords = (text) => (text.trim() ? text.trim().split(/\s+/).length : 0);
   const summaryWords = countWords(form.summary);
@@ -255,7 +255,7 @@ export default function ProjectSubmissionPage() {
                 value={form.summary}
                 onChange={handleChange}
                 rows={6}
-                placeholder="Present your project addressing key points. The summary should be within the 200-word limit. For supplementary information, please use the field below."
+                placeholder="Present your project addressing key points. The summary should be within the 1000-word limit. For supplementary information, please use the field below."
                 className={`${inputClass} resize-y leading-relaxed`}
               />
               <p className={`text-xs mt-1 text-right ${summaryOverLimit ? 'text-red-500' : 'text-gray-400'}`}>

@@ -23,10 +23,6 @@ const handlePageNavigation = (route) => {
   
   <div className="relative z-10 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
     {/* NEW badge */}
-    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/20 backdrop-blur-sm rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider">
-      <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
-      New
-    </span>
 
     <span className="text-sm sm:text-base font-light tracking-wide">
       Explore our latest{" "}
@@ -35,7 +31,7 @@ const handlePageNavigation = (route) => {
 
     {/* Arrow */}
     <span className="inline-flex items-center gap-1 text-sm font-medium group-hover:gap-2 transition-all">
-      Discover
+      View
       <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
       </svg>
