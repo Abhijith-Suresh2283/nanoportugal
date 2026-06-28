@@ -1,20 +1,20 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../lib/supabaseClient";
 
 /* =====================================================================
-   PROJECTS & COLLABORATION  —  Atlas (Emerald edition)
+   SCIENCE-NET  —  Landing
    ---------------------------------------------------------------------
-   Same editorial "specimen archive" structure as the original Atlas —
-   serif display, catalogue index numbers, hairline meta — but a fresh,
-   brighter identity: a soft sage paper, deep emerald primary accent,
-   and a warm gold secondary. Distinct from the violet site and from
-   the cobalt/beige original.
-
-   Data: Supabase `projects` table, approved rows only.
+   Atlas (teal) identity. A minimal entry page: the Science-Net title,
+   three large stacked links (Projects, Collaborations, Consortium)
+   that route to placeholder paths to be wired later, and a short
+   descriptive sentence below.
    ===================================================================== */
 
-const PROJECTS_PER_PAGE = 4;
+const LINKS = [
+  { label: "Projects", path: "/projects" },
+  { label: "Collaborations", path: "/collaborations" },
+  { label: "Consortium", path: "/consortium" },
+];
 
 function useReveal() {
   useEffect(() => {
@@ -32,121 +32,14 @@ function useReveal() {
   });
 }
 
-export default function ProjectsAndCollaboration() {
+export default function ScienceNet() {
   const navigate = useNavigate();
-  const [query, setQuery] = useState("");
-  const [searchField, setSearchField] = useState("all");
-  const [activeCountry, setActiveCountry] = useState("All");
-
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [modalProject, setModalProject] = useState(null);
-  const gridRef = useRef(null);
-
-  const SUMMARY_PREVIEW_WORDS = 200;
-  const truncateWords = (text, limit) => {
-    const words = text.trim().split(/\s+/);
-    if (words.length <= limit) return { text, truncated: false };
-    return { text: words.slice(0, limit).join(" ") + "…", truncated: true };
-  };
-
   useReveal();
 
-  useEffect(() => {
-    let active = true;
-    (async () => {
-      setLoading(true);
-      setLoadError("");
-      const { data, error } = await supabase
-        .from("projects")
-        .select("*")
-        .eq("status", "approved")
-        .order("created_at", { ascending: false });
-      if (!active) return;
-      if (error) {
-        setLoadError(error.message || "Could not load projects.");
-        setProjects([]);
-      } else {
-        const mapped = (data || []).map((row) => ({
-          id: row.id,
-          entryType: row.entry_type,
-          title: row.title,
-          summary: row.summary,
-          shareLink: row.share_link,
-          keywords: row.keywords || [],
-          person: row.full_name,
-          affiliation: row.affiliation,
-          country: row.country,
-          url: row.url,
-          leadCountry: row.lead_country,
-          collaborativeCountries: row.collaborative_countries || [],
-          deadline: row.deadline,
-        }));
-        setProjects(mapped);
-      }
-      setLoading(false);
-    })();
-    return () => { active = false; };
-  }, []);
-
-  const countries = useMemo(
-    () => ["All", ...Array.from(new Set(projects.map((p) => p.country).filter(Boolean)))],
-    [projects]
-  );
-
-  const filtered = useMemo(() => {
-    return projects.filter((p) => {
-      const matchesCountry = activeCountry === "All" || p.country === activeCountry;
-      const q = query.trim().toLowerCase();
-
-      let matchesQuery;
-      if (!q) {
-        matchesQuery = true;
-      } else if (searchField === "title") {
-        matchesQuery = !!(p.title && p.title.toLowerCase().includes(q));
-      } else if (searchField === "summary") {
-        matchesQuery = !!(p.summary && p.summary.toLowerCase().includes(q));
-      } else if (searchField === "location") {
-        matchesQuery =
-          !!(p.country && p.country.toLowerCase().includes(q)) ||
-          !!(p.leadCountry && p.leadCountry.toLowerCase().includes(q)) ||
-          (p.collaborativeCountries || []).some((c) => c.toLowerCase().includes(q));
-      } else {
-        // "all" — broad match across every field
-        matchesQuery =
-          (p.entryType && p.entryType.toLowerCase().includes(q)) ||
-          (p.title && p.title.toLowerCase().includes(q)) ||
-          (p.summary && p.summary.toLowerCase().includes(q)) ||
-          (p.person && p.person.toLowerCase().includes(q)) ||
-          (p.affiliation && p.affiliation.toLowerCase().includes(q)) ||
-          (p.country && p.country.toLowerCase().includes(q)) ||
-          (p.leadCountry && p.leadCountry.toLowerCase().includes(q)) ||
-          (p.collaborativeCountries || []).some((c) => c.toLowerCase().includes(q)) ||
-          (p.keywords || []).some((k) => k.toLowerCase().includes(q));
-      }
-      return matchesCountry && matchesQuery;
-    });
-  }, [query, searchField, activeCountry, projects]);
-
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PROJECTS_PER_PAGE));
-  const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
-  const endIndex = startIndex + PROJECTS_PER_PAGE;
-  const currentProjects = filtered.slice(startIndex, endIndex);
-
-  useEffect(() => { if (currentPage > totalPages) setCurrentPage(1); }, [totalPages, currentPage]);
-
-  const scrollToGrid = () => {
-    if (gridRef.current) gridRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    else window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-  const goToPage = (page) => { setCurrentPage(page); scrollToGrid(); };
-  const nextPage = () => { if (currentPage < totalPages) goToPage(currentPage + 1); };
-  const prevPage = () => { if (currentPage > 1) goToPage(currentPage - 1); };
+  const go = (path) => { navigate(path); window.scrollTo({ top: 0, behavior: "smooth" }); };
 
   return (
-    <div className="atlas-root min-h-screen">
+    <div className="atlas-root min-h-screen flex flex-col">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
@@ -157,7 +50,6 @@ export default function ProjectsAndCollaboration() {
           --ink-soft: #50656a;
           --rule: #dceaec;
           --emerald: #0d9488;
-          --emerald-bright: #0d9488;
           --gold: #0891b2;
           --grad: #0d9488;
           background-color: var(--paper-2);
@@ -185,449 +77,96 @@ export default function ProjectsAndCollaboration() {
         .atlas-reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
         .atlas-reveal[data-shown="true"] { opacity: 1; transform: none; }
 
-        .atlas-card { transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; box-shadow: 0 1px 2px rgba(13,148,136,0.05), 0 12px 30px -16px rgba(13,148,136,0.20); }
-        .atlas-card:hover { transform: translateY(-6px); box-shadow: 0 4px 8px rgba(13,148,136,0.10), 0 26px 46px -18px rgba(13,148,136,0.30); border-color: rgba(13,148,136,0.45) !important; }
-        .atlas-link-row { transition: color .25s ease, gap .25s ease; }
-
-        .atlas-summary { overflow-wrap: anywhere; word-break: break-word; }
-        .atlas-clamp { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+        .sn-link {
+          position: relative;
+          width: fit-content;
+          transition: color .3s ease, padding-left .3s ease;
+          color: var(--ink);
+        }
+        .sn-link::after {
+          content: "";
+          position: absolute; left: 0; bottom: -2px;
+          height: 2px; width: 0;
+          background: var(--grad);
+          transition: width .35s ease;
+        }
+        .sn-link:hover { color: var(--emerald); padding-left: 0.75rem; }
+        .sn-link:hover::after { width: 100%; }
+        .sn-arrow { opacity: 0; transform: translateX(-6px); transition: opacity .3s ease, transform .3s ease; }
+        .sn-link:hover .sn-arrow { opacity: 1; transform: translateX(0); }
 
         @media (prefers-reduced-motion: reduce) {
-          .atlas-reveal { transition: none; }
-          .atlas-card:hover { transform: none; }
+          .atlas-reveal, .sn-link, .sn-link::after, .sn-arrow { transition: none; }
         }
-        .atlas-focus:focus-visible { outline: 2px solid var(--emerald); outline-offset: 3px; }
+        .atlas-focus:focus-visible { outline: 2px solid var(--emerald); outline-offset: 4px; }
       `}</style>
 
       {/* ---------- top bar ---------- */}
       <header className="relative z-10 border-b" style={{ borderColor: "var(--rule)" }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
           <button
-            onClick={() => { navigate("/"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+            onClick={() => go("/")}
             className="atlas-mono atlas-focus text-xs uppercase tracking-[0.2em] flex items-center gap-2 hover:opacity-60 transition-opacity"
             style={{ color: "var(--ink-soft)" }}
           >
             <span aria-hidden="true">←</span> ANM 2026 / Home
           </button>
+          <span className="atlas-mono text-xs uppercase tracking-[0.2em]" style={{ color: "var(--ink-soft)" }}>
+            Vol. XXV — Aveiro
+          </span>
         </div>
       </header>
 
-      {/* ---------- masthead ---------- */}
-      <section className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 pt-8 sm:pt-10 pb-12">
-        <p className="atlas-mono atlas-reveal mb-4" data-reveal style={{ color: "var(--emerald)" }}>
-          <span className="text-xs uppercase tracking-[0.3em]">Science-Net</span>
-        </p>
-
+      {/* ---------- main ---------- */}
+      <main className="relative z-10 flex-1 max-w-6xl w-full mx-auto px-5 sm:px-8 pt-12 sm:pt-16 pb-24">
+        {/* Science-Net title */}
         <h1
           className="atlas-reveal font-light leading-[1.05] tracking-tight"
           data-reveal
           style={{ fontSize: "clamp(2.25rem, 6vw, 4.5rem)" }}
         >
-          Projects and <span className="atlas-grad-text" style={{ fontStyle: "italic", fontWeight: 400 }}>Collaboration</span>
+          <span className="atlas-grad-text" style={{ fontStyle: "italic", fontWeight: 400 }}>Science-Net</span>
         </h1>
 
-        {/* <p
-          className="atlas-reveal mt-5 max-w-2xl text-lg sm:text-xl font-light leading-relaxed"
+        {/* three stacked links */}
+        <nav className="mt-12 sm:mt-16 flex flex-col gap-6 sm:gap-8">
+          {LINKS.map((item, i) => (
+            <button
+              key={item.label}
+              onClick={() => go(item.path)}
+              data-reveal
+              className="atlas-reveal sn-link atlas-focus text-left font-light leading-none tracking-tight inline-flex items-center"
+              style={{ fontSize: "clamp(1.75rem, 5vw, 3.25rem)", transitionDelay: `${i * 80}ms` }}
+            >
+              {item.label}
+              <span className="sn-arrow atlas-mono ml-4 text-2xl" style={{ color: "var(--emerald)" }} aria-hidden="true">→</span>
+            </button>
+          ))}
+        </nav>
+
+        {/* descriptive sentence */}
+        <p
+          className="atlas-reveal mt-14 sm:mt-20 max-w-2xl text-lg sm:text-xl font-light leading-relaxed"
           data-reveal
           style={{ color: "var(--ink-soft)" }}
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua.
-        </p> */}
-
-        <div className="atlas-reveal mt-8" data-reveal>
-          <button
-            onClick={() => { navigate("/projectsubmission"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-            className="atlas-mono atlas-focus inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-full text-white transition-transform hover:scale-[1.03]"
-            style={{ background: "var(--grad)" }}
-          >
-            Submit a Project
-            <span aria-hidden="true">→</span>
-          </button>
-        </div>
-      </section>
-
-      {/* ---------- controls ---------- */}
-      <section className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 pb-10">
-        <div
-          className="atlas-reveal flex flex-col md:flex-row gap-4 md:items-center md:justify-between border-y py-5"
-          data-reveal
-          style={{ borderColor: "var(--rule)" }}
-        >
-          <div className="flex flex-1 max-w-xl items-center gap-3">
-            <select
-              value={searchField}
-              onChange={(e) => setSearchField(e.target.value)}
-              aria-label="Search in"
-              className="atlas-mono atlas-focus text-[11px] uppercase tracking-[0.12em] bg-transparent border-b py-2 pr-1 cursor-pointer"
-              style={{ borderColor: "var(--ink)", color: "var(--ink)" }}
-            >
-              <option value="all">All</option>
-              <option value="title">Project Title</option>
-              <option value="summary">Summary</option>
-              <option value="location">Location</option>
-            </select>
-            <div className="relative flex-1">
-              <span className="atlas-mono pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 text-xs" style={{ color: "var(--ink-soft)" }} aria-hidden="true">⌕</span>
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder={
-                  searchField === "title"
-                    ? "Search project titles…"
-                    : searchField === "summary"
-                    ? "Search within summaries…"
-                    : searchField === "location"
-                    ? "Search by country…"
-                    : "Search titles, people, institutions…"
-                }
-                aria-label="Search projects"
-                className="atlas-mono atlas-focus w-full bg-transparent pl-6 pr-2 py-2 text-sm placeholder:opacity-50 border-b"
-                style={{ borderColor: "var(--ink)", color: "var(--ink)" }}
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {countries.map((c) => {
-              const active = c === activeCountry;
-              return (
-                <button
-                  key={c}
-                  onClick={() => setActiveCountry(c)}
-                  className="atlas-mono atlas-focus text-[11px] uppercase tracking-[0.15em] px-3 py-1.5 rounded-full border transition-all"
-                  style={{
-                    borderColor: active ? "transparent" : "var(--rule)",
-                    background: active ? "var(--grad)" : "transparent",
-                    color: active ? "#fff" : "var(--ink-soft)",
-                  }}
-                >
-                  {c}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------- catalogue grid ---------- */}
-      <section ref={gridRef} className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 pb-24">
-        {loading ? (
-          <div className="py-24 text-center">
-            <p className="atlas-mono text-sm uppercase tracking-[0.2em] animate-pulse" style={{ color: "var(--ink-soft)" }}>Loading catalogue…</p>
-          </div>
-        ) : loadError ? (
-          <div className="py-24 text-center">
-            <p className="atlas-mono text-sm uppercase tracking-[0.2em]" style={{ color: "#c0392b" }}>{loadError}</p>
-          </div>
-        ) : filtered.length === 0 ? (
-          <div className="py-24 text-center">
-            <p className="atlas-mono text-sm uppercase tracking-[0.2em]" style={{ color: "var(--ink-soft)" }}>
-              {projects.length === 0 ? "No entries catalogued yet." : "No entries match this filter."}
-            </p>
-            {projects.length === 0 ? (
-              <button
-                onClick={() => { navigate("/projectsubmission"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                className="atlas-mono atlas-focus mt-4 text-xs uppercase tracking-[0.2em] underline"
-                style={{ color: "var(--emerald)" }}
-              >
-                Submit the first project
-              </button>
-            ) : (
-              <button
-                onClick={() => { setQuery(""); setSearchField("all"); setActiveCountry("All"); }}
-                className="atlas-mono atlas-focus mt-4 text-xs uppercase tracking-[0.2em] underline"
-                style={{ color: "var(--emerald)" }}
-              >
-                Reset catalogue
-              </button>
-            )}
-          </div>
-        ) : (
-          <div className="grid sm:grid-cols-2 gap-5">
-            {currentProjects.map((p, i) => (
-              <article
-                key={p.id}
-                data-reveal
-                className="atlas-reveal atlas-card group relative flex flex-col min-w-0 p-7 sm:p-8 border rounded-2xl"
-                style={{
-                  backgroundColor: "var(--paper)",
-                  borderColor: "var(--rule)",
-                  transitionDelay: `${(i % 2) * 80}ms`,
-                }}
-              >
-                <div className="flex items-baseline justify-between mb-5">
-                  <span className="atlas-grad-text atlas-mono text-xs tracking-[0.2em] font-medium">
-                    No. {(startIndex + i + 1).toString().padStart(3, "0")}
-                  </span>
-                  <span className="atlas-mono text-[10px] uppercase tracking-[0.2em]" style={{ color: "var(--ink-soft)" }}>
-                    {p.country}
-                  </span>
-                </div>
-
-                <div className="sm:grid sm:grid-cols-[1.6fr_1fr] sm:gap-8">
-                  {/* main column */}
-                  <div className="flex flex-col min-w-0">
-                    {p.entryType && (
-                      <span
-                        className="atlas-mono self-start text-[10px] uppercase tracking-[0.18em] px-2.5 py-1 rounded-full mb-3"
-                        style={{ color: "var(--emerald)", backgroundColor: "rgba(13,148,136,0.10)", border: "1px solid rgba(13,148,136,0.3)" }}
-                      >
-                        {p.entryType}
-                      </span>
-                    )}
-
-                    <h2 className="text-2xl font-light leading-snug tracking-tight mb-2">
-                      {p.title || p.person}
-                    </h2>
-
-                    <p className="atlas-mono text-[11px] uppercase tracking-[0.12em] mb-4" style={{ color: "var(--ink-soft)" }}>
-                      {p.person}{p.affiliation ? ` · ${p.affiliation}` : ""}
-                    </p>
-
-                    {p.summary && (() => {
-                      const { text, truncated } = truncateWords(p.summary, SUMMARY_PREVIEW_WORDS);
-                      return (
-                        <div className="mb-6 flex-grow">
-                          <p className="atlas-summary text-[15px] font-light leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-                            {text}
-                          </p>
-                          {truncated && (
-                            <button
-                              type="button"
-                              onClick={() => setModalProject(p)}
-                              className="atlas-mono atlas-focus mt-2 text-[10px] uppercase tracking-[0.18em]"
-                              style={{ color: "var(--emerald)" }}
-                            >
-                              View more
-                            </button>
-                          )}
-                        </div>
-                      );
-                    })()}
-
-                    <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2">
-                      {p.shareLink && (
-                        <a
-                          href={p.shareLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="atlas-link-row atlas-mono atlas-focus inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] group-hover:gap-3"
-                          style={{ color: "var(--emerald)" }}
-                        >
-                          Supplementary PDF
-                          <span aria-hidden="true">→</span>
-                        </a>
-                      )}
-
-                      {p.url ? (
-                        <a
-                          href={p.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="atlas-link-row atlas-mono atlas-focus inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] group-hover:gap-3"
-                          style={{ color: "var(--ink)" }}
-                          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--emerald)")}
-                          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--ink)")}
-                        >
-                          View Project
-                          <span aria-hidden="true">→</span>
-                        </a>
-                      ) : (
-                        <span className="atlas-mono text-xs uppercase tracking-[0.2em]" style={{ color: "var(--ink-soft)" }}>No link provided</span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* meta column */}
-                  <dl className="space-y-3 mt-6 sm:mt-0 sm:border-l sm:pl-8" style={{ borderColor: "var(--rule)" }}>
-                    <div className="flex items-baseline justify-between gap-4">
-                      <dt className="atlas-mono text-[10px] uppercase tracking-[0.15em]" style={{ color: "var(--ink-soft)" }}>Lead Country</dt>
-                      <dd className="text-sm text-right">{p.leadCountry || "—"}</dd>
-                    </div>
-                    <div className="border-t pt-3" style={{ borderColor: "var(--rule)" }}>
-                      <dt className="atlas-mono text-[10px] uppercase tracking-[0.15em] mb-2" style={{ color: "var(--ink-soft)" }}>Collaborating Countries</dt>
-                      <dd className="flex flex-wrap gap-1.5">
-                        {p.collaborativeCountries && p.collaborativeCountries.length > 0 ? (
-                          p.collaborativeCountries.map((c) => (
-                            <span key={c} className="atlas-mono text-[10px] uppercase tracking-[0.1em] px-2 py-1 rounded-full border"
-                              style={{ borderColor: "rgba(8,145,178,0.35)", color: "#0e7490", backgroundColor: "rgba(8,145,178,0.08)" }}>
-                              {c}
-                            </span>
-                          ))
-                        ) : (
-                          <span className="text-sm" style={{ color: "var(--ink-soft)" }}>—</span>
-                        )}
-                      </dd>
-                    </div>
-                    {p.deadline && (
-                      <div className="flex items-baseline justify-between gap-3 border-t pt-3" style={{ borderColor: "var(--rule)" }}>
-                        <dt className="atlas-mono text-[10px] uppercase tracking-[0.15em]" style={{ color: "var(--ink-soft)" }}>Deadline</dt>
-                        <dd className="atlas-mono text-xs text-right whitespace-nowrap">{p.deadline}</dd>
-                      </div>
-                    )}
-                    {p.keywords && p.keywords.length > 0 && (
-                      <div className="border-t pt-3" style={{ borderColor: "var(--rule)" }}>
-                        <dt className="atlas-mono text-[10px] uppercase tracking-[0.15em] mb-2" style={{ color: "var(--ink-soft)" }}>Keywords</dt>
-                        <dd className="flex flex-wrap gap-1.5">
-                          {p.keywords.map((k) => (
-                            <span key={k} className="atlas-mono text-[10px] uppercase tracking-[0.1em] px-2 py-1 rounded-full border"
-                              style={{ borderColor: "rgba(13,148,136,0.3)", color: "var(--emerald)", backgroundColor: "rgba(13,148,136,0.06)" }}>
-                              {k}
-                            </span>
-                          ))}
-                        </dd>
-                      </div>
-                    )}
-                  </dl>
-                </div>
-
-                <span
-                  className="pointer-events-none absolute bottom-0 left-0 h-[3px] w-0 group-hover:w-full transition-all duration-500"
-                  style={{ background: "var(--grad)" }}
-                  aria-hidden="true"
-                />
-              </article>
-            ))}
-          </div>
-        )}
-
-        {/* ---------- pagination ---------- */}
-        {!loading && !loadError && totalPages > 1 && (
-          <div className="mt-12 flex flex-col items-center gap-5">
-            <div className="flex items-center gap-2 flex-wrap justify-center">
-              <button
-                onClick={prevPage}
-                disabled={currentPage === 1}
-                className="atlas-mono atlas-focus text-[11px] uppercase tracking-[0.18em] px-4 py-2 rounded-full border transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                style={{ borderColor: "var(--rule)", color: "var(--ink-soft)" }}
-              >
-                ← Prev
-              </button>
-              {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => {
-                const active = page === currentPage;
-                return (
-                  <button
-                    key={page}
-                    onClick={() => goToPage(page)}
-                    aria-current={active ? "page" : undefined}
-                    className="atlas-mono atlas-focus text-[11px] tracking-[0.15em] w-9 h-9 rounded-full border transition-all"
-                    style={{
-                      borderColor: active ? "transparent" : "var(--rule)",
-                      background: active ? "var(--grad)" : "transparent",
-                      color: active ? "#fff" : "var(--ink-soft)",
-                    }}
-                  >
-                    {page.toString().padStart(2, "0")}
-                  </button>
-                );
-              })}
-              <button
-                onClick={nextPage}
-                disabled={currentPage === totalPages}
-                className="atlas-mono atlas-focus text-[11px] uppercase tracking-[0.18em] px-4 py-2 rounded-full border transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                style={{ borderColor: "var(--rule)", color: "var(--ink-soft)" }}
-              >
-                Next →
-              </button>
-            </div>
-            <p className="atlas-mono text-[10px] uppercase tracking-[0.2em]" style={{ color: "var(--ink-soft)" }}>
-              Showing {(startIndex + 1).toString().padStart(2, "0")}–
-              {Math.min(endIndex, filtered.length).toString().padStart(2, "0")} of{" "}
-              {filtered.length.toString().padStart(2, "0")}
-            </p>
-          </div>
-        )}
-      </section>
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris.
+        </p>
+      </main>
 
       {/* ---------- footer ---------- */}
       <footer className="relative z-10 border-t" style={{ borderColor: "var(--rule)", backgroundColor: "var(--paper-2)" }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
           <p className="font-light italic text-lg">
-            Projects &amp; <span className="atlas-grad-text">Collaborations.</span>
+            <span className="atlas-grad-text">Science-Net</span>
           </p>
           <p className="atlas-mono text-[11px] uppercase tracking-[0.2em]" style={{ color: "var(--ink-soft)" }}>
             ANM 2026 — University of Aveiro, Portugal
           </p>
         </div>
       </footer>
-
-      {/* ---------- summary modal ---------- */}
-      {modalProject && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8"
-          style={{ background: "rgba(13,27,30,0.55)", backdropFilter: "blur(3px)" }}
-          onClick={() => setModalProject(null)}
-        >
-          <div
-            className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl"
-            style={{ backgroundColor: "var(--paper)", border: "1px solid var(--rule)", boxShadow: "0 30px 60px -20px rgba(13,148,136,0.4)" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="h-1" style={{ background: "var(--grad)" }} />
-            <div className="p-7 sm:p-9">
-              <div className="flex items-start justify-between gap-4 mb-2">
-                {modalProject.entryType && (
-                  <span
-                    className="atlas-mono text-[10px] uppercase tracking-[0.18em] px-2.5 py-1 rounded-full"
-                    style={{ color: "var(--emerald)", backgroundColor: "rgba(13,148,136,0.10)", border: "1px solid rgba(13,148,136,0.3)" }}
-                  >
-                    {modalProject.entryType}
-                  </span>
-                )}
-                <button
-                  type="button"
-                  onClick={() => setModalProject(null)}
-                  aria-label="Close"
-                  className="atlas-focus shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-lg leading-none transition-colors"
-                  style={{ color: "var(--ink-soft)", border: "1px solid var(--rule)" }}
-                >
-                  ✕
-                </button>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl font-light leading-snug tracking-tight mb-1" style={{ color: "var(--ink)" }}>
-                {modalProject.title || modalProject.person}
-              </h2>
-              <p className="atlas-mono text-[11px] uppercase tracking-[0.12em] mb-5" style={{ color: "var(--ink-soft)" }}>
-                {modalProject.person}{modalProject.affiliation ? ` · ${modalProject.affiliation}` : ""}
-              </p>
-
-              <p className="atlas-summary text-[15px] font-light leading-relaxed whitespace-pre-line" style={{ color: "var(--ink-soft)" }}>
-                {modalProject.summary}
-              </p>
-
-              {((modalProject.keywords && modalProject.keywords.length > 0) || modalProject.shareLink) && (
-                <div className="mt-6 pt-5 border-t" style={{ borderColor: "var(--rule)" }}>
-                  {modalProject.keywords && modalProject.keywords.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {modalProject.keywords.map((k) => (
-                        <span key={k} className="atlas-mono text-[10px] uppercase tracking-[0.1em] px-2 py-1 rounded-full border"
-                          style={{ borderColor: "rgba(13,148,136,0.3)", color: "var(--emerald)", backgroundColor: "rgba(13,148,136,0.06)" }}>
-                          {k}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  {modalProject.shareLink && (
-                    <a
-                      href={modalProject.shareLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="atlas-mono atlas-focus inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em]"
-                      style={{ color: "var(--emerald)" }}
-                    >
-                      Supplementary PDF
-                      <span aria-hidden="true">→</span>
-                    </a>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
