@@ -418,7 +418,7 @@ export default function ProjectsAndCollaboration() {
                           className="atlas-link-row atlas-mono atlas-focus inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] group-hover:gap-3"
                           style={{ color: "var(--emerald)" }}
                         >
-                          Shared Link
+                          Supplementary PDF
                           <span aria-hidden="true">→</span>
                         </a>
                       )}
@@ -433,7 +433,7 @@ export default function ProjectsAndCollaboration() {
                           onMouseEnter={(e) => (e.currentTarget.style.color = "var(--emerald)")}
                           onMouseLeave={(e) => (e.currentTarget.style.color = "var(--ink)")}
                         >
-                          View Project
+                          View Institution
                           <span aria-hidden="true">→</span>
                         </a>
                       ) : (
@@ -620,7 +620,7 @@ export default function ProjectsAndCollaboration() {
                       className="atlas-mono atlas-focus inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em]"
                       style={{ color: "var(--emerald)" }}
                     >
-                      Shared Link
+                      Supplementary PDF
                       <span aria-hidden="true">→</span>
                     </a>
                   )}

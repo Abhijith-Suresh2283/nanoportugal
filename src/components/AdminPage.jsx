@@ -561,15 +561,30 @@ export default function AdminPage() {
                       />
                     </div>
 
-                    {/* Link to Share (optional) */}
+                    {/* Supplementary Information (one-page PDF) */}
                     <div>
-                      <label className="block text-xs font-medium text-gray-500 mb-1">Link to Share (if any)</label>
-                      <input
-                        value={projectForm.share_link || ''}
-                        placeholder="https://…"
-                        onChange={(e) => setProjectForm({ ...projectForm, share_link: e.target.value })}
-                        className="w-full px-3 py-2 rounded-lg border border-violet-200"
-                      />
+                      <label className="block text-xs font-medium text-gray-500 mb-1">Supplementary Information</label>
+                      {projectForm.share_link ? (
+                        <div className="flex items-center gap-3 flex-wrap">
+                          <a
+                            href={projectForm.share_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-violet-600 underline break-all"
+                          >
+                            View PDF
+                          </a>
+                          <button
+                            type="button"
+                            onClick={() => setProjectForm({ ...projectForm, share_link: '' })}
+                            className="text-xs px-3 py-1.5 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      ) : (
+                        <p className="text-xs text-gray-400">No supplementary PDF uploaded.</p>
+                      )}
                     </div>
 
                     {[
@@ -786,7 +801,7 @@ export default function AdminPage() {
                             rel="noopener noreferrer"
                             className="text-violet-600 underline"
                           >
-                            Shared link
+                            Supplementary PDF
                           </a>
                         )}
                       </div>

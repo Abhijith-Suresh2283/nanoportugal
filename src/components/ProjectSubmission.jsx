@@ -3,12 +3,16 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
+// Supplementary PDF settings
+const SUPP_BUCKET = 'project-files  ';
+const SUPP_MAX_BYTES = 1 * 1024 * 1024; // 1 MB
+
 export default function ProjectSubmissionPage() {
   const [form, setForm] = useState({
     entry_type: '',
     title: '',
     summary: '',
-    share_link: '',
+    share_link: '', // stores the uploaded supplementary PDF URL
     full_name: '',
     email: '',
     affiliation: '',
@@ -26,6 +30,11 @@ export default function ProjectSubmissionPage() {
   const [keywords, setKeywords] = useState([]);
   const [keywordInput, setKeywordInput] = useState('');
 
+  // Supplementary PDF upload state
+  const [suppUploading, setSuppUploading] = useState(false);
+  const [suppError, setSuppError] = useState(null);
+  const [suppName, setSuppName] = useState('');
+
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState(null);
@@ -34,7 +43,6 @@ export default function ProjectSubmissionPage() {
 
   // Word count for the summary (1000-word limit)
   const SUMMARY_WORD_LIMIT = 1000;
-  const SHARE_LINK_MAX = 500;
   const countWords = (text) => (text.trim() ? text.trim().split(/\s+/).length : 0);
   const summaryWords = countWords(form.summary);
   const summaryOverLimit = summaryWords > SUMMARY_WORD_LIMIT;
@@ -76,6 +84,78 @@ export default function ProjectSubmissionPage() {
       addKeyword();
     }
   };
+
+  // Count pages of a PDF using pdf.js (loaded on demand from CDN)
+  async function getPdfPageCount(file) {
+    if (!window.pdfjsLib) {
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+        s.onload = resolve;
+        s.onerror = () => reject(new Error('Could not load the PDF reader.'));
+        document.head.appendChild(s);
+      });
+      if (window.pdfjsLib) {
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+          'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      }
+    }
+    const buf = await file.arrayBuffer();
+    const pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
+    return pdf.numPages;
+  }
+
+  async function handleSuppUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setSuppError(null);
+
+    // type
+    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+      setSuppError('Supplementary information must be a PDF file.');
+      e.target.value = '';
+      return;
+    }
+    // size
+    if (file.size > SUPP_MAX_BYTES) {
+      setSuppError(`File is too large (${(file.size / 1024 / 1024).toFixed(2)} MB). Maximum is 1 MB.`);
+      e.target.value = '';
+      return;
+    }
+
+    setSuppUploading(true);
+    try {
+      // one-page enforcement
+      const pages = await getPdfPageCount(file);
+      if (pages !== 1) {
+        setSuppError(`The PDF must be exactly one page (this file has ${pages} pages).`);
+        e.target.value = '';
+        setSuppUploading(false);
+        return;
+      }
+
+      const path = `supplementary/${Date.now()}-${Math.random().toString(36).slice(2)}.pdf`;
+      const { error: upErr } = await supabase.storage.from(SUPP_BUCKET).upload(path, file, {
+        contentType: 'application/pdf',
+      });
+      if (upErr) throw upErr;
+      const { data } = supabase.storage.from(SUPP_BUCKET).getPublicUrl(path);
+      setForm((f) => ({ ...f, share_link: data.publicUrl }));
+      setSuppName(file.name);
+    } catch (err) {
+      setSuppError('Upload failed: ' + err.message);
+      e.target.value = '';
+    } finally {
+      setSuppUploading(false);
+    }
+  }
+
+  function removeSupp() {
+    setForm((f) => ({ ...f, share_link: '' }));
+    setSuppName('');
+    setSuppError(null);
+  }
 
   async function handleSubmit() {
     // ---- required fields (sequential, one message at a time) ----
@@ -135,12 +215,8 @@ export default function ProjectSubmissionPage() {
       setError('Please add at least one expected collaborative country.');
       return;
     }
-    if (form.share_link && !/^https?:\/\/.+/.test(form.share_link)) {
-      setError('Link to share must start with http:// or https://');
-      return;
-    }
-    if (form.share_link && form.share_link.length > SHARE_LINK_MAX) {
-      setError(`Link to share must be ${SHARE_LINK_MAX} characters or fewer.`);
+    if (suppUploading) {
+      setError('Please wait for the supplementary file to finish uploading.');
       return;
     }
 
@@ -263,21 +339,42 @@ export default function ProjectSubmissionPage() {
               </p>
             </div>
 
-            {/* Link to Share (optional) */}
+            {/* Supplementary Information (optional, one-page PDF, max 1 MB) */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Link to Share (if any)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Supplementary Information</label>
               <p className="text-xs text-gray-400 mb-2">
-                Additional information can be presented as supplementary information via a personal link.
+                Optional. Upload a single-page PDF (max 1 MB) with any additional information.
               </p>
-              <input
-                name="share_link"
-                type="url"
-                value={form.share_link}
-                onChange={handleChange}
-                maxLength={SHARE_LINK_MAX}
-                className={inputClass}
-                placeholder="https://…"
-              />
+
+              {form.share_link ? (
+                <div className="flex items-center gap-3 flex-wrap">
+                  <a
+                    href={form.share_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-violet-600 underline break-all"
+                  >
+                    {suppName || 'View uploaded PDF'}
+                  </a>
+                  <button
+                    type="button"
+                    onClick={removeSupp}
+                    className="text-xs px-3 py-1.5 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ) : (
+                <input
+                  type="file"
+                  accept="application/pdf,.pdf"
+                  onChange={handleSuppUpload}
+                  disabled={suppUploading}
+                  className="block w-full text-sm text-gray-600 file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-violet-100 file:text-violet-700 hover:file:bg-violet-200 disabled:opacity-50"
+                />
+              )}
+              {suppUploading && <p className="text-xs text-violet-500 mt-1">Uploading…</p>}
+              {suppError && <p className="text-xs text-red-500 mt-1">{suppError}</p>}
             </div>
 
             {/* Keywords (up to 5) */}
