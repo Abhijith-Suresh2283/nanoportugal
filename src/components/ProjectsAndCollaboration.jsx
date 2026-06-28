@@ -209,43 +209,41 @@ export default function ProjectsAndCollaboration() {
           >
             <span aria-hidden="true">←</span> ANM 2026 / Home
           </button>
-          <span className="atlas-mono text-xs uppercase tracking-[0.2em]" style={{ color: "var(--ink-soft)" }}>
-            Vol. XXV — Aveiro
-          </span>
         </div>
       </header>
 
       {/* ---------- masthead ---------- */}
-      <section className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-12">
-        <p className="atlas-mono atlas-reveal" data-reveal style={{ color: "var(--emerald)" }}>
-          <span className="text-xs uppercase tracking-[0.3em]">Index — Research &amp; Collaboration</span>
+      <section className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 pt-8 sm:pt-10 pb-12">
+        <p className="atlas-mono atlas-reveal mb-4" data-reveal style={{ color: "var(--emerald)" }}>
+          <span className="text-xs uppercase tracking-[0.3em]">Science-Net</span>
         </p>
 
         <h1
-          className="atlas-reveal mt-5 font-light leading-[0.95] tracking-tight"
+          className="atlas-reveal font-light leading-[1.05] tracking-tight"
           data-reveal
-          style={{ fontSize: "clamp(2.75rem, 8vw, 6.5rem)" }}
+          style={{ fontSize: "clamp(2.25rem, 6vw, 4.5rem)" }}
         >
-          Projects &amp;
-          <br />
-          <span className="atlas-grad-text" style={{ fontStyle: "italic", fontWeight: 400 }}>Collaborations.</span>
+          Projects and <span className="atlas-grad-text" style={{ fontStyle: "italic", fontWeight: 400 }}>Collaboration</span>
         </h1>
 
-        <div
-          className="atlas-reveal mt-8 grid sm:grid-cols-[1fr_auto] gap-6 items-end border-t pt-6"
+        {/* <p
+          className="atlas-reveal mt-5 max-w-2xl text-lg sm:text-xl font-light leading-relaxed"
           data-reveal
-          style={{ borderColor: "var(--rule)" }}
+          style={{ color: "var(--ink-soft)" }}
         >
-          <p className="max-w-xl text-lg sm:text-xl font-light leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-            A living catalogue of research and partnerships presented across the
-            conference — each entry a specimen of work advancing nanomaterials
-            and energy science worldwide.
-          </p>
-          <p className="atlas-mono text-xs uppercase tracking-[0.2em] sm:text-right" style={{ color: "var(--ink-soft)" }}>
-            {projects.length.toString().padStart(2, "0")} Entries
-            <br />
-            {Math.max(0, countries.length - 1)} Countries
-          </p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua.
+        </p> */}
+
+        <div className="atlas-reveal mt-8" data-reveal>
+          <button
+            onClick={() => { navigate("/projectsubmission"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+            className="atlas-mono atlas-focus inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-full text-white transition-transform hover:scale-[1.03]"
+            style={{ background: "var(--grad)" }}
+          >
+            Submit a Project
+            <span aria-hidden="true">→</span>
+          </button>
         </div>
       </section>
 
@@ -433,7 +431,7 @@ export default function ProjectsAndCollaboration() {
                           onMouseEnter={(e) => (e.currentTarget.style.color = "var(--emerald)")}
                           onMouseLeave={(e) => (e.currentTarget.style.color = "var(--ink)")}
                         >
-                          View Institution
+                          View Project
                           <span aria-hidden="true">→</span>
                         </a>
                       ) : (
