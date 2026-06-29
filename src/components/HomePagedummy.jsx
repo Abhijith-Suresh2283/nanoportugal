@@ -25,7 +25,6 @@ const handlePageNavigation = (route) => {
     {/* NEW badge */}
 
     <span className="text-sm sm:text-base font-light tracking-wide">
-      Explore our latest{" "}
       <span className="font-semibold">Projects & Collaborations</span>
     </span>
 
