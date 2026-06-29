@@ -128,6 +128,14 @@ export default function ScienceNet() {
           <span className="atlas-grad-text" style={{ fontStyle: "italic", fontWeight: 400 }}>Science-Net</span>
         </h1>
 
+        <p
+          className="atlas-reveal mt-3 atlas-mono text-sm sm:text-base uppercase tracking-[0.18em]"
+          data-reveal
+          style={{ color: "var(--ink-soft)" }}
+        >
+          Connect, Collaborate, Innovate and more…
+        </p>
+
         {/* three stacked links */}
         <nav className="mt-12 sm:mt-16 flex flex-col gap-6 sm:gap-8">
           {LINKS.map((item, i) => (
@@ -150,9 +158,9 @@ export default function ScienceNet() {
           data-reveal
           style={{ color: "var(--ink-soft)" }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris.
+          Science-Net is a unique platform for researchers, academics, industry
+          professionals, and innovators to showcase their projects and build
+          meaningful collaborations.
         </p>
       </main>
 
