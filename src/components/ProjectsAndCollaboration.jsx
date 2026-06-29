@@ -263,7 +263,7 @@ export default function ProjectsAndCollaboration() {
 
       {/* ===== Project display grid temporarily disabled =====
            Set the `false` below to `true` (or remove the wrapper) to re-enable. */}
-      {true && (
+      {false && (
       <>
       {/* ---------- controls ---------- */}
       <section className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 pb-10">
