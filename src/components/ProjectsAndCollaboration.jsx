@@ -10,12 +10,6 @@ import { useNavigate } from "react-router-dom";
    descriptive sentence below.
    ===================================================================== */
 
-const LINKS = [
-  { label: "Projects", path: "/projects" },
-  { label: "Collaborations", path: "/collaborations" },
-  { label: "Consortium", path: "/consortium" },
-];
-
 function useReveal() {
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -77,26 +71,8 @@ export default function ScienceNet() {
         .atlas-reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
         .atlas-reveal[data-shown="true"] { opacity: 1; transform: none; }
 
-        .sn-link {
-          position: relative;
-          width: fit-content;
-          transition: color .3s ease, padding-left .3s ease;
-          color: var(--ink);
-        }
-        .sn-link::after {
-          content: "";
-          position: absolute; left: 0; bottom: -2px;
-          height: 2px; width: 0;
-          background: var(--grad);
-          transition: width .35s ease;
-        }
-        .sn-link:hover { color: var(--emerald); padding-left: 0.75rem; }
-        .sn-link:hover::after { width: 100%; }
-        .sn-arrow { opacity: 0; transform: translateX(-6px); transition: opacity .3s ease, transform .3s ease; }
-        .sn-link:hover .sn-arrow { opacity: 1; transform: translateX(0); }
-
         @media (prefers-reduced-motion: reduce) {
-          .atlas-reveal, .sn-link, .sn-link::after, .sn-arrow { transition: none; }
+          .atlas-reveal { transition: none; }
         }
         .atlas-focus:focus-visible { outline: 2px solid var(--emerald); outline-offset: 4px; }
       `}</style>
@@ -118,7 +94,7 @@ export default function ScienceNet() {
       </header>
 
       {/* ---------- main ---------- */}
-      <main className="relative z-10 flex-1 max-w-6xl w-full mx-auto px-5 sm:px-8 pt-12 sm:pt-16 pb-24">
+      <main className="relative z-10 flex-1 max-w-4xl w-full mx-auto px-5 sm:px-8 py-16 flex flex-col items-center justify-center text-center">
         {/* Science-Net title */}
         <h1
           className="atlas-reveal font-light leading-[1.05] tracking-tight"
@@ -131,30 +107,31 @@ export default function ScienceNet() {
         <p
           className="atlas-reveal mt-3 atlas-mono text-sm sm:text-base uppercase tracking-[0.18em]"
           data-reveal
-          style={{ color: "var(--ink-soft)" }}
+          style={{ color: "#000000" }}
         >
           Connect, Collaborate, Innovate and more…
         </p>
 
-        {/* three stacked links */}
-        <nav className="mt-12 sm:mt-16 flex flex-col gap-6 sm:gap-8">
-          {LINKS.map((item, i) => (
-            <button
-              key={item.label}
-              onClick={() => go(item.path)}
-              data-reveal
-              className="atlas-reveal sn-link atlas-focus text-left font-light leading-none tracking-tight inline-flex items-center"
-              style={{ fontSize: "clamp(1.75rem, 5vw, 3.25rem)", transitionDelay: `${i * 80}ms` }}
-            >
-              {item.label}
-              <span className="sn-arrow atlas-mono ml-4 text-2xl" style={{ color: "var(--emerald)" }} aria-hidden="true">→</span>
-            </button>
-          ))}
-        </nav>
+        {/* three items on a single line */}
+        <p
+          className="atlas-reveal mt-10 sm:mt-12 font-light leading-tight tracking-tight flex flex-wrap items-center justify-center gap-x-4 gap-y-2"
+          data-reveal
+          style={{ fontSize: "clamp(1.25rem, 3vw, 2rem)" }}
+        >
+          <span>Projects</span>
+          <span style={{ color: "var(--emerald)" }} aria-hidden="true">·</span>
+          <span>Collaborations</span>
+          <span style={{ color: "var(--emerald)" }} aria-hidden="true">·</span>
+          <span>Consortium</span>
+          <span style={{ color: "var(--emerald)" }} aria-hidden="true">·</span>
+          <span>Exhibition</span>
+          <span style={{ color: "var(--emerald)" }} aria-hidden="true">·</span>
+          <span>Job Listings</span>
+        </p>
 
         {/* descriptive sentence */}
         <p
-          className="atlas-reveal mt-14 sm:mt-20 max-w-2xl text-lg sm:text-xl font-light leading-relaxed"
+          className="atlas-reveal mt-10 sm:mt-12 max-w-2xl text-lg sm:text-xl font-light leading-relaxed"
           data-reveal
           style={{ color: "var(--ink-soft)" }}
         >
