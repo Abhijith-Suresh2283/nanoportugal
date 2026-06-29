@@ -299,17 +299,6 @@ export default function ProjectSubmissionPage() {
           <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400" />
           <div className="p-8 space-y-5">
 
-            {/* Project Title */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Project Title *</label>
-              <input
-                name="title"
-                value={form.title}
-                onChange={handleChange}
-                className={inputClass}
-              />
-            </div>
-
             {/* Project Type */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Project Type *</label>
@@ -324,6 +313,17 @@ export default function ProjectSubmissionPage() {
                   <option key={t} value={t}>{t}</option>
                 ))}
               </select>
+            </div>
+
+            {/* Project Title */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project Title *</label>
+              <input
+                name="title"
+                value={form.title}
+                onChange={handleChange}
+                className={inputClass}
+              />
             </div>
 
             {/* Summary */}
