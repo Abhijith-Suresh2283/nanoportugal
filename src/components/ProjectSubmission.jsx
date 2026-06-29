@@ -17,6 +17,7 @@ export default function ProjectSubmissionPage() {
     summary: '',
     share_link: '', // stores the uploaded supplementary PDF URL
     full_name: '',
+    hide_name: false,
     email: '',
     hide_email: false,
     affiliation: '',
@@ -235,6 +236,7 @@ export default function ProjectSubmissionPage() {
           share_link: form.share_link || null,
           keywords: keywords,
           full_name: form.full_name,
+          hide_name: form.hide_name,
           email: form.email,
           hide_email: form.hide_email,
           affiliation: form.affiliation,
@@ -449,6 +451,19 @@ export default function ProjectSubmissionPage() {
                 className={inputClass}
                 placeholder="Dr. FirstName LastName"
               />
+              <label className="flex items-center gap-2 mt-2 text-sm text-gray-600 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  name="hide_name"
+                  checked={form.hide_name}
+                  onChange={(e) => setForm({ ...form, hide_name: e.target.checked })}
+                  className="h-4 w-4 rounded border-violet-300 text-violet-600 focus:ring-violet-400"
+                />
+                Hide name
+              </label>
+              <p className="text-xs text-gray-400 mt-1">
+                If checked, your name will not be shown on the public Projects and Collaboration page.
+              </p>
             </div>
 
             {/* Email */}
@@ -470,7 +485,7 @@ export default function ProjectSubmissionPage() {
                   onChange={(e) => setForm({ ...form, hide_email: e.target.checked })}
                   className="h-4 w-4 rounded border-violet-300 text-violet-600 focus:ring-violet-400"
                 />
-                Hide on display
+                Hide email
               </label>
               <p className="text-xs text-gray-400 mt-1">
                 If checked, your email will not be shown on the public Projects and Collaboration page.

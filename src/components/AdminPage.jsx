@@ -330,7 +330,7 @@ export default function AdminPage() {
   async function saveProjectEdit() {
     const {
       id, entry_type, title, summary, share_link, keywords, full_name, email: pEmail, affiliation, country,
-      url, deadline, lead_country, collaborative_countries, status,
+      url, deadline, lead_country, collaborative_countries, status, hide_name, hide_email,
     } = projectForm;
     await supabase
       .from('projects')
@@ -342,6 +342,8 @@ export default function AdminPage() {
         keywords: keywords || [],
         full_name,
         email: pEmail,
+        hide_name: !!hide_name,
+        hide_email: !!hide_email,
         affiliation,
         country,
         url: url || null,
@@ -524,17 +526,20 @@ export default function AdminPage() {
               >
                 {editingProject === p.id ? (
                   <div className="space-y-3">
-                    {/* Project / Proposal */}
+                    {/* Project Type */}
                     <div>
-                      <label className="block text-xs font-medium text-gray-500 mb-1">Project/Proposal</label>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">Project Type</label>
                       <select
                         value={projectForm.entry_type || ''}
                         onChange={(e) => setProjectForm({ ...projectForm, entry_type: e.target.value })}
                         className="w-full px-3 py-2 rounded-lg border border-violet-200"
                       >
                         <option value="" disabled>Select one…</option>
-                        <option value="Project">Project</option>
-                        <option value="Proposal">Proposal</option>
+                        <option value="Projects">Projects</option>
+                        <option value="Collaborations">Collaborations</option>
+                        <option value="Consortium">Consortium</option>
+                        <option value="Exhibition">Exhibition</option>
+                        <option value="Jobs">Jobs</option>
                       </select>
                     </div>
 
@@ -605,6 +610,28 @@ export default function AdminPage() {
                         />
                       </div>
                     ))}
+
+                    {/* Privacy toggles */}
+                    <div className="flex flex-wrap gap-x-6 gap-y-2">
+                      <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer select-none">
+                        <input
+                          type="checkbox"
+                          checked={!!projectForm.hide_name}
+                          onChange={(e) => setProjectForm({ ...projectForm, hide_name: e.target.checked })}
+                          className="h-4 w-4 rounded border-violet-300 text-violet-600 focus:ring-violet-400"
+                        />
+                        Hide name on display
+                      </label>
+                      <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer select-none">
+                        <input
+                          type="checkbox"
+                          checked={!!projectForm.hide_email}
+                          onChange={(e) => setProjectForm({ ...projectForm, hide_email: e.target.checked })}
+                          className="h-4 w-4 rounded border-violet-300 text-violet-600 focus:ring-violet-400"
+                        />
+                        Hide email on display
+                      </label>
+                    </div>
 
                     {/* Deadline */}
                     <div>
@@ -761,7 +788,9 @@ export default function AdminPage() {
                         )}
                       </p>
                       <p className="text-sm text-gray-600">
-                        {p.full_name}{p.affiliation ? ` — ${p.affiliation}` : ''}{p.country ? ` — ${p.country}` : ''}
+                        {p.full_name}
+                        {p.hide_name && <span className="ml-1 text-[10px] px-1.5 py-0.5 rounded-full bg-gray-200 text-gray-500 align-middle">name hidden</span>}
+                        {p.affiliation ? ` — ${p.affiliation}` : ''}{p.country ? ` — ${p.country}` : ''}
                       </p>
                       {p.summary && (
                         <p className="text-sm text-gray-500 mt-2 leading-relaxed">
@@ -783,7 +812,12 @@ export default function AdminPage() {
                         </p>
                       )}
                       <div className="flex gap-3 mt-1 text-xs">
-                        {p.email && <span className="text-gray-500">{p.email}</span>}
+                        {p.email && (
+                          <span className="text-gray-500">
+                            {p.email}
+                            {p.hide_email && <span className="ml-1 text-[10px] px-1.5 py-0.5 rounded-full bg-gray-200 text-gray-500">hidden</span>}
+                          </span>
+                        )}
                         {p.url && (
                           <a
                             href={p.url}
