@@ -462,7 +462,7 @@ export default function ProjectSubmissionPage() {
                 Hide name
               </label>
               <p className="text-xs text-gray-400 mt-1">
-                If checked, your name will not be shown on the public Projects and Collaboration page.
+                If checked, your name will not be shown to the public.
               </p>
             </div>
 
@@ -488,7 +488,7 @@ export default function ProjectSubmissionPage() {
                 Hide email
               </label>
               <p className="text-xs text-gray-400 mt-1">
-                If checked, your email will not be shown on the public Projects and Collaboration page.
+                If checked, your email will not be shown to the public.
               </p>
             </div>
 
