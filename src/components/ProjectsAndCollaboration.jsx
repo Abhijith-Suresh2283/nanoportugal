@@ -226,7 +226,7 @@ export default function ProjectsAndCollaboration() {
         <p
           className="atlas-reveal mt-4 font-light leading-tight tracking-tight flex items-center justify-center gap-x-3 sm:gap-x-4 whitespace-nowrap"
           data-reveal
-          style={{ fontSize: "clamp(0.95rem, 2.6vw, 2rem)" }}
+          style={{ fontSize: "clamp(0.95rem, 2.6vw, 1.5rem)" }}
         >
           <span>Projects</span>
           <span style={{ color: "var(--emerald)" }} aria-hidden="true">·</span>
