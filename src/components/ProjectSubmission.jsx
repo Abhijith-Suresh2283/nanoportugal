@@ -4,8 +4,11 @@ import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
 // Supplementary PDF settings
-const SUPP_BUCKET = 'project-files  ';
+const SUPP_BUCKET = 'project-files';
 const SUPP_MAX_BYTES = 1 * 1024 * 1024; // 1 MB
+
+// Project Type options
+const PROJECT_TYPES = ['Projects', 'Collaborations', 'Consortium', 'Exhibition', 'Jobs'];
 
 export default function ProjectSubmissionPage() {
   const [form, setForm] = useState({
@@ -15,6 +18,7 @@ export default function ProjectSubmissionPage() {
     share_link: '', // stores the uploaded supplementary PDF URL
     full_name: '',
     email: '',
+    hide_email: false,
     affiliation: '',
     country: '',
     url: '',
@@ -232,6 +236,7 @@ export default function ProjectSubmissionPage() {
           keywords: keywords,
           full_name: form.full_name,
           email: form.email,
+          hide_email: form.hide_email,
           affiliation: form.affiliation,
           country: form.country,
           url: form.url,
@@ -306,12 +311,17 @@ export default function ProjectSubmissionPage() {
             {/* Project Type */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Project Type *</label>
-              <input
+              <select
                 name="entry_type"
                 value={form.entry_type}
                 onChange={handleChange}
                 className={inputClass}
-              />
+              >
+                <option value="" disabled>Select one…</option>
+                {PROJECT_TYPES.map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ))}
+              </select>
             </div>
 
             {/* Summary */}
@@ -452,6 +462,19 @@ export default function ProjectSubmissionPage() {
                 className={inputClass}
                 placeholder="name@institution.edu"
               />
+              <label className="flex items-center gap-2 mt-2 text-sm text-gray-600 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  name="hide_email"
+                  checked={form.hide_email}
+                  onChange={(e) => setForm({ ...form, hide_email: e.target.checked })}
+                  className="h-4 w-4 rounded border-violet-300 text-violet-600 focus:ring-violet-400"
+                />
+                Hide on display
+              </label>
+              <p className="text-xs text-gray-400 mt-1">
+                If checked, your email will not be shown on the public Projects and Collaboration page.
+              </p>
             </div>
 
             {/* Affiliation */}
