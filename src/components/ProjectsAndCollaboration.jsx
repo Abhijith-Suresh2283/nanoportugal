@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 /* =====================================================================
    SCIENCE-NET  —  Landing
@@ -27,10 +26,7 @@ function useReveal() {
 }
 
 export default function ScienceNet() {
-  const navigate = useNavigate();
   useReveal();
-
-  const go = (path) => { navigate(path); window.scrollTo({ top: 0, behavior: "smooth" }); };
 
   return (
     <div className="atlas-root min-h-screen flex flex-col">
@@ -77,24 +73,8 @@ export default function ScienceNet() {
         .atlas-focus:focus-visible { outline: 2px solid var(--emerald); outline-offset: 4px; }
       `}</style>
 
-      {/* ---------- top bar ---------- */}
-      <header className="relative z-10 border-b" style={{ borderColor: "var(--rule)" }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
-          <button
-            onClick={() => go("/")}
-            className="atlas-mono atlas-focus text-xs uppercase tracking-[0.2em] flex items-center gap-2 hover:opacity-60 transition-opacity"
-            style={{ color: "var(--ink-soft)" }}
-          >
-            <span aria-hidden="true">←</span> ANM 2026 / Home
-          </button>
-          <span className="atlas-mono text-xs uppercase tracking-[0.2em]" style={{ color: "var(--ink-soft)" }}>
-            Vol. XXV — Aveiro
-          </span>
-        </div>
-      </header>
-
       {/* ---------- main ---------- */}
-      <main className="relative z-10 flex-1 max-w-4xl w-full mx-auto px-5 sm:px-8 py-16 flex flex-col items-center justify-center text-center">
+      <main className="relative z-10 flex-1 max-w-4xl w-full mx-auto px-5 sm:px-8 pt-4 pb-16 flex flex-col items-center text-center">
         {/* Science-Net title */}
         <h1
           className="atlas-reveal font-light leading-[1.05] tracking-tight"
@@ -114,9 +94,9 @@ export default function ScienceNet() {
 
         {/* three items on a single line */}
         <p
-          className="atlas-reveal mt-10 sm:mt-12 font-light leading-tight tracking-tight flex flex-wrap items-center justify-center gap-x-4 gap-y-2"
+          className="atlas-reveal mt-4 font-light leading-tight tracking-tight flex items-center justify-center gap-x-3 sm:gap-x-4 whitespace-nowrap"
           data-reveal
-          style={{ fontSize: "clamp(1.25rem, 3vw, 2rem)" }}
+          style={{ fontSize: "clamp(0.95rem, 2.6vw, 2rem)" }}
         >
           <span>Projects</span>
           <span style={{ color: "var(--emerald)" }} aria-hidden="true">·</span>
@@ -126,12 +106,12 @@ export default function ScienceNet() {
           <span style={{ color: "var(--emerald)" }} aria-hidden="true">·</span>
           <span>Exhibition</span>
           <span style={{ color: "var(--emerald)" }} aria-hidden="true">·</span>
-          <span>Job Listings</span>
+          <span>Jobs</span>
         </p>
 
         {/* descriptive sentence */}
         <p
-          className="atlas-reveal mt-10 sm:mt-12 max-w-2xl text-lg sm:text-xl font-light leading-relaxed"
+          className="atlas-reveal mt-4 max-w-2xl text-lg sm:text-xl font-light leading-relaxed text-justify"
           data-reveal
           style={{ color: "var(--ink-soft)" }}
         >
@@ -140,18 +120,6 @@ export default function ScienceNet() {
           meaningful collaborations.
         </p>
       </main>
-
-      {/* ---------- footer ---------- */}
-      <footer className="relative z-10 border-t" style={{ borderColor: "var(--rule)", backgroundColor: "var(--paper-2)" }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
-          <p className="font-light italic text-lg">
-            <span className="atlas-grad-text">Science-Net</span>
-          </p>
-          <p className="atlas-mono text-[11px] uppercase tracking-[0.2em]" style={{ color: "var(--ink-soft)" }}>
-            ANM 2026 — University of Aveiro, Portugal
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
