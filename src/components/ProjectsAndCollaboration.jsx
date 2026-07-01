@@ -220,11 +220,11 @@ export default function ProjectsAndCollaboration() {
           data-reveal
           style={{ color: "#000000" }}
         >
-          Connect - Collaborate - Innovate
+          Connect, Collaborate, Innovate and more…
         </p>
 
         <p
-          className="atlas-reveal mt-4 font-light leading-tight tracking-tight flex items-center justify-center gap-x-3 sm:gap-x-4 whitespace-nowrap"
+          className="atlas-reveal mt-4 w-full max-w-2xl font-light leading-tight tracking-tight flex flex-wrap sm:flex-nowrap items-center justify-center gap-x-3 sm:gap-x-4 gap-y-1 sm:whitespace-nowrap"
           data-reveal
           style={{ fontSize: "clamp(0.95rem, 2.6vw, 1.5rem)" }}
         >
@@ -240,7 +240,7 @@ export default function ProjectsAndCollaboration() {
         </p>
 
         <p
-          className="atlas-reveal mt-4 max-w-2xl text-lg sm:text-xl font-light leading-relaxed text-justify"
+          className="atlas-reveal mt-4 max-w-2xl text-lg sm:text-xl font-light leading-relaxed text-left sm:text-justify"
           data-reveal
           style={{ color: "var(--ink-soft)" }}
         >
@@ -255,7 +255,7 @@ export default function ProjectsAndCollaboration() {
             className="atlas-mono atlas-focus inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-full text-white transition-transform hover:scale-[1.03]"
             style={{ background: "var(--grad)" }}
           >
-            Submit Your Interest
+            Submit a Project
             <span aria-hidden="true">→</span>
           </button>
         </div>
