@@ -24,12 +24,7 @@ export default function ProjectSubmissionPage() {
     country: '',
     url: '',
     deadline: '',
-    lead_country: '',
   });
-
-  // Expected Collaborative Countries (multi-tag)
-  const [collabCountries, setCollabCountries] = useState([]);
-  const [collabInput, setCollabInput] = useState('');
 
   // Keywords (multi-tag, up to 5)
   const [keywords, setKeywords] = useState([]);
@@ -51,25 +46,6 @@ export default function ProjectSubmissionPage() {
   const countWords = (text) => (text.trim() ? text.trim().split(/\s+/).length : 0);
   const summaryWords = countWords(form.summary);
   const summaryOverLimit = summaryWords > SUMMARY_WORD_LIMIT;
-
-  const addCollab = () => {
-    const v = collabInput.trim();
-    if (v && !collabCountries.includes(v)) {
-      setCollabCountries((c) => [...c, v]);
-    }
-    setCollabInput('');
-  };
-
-  const removeCollab = (name) => {
-    setCollabCountries((c) => c.filter((x) => x !== name));
-  };
-
-  const handleCollabKey = (e) => {
-    if (e.key === 'Enter' || e.key === ',') {
-      e.preventDefault();
-      addCollab();
-    }
-  };
 
   const addKeyword = () => {
     const v = keywordInput.trim();
@@ -212,14 +188,6 @@ export default function ProjectSubmissionPage() {
       setError('Project deadline is required.');
       return;
     }
-    if (!form.lead_country.trim()) {
-      setError('Lead country is required.');
-      return;
-    }
-    if (collabCountries.length === 0) {
-      setError('Please add at least one expected collaborative country.');
-      return;
-    }
     if (suppUploading) {
       setError('Please wait for the supplementary file to finish uploading.');
       return;
@@ -243,8 +211,6 @@ export default function ProjectSubmissionPage() {
           country: form.country,
           url: form.url,
           deadline: form.deadline,
-          lead_country: form.lead_country,
-          collaborative_countries: collabCountries,
           status: 'pending',
         },
       ]);
@@ -299,9 +265,20 @@ export default function ProjectSubmissionPage() {
           <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400" />
           <div className="p-8 space-y-5">
 
+            {/* Project Title */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project Title</label>
+              <input
+                name="title"
+                value={form.title}
+                onChange={handleChange}
+                className={inputClass}
+              />
+            </div>
+
             {/* Project Type */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Project Type *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project Type</label>
               <select
                 name="entry_type"
                 value={form.entry_type}
@@ -315,20 +292,9 @@ export default function ProjectSubmissionPage() {
               </select>
             </div>
 
-            {/* Project Title */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Project Title *</label>
-              <input
-                name="title"
-                value={form.title}
-                onChange={handleChange}
-                className={inputClass}
-              />
-            </div>
-
             {/* Summary */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Summary *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Summary</label>
               <p className="text-xs text-gray-400 mb-2 leading-relaxed">
                 Please provide a brief description of your project, including the scientific
                 question, challenge, or unmet need it addresses, the methods or approaches being
@@ -443,7 +409,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Full Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
               <input
                 name="full_name"
                 value={form.full_name}
@@ -462,13 +428,13 @@ export default function ProjectSubmissionPage() {
                 Hide name
               </label>
               <p className="text-xs text-gray-400 mt-1">
-                If checked, your name will not be shown to the public.
+                If checked, your name will not be shown on the public Projects and Collaboration page.
               </p>
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
               <input
                 name="email"
                 type="email"
@@ -488,13 +454,13 @@ export default function ProjectSubmissionPage() {
                 Hide email
               </label>
               <p className="text-xs text-gray-400 mt-1">
-                If checked, your email will not be shown to the public.
+                If checked, your email will not be shown on the public Projects and Collaboration page.
               </p>
             </div>
 
             {/* Affiliation */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Affiliation *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Affiliation</label>
               <input
                 name="affiliation"
                 value={form.affiliation}
@@ -506,7 +472,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Country */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Country *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
               <input
                 name="country"
                 value={form.country}
@@ -517,7 +483,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Institution URL */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Institution URL *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Institution URL</label>
               <input
                 name="url"
                 type="url"
@@ -530,7 +496,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Project Deadline */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Project Deadline *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project Deadline</label>
               <input
                 name="deadline"
                 type="date"
@@ -538,64 +504,6 @@ export default function ProjectSubmissionPage() {
                 onChange={handleChange}
                 className={inputClass}
               />
-            </div>
-
-            {/* Lead Country */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Lead Country *</label>
-              <input
-                name="lead_country"
-                value={form.lead_country}
-                onChange={handleChange}
-                className={inputClass}
-              />
-            </div>
-
-            {/* Expected Collaborative Countries */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Expected Collaborative Countries *
-              </label>
-              <p className="text-xs text-gray-400 mb-2">Add one or more countries you expect to collaborate with.</p>
-
-              {collabCountries.length > 0 && (
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {collabCountries.map((c) => (
-                    <span
-                      key={c}
-                      className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full bg-violet-100 text-violet-700"
-                    >
-                      {c}
-                      <button
-                        type="button"
-                        onClick={() => removeCollab(c)}
-                        className="leading-none hover:text-violet-900"
-                        aria-label={`Remove ${c}`}
-                      >
-                        &times;
-                      </button>
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              <div className="flex items-center gap-3">
-                <input
-                  type="text"
-                  value={collabInput}
-                  placeholder="Type a country and press Enter"
-                  onChange={(e) => setCollabInput(e.target.value)}
-                  onKeyDown={handleCollabKey}
-                  className={`${inputClass} flex-1`}
-                />
-                <button
-                  type="button"
-                  onClick={addCollab}
-                  className="px-5 py-3 rounded-full bg-violet-100 text-violet-700 text-sm font-medium hover:bg-violet-200 transition whitespace-nowrap"
-                >
-                  + Add
-                </button>
-              </div>
             </div>
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
