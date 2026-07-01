@@ -240,7 +240,7 @@ export default function ProjectsAndCollaboration() {
         </p>
 
         <p
-          className="atlas-reveal mt-4 max-w-2xl text-lg sm:text-xl font-light leading-relaxed text-left sm:text-justify"
+          className="atlas-reveal mt-4 max-w-2xl text-lg sm:text-xl font-light leading-relaxed text-center sm:text-justify"
           data-reveal
           style={{ color: "var(--ink-soft)" }}
         >
