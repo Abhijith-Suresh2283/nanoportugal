@@ -220,7 +220,7 @@ export default function ProjectsAndCollaboration() {
           data-reveal
           style={{ color: "#000000" }}
         >
-          Connect, Collaborate, Innovate and more…
+          Connect, Collaborate, Innovate
         </p>
 
         <p
