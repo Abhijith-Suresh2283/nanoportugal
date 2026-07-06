@@ -50,7 +50,7 @@ function App() {
 
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePagedummy />} />
         <Route path="/about" element={<About />} />
         <Route path="/program" element={<Program />} />
         <Route
@@ -72,7 +72,6 @@ function App() {
         <Route path="/speakersubmission" element={<SpeakerSubmissionPage/>} />
         <Route path="/projectsandcollaboration" element={<ProjectsAndCollaboration/>} />
         <Route path="/projectsubmission" element={<ProjectSubmission/>} />
-        <Route path="/dummyhome" element={<HomePagedummy/>} />
       </Routes>
     </Router>
   );
