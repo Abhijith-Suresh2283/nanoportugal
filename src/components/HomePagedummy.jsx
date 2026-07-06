@@ -37,7 +37,7 @@ const handlePageNavigation = (route) => {
       />
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative w-full h-[75vh] sm:h-screen overflow-hidden bg-black">
+      <section className="relative w-full min-h-[75vh] sm:h-screen overflow-hidden bg-black">
 
         {/* Video Background */}
         <div className="absolute inset-0 overflow-hidden">
@@ -67,8 +67,8 @@ const handlePageNavigation = (route) => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 h-full flex items-center justify-center px-4 sm:px-6">
-          <div className="max-w-6xl text-center text-white space-y-8">
+        <div className="relative z-10 min-h-[75vh] sm:h-full flex items-center justify-center px-4 sm:px-6 py-16 sm:py-0">
+          <div className="max-w-6xl text-center text-white space-y-6 sm:space-y-8">
 
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-4">
@@ -182,7 +182,7 @@ const handlePageNavigation = (route) => {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 animate-bounce">
+        <div className="hidden sm:block absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 animate-bounce">
           <div className="flex flex-col items-center gap-2 text-white/70">
             {/* <span className="text-xs uppercase tracking-widest">Scroll</span> */}
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
