@@ -13,10 +13,10 @@ const handlePageNavigation = (route) => {
 
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] text-gray-900 overflow-x-hidden">
-      {/* ================= ANNOUNCEMENT BANNER ================= */}
+      {/* ================= ANNOUNCEMENT BANNER (desktop: top bar) ================= */}
 <button
   onClick={() => handlePageNavigation("/projectsandcollaboration")}
-  className="group relative w-full bg-gradient-to-r from-violet-400 via-purple-600 to-fuchsia-400 text-white py-3 px-4 overflow-hidden"
+  className="hidden sm:block group relative w-full bg-gradient-to-r from-violet-400 via-purple-600 to-fuchsia-400 text-white py-3 px-4 overflow-hidden"
 >
   {/* Shimmer effect */}
   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
@@ -29,6 +29,17 @@ const handlePageNavigation = (route) => {
     </span>
   </div>
 </button>
+
+      {/* ================= ANNOUNCEMENT BANNER (mobile: fixed right-edge tab) ================= */}
+<button
+  onClick={() => handlePageNavigation("/projectsandcollaboration")}
+  className="sm:hidden fixed right-0 top-1/2 -translate-y-1/2 z-50 bg-gradient-to-b from-violet-500 via-purple-600 to-fuchsia-500 text-white py-4 px-2 rounded-l-xl shadow-lg shadow-purple-900/30"
+  aria-label="Projects & Collaborations"
+>
+  <span className="text-xs font-semibold tracking-wide" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
+    Projects &amp; Collaborations
+  </span>
+</button>
       <SEO 
         title="ANM 2026 | International Conference on Advanced Nanomaterials" 
         description="International conferences on: •Advanced Nanomaterials •Hydrogen Energy •Advanced Graphene Materials •Advanced Magnetic and Spintronics Materials •University of Aveiro, Portugal."
@@ -37,7 +48,7 @@ const handlePageNavigation = (route) => {
       />
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative w-full h-[75vh] sm:h-screen overflow-hidden bg-black">
+      <section className="relative w-full min-h-[75vh] sm:h-screen overflow-hidden bg-black">
 
         {/* Video Background */}
         <div className="absolute inset-0 overflow-hidden">
@@ -46,10 +57,9 @@ const handlePageNavigation = (route) => {
               absolute top-1/2 left-1/2 
               -translate-x-1/2 -translate-y-1/2
               min-w-full min-h-full
-              w-[177.77vh] h-[100vw]
+              w-[133.34vh] h-[75vh]
               sm:w-[177.77vh] sm:h-[56.25vw]
             "
-            style={{ aspectRatio: "16/9" }}
             src="https://www.youtube.com/embed/hAlTWkCIJ0I?autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=hAlTWkCIJ0I&playsinline=1"
             title="ANM 2026 Conference"
             frameBorder="0"
@@ -68,8 +78,8 @@ const handlePageNavigation = (route) => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 h-full flex items-center justify-center px-4 sm:px-6">
-          <div className="max-w-6xl text-center text-white space-y-8">
+        <div className="relative z-10 min-h-[75vh] sm:h-full flex items-center justify-center px-4 sm:px-6 py-16 sm:py-0">
+          <div className="max-w-6xl text-center text-white space-y-6 sm:space-y-8">
 
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-4">
@@ -100,13 +110,13 @@ const handlePageNavigation = (route) => {
               <p className="text-lg sm:text-xl md:text-2xl font-light tracking-wide opacity-95">
                 25th International Conference on Nano and Energy related materials
               </p>
-              <div className="flex items-center justify-center gap-3 text-base sm:text-lg font-light opacity-90">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-base sm:text-lg font-light opacity-90">
+                <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 <span>July 22–24, 2026</span>
                 <span className="text-white/40">•</span>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 </svg>
                 <span>Aveiro, Portugal, Europe</span>
@@ -117,7 +127,7 @@ const handlePageNavigation = (route) => {
         <div className="flex flex-col items-center gap-6 pt-6">
 
           {/* Top Row: Submit + Register */}
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
 
             {/* Submit Abstract */}
             <button
@@ -151,7 +161,7 @@ const handlePageNavigation = (route) => {
           </div>
 
           {/* Bottom Row: Learn More + Projects & Collaboration */}
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
 
             {/* Learn More */}
             <button
@@ -183,7 +193,7 @@ const handlePageNavigation = (route) => {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 animate-bounce">
+        <div className="hidden sm:block absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 animate-bounce">
           <div className="flex flex-col items-center gap-2 text-white/70">
             {/* <span className="text-xs uppercase tracking-widest">Scroll</span> */}
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
