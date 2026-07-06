@@ -4,17 +4,10 @@ import { supabase } from "../lib/supabaseClient";
 
 /* =====================================================================
    PROJECTS & COLLABORATION  —  Atlas (Emerald edition)
-   ---------------------------------------------------------------------
-   Same editorial "specimen archive" structure as the original Atlas —
-   serif display, catalogue index numbers, hairline meta — but a fresh,
-   brighter identity: a soft sage paper, deep emerald primary accent,
-   and a warm gold secondary. Distinct from the violet site and from
-   the cobalt/beige original.
-
-   Data: Supabase `projects` table, approved rows only.
    ===================================================================== */
 
 const PROJECTS_PER_PAGE = 4;
+const PROJECT_TYPES = ["Projects", "Collaborations", "Consortium", "Exhibition", "Jobs"];
 
 function useReveal() {
   useEffect(() => {
@@ -36,7 +29,8 @@ export default function ProjectsAndCollaboration() {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [searchField, setSearchField] = useState("all");
-  const [activeCountry, setActiveCountry] = useState("All");
+  const [activeType, setActiveType] = useState("All");
+  const [activeJobType, setActiveJobType] = useState("All");
 
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -75,6 +69,7 @@ export default function ProjectsAndCollaboration() {
         const mapped = (data || []).map((row) => ({
           id: row.id,
           entryType: row.entry_type,
+          jobType: row.job_type,
           title: row.title,
           summary: row.summary,
           shareLink: row.share_link,
@@ -86,8 +81,6 @@ export default function ProjectsAndCollaboration() {
           affiliation: row.affiliation,
           country: row.country,
           url: row.url,
-          leadCountry: row.lead_country,
-          collaborativeCountries: row.collaborative_countries || [],
           deadline: row.deadline,
         }));
         setProjects(mapped);
@@ -97,14 +90,12 @@ export default function ProjectsAndCollaboration() {
     return () => { active = false; };
   }, []);
 
-  const countries = useMemo(
-    () => ["All", ...Array.from(new Set(projects.map((p) => p.country).filter(Boolean)))],
-    [projects]
-  );
-
   const filtered = useMemo(() => {
     return projects.filter((p) => {
-      const matchesCountry = activeCountry === "All" || p.country === activeCountry;
+      const matchesType = activeType === "All" || p.entryType === activeType;
+      // Jobs sub-filter only applies when the type filter is "Jobs"
+      const matchesJobType =
+        activeType !== "Jobs" || activeJobType === "All" || p.jobType === activeJobType;
       const q = query.trim().toLowerCase();
 
       let matchesQuery;
@@ -115,10 +106,7 @@ export default function ProjectsAndCollaboration() {
       } else if (searchField === "summary") {
         matchesQuery = !!(p.summary && p.summary.toLowerCase().includes(q));
       } else if (searchField === "location") {
-        matchesQuery =
-          !!(p.country && p.country.toLowerCase().includes(q)) ||
-          !!(p.leadCountry && p.leadCountry.toLowerCase().includes(q)) ||
-          (p.collaborativeCountries || []).some((c) => c.toLowerCase().includes(q));
+        matchesQuery = !!(p.country && p.country.toLowerCase().includes(q));
       } else {
         // "all" — broad match across every field
         matchesQuery =
@@ -128,13 +116,11 @@ export default function ProjectsAndCollaboration() {
           (p.person && !p.hideName && p.person.toLowerCase().includes(q)) ||
           (p.affiliation && p.affiliation.toLowerCase().includes(q)) ||
           (p.country && p.country.toLowerCase().includes(q)) ||
-          (p.leadCountry && p.leadCountry.toLowerCase().includes(q)) ||
-          (p.collaborativeCountries || []).some((c) => c.toLowerCase().includes(q)) ||
           (p.keywords || []).some((k) => k.toLowerCase().includes(q));
       }
-      return matchesCountry && matchesQuery;
+      return matchesType && matchesJobType && matchesQuery;
     });
-  }, [query, searchField, activeCountry, projects]);
+  }, [query, searchField, activeType, activeJobType, projects]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PROJECTS_PER_PAGE));
   const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
@@ -307,13 +293,14 @@ export default function ProjectsAndCollaboration() {
             </div>
           </div>
 
+          {/* Project Type filter */}
           <div className="flex flex-wrap gap-2">
-            {countries.map((c) => {
-              const active = c === activeCountry;
+            {["All", ...PROJECT_TYPES].map((t) => {
+              const active = t === activeType;
               return (
                 <button
-                  key={c}
-                  onClick={() => setActiveCountry(c)}
+                  key={t}
+                  onClick={() => { setActiveType(t); if (t !== "Jobs") setActiveJobType("All"); }}
                   className="atlas-mono atlas-focus text-[11px] uppercase tracking-[0.15em] px-3 py-1.5 rounded-full border transition-all"
                   style={{
                     borderColor: active ? "transparent" : "var(--rule)",
@@ -321,12 +308,38 @@ export default function ProjectsAndCollaboration() {
                     color: active ? "#fff" : "var(--ink-soft)",
                   }}
                 >
-                  {c}
+                  {t}
                 </button>
               );
             })}
           </div>
         </div>
+
+        {/* Jobs sub-filter — only when Project Type = Jobs */}
+        {activeType === "Jobs" && (
+          <div className="atlas-reveal flex flex-wrap items-center gap-2 pt-4" data-reveal>
+            <span className="atlas-mono text-[10px] uppercase tracking-[0.15em] mr-1" style={{ color: "var(--ink-soft)" }}>
+              Job type:
+            </span>
+            {["All", "Job Seekers", "Open Positions"].map((jt) => {
+              const active = jt === activeJobType;
+              return (
+                <button
+                  key={jt}
+                  onClick={() => setActiveJobType(jt)}
+                  className="atlas-mono atlas-focus text-[11px] uppercase tracking-[0.15em] px-3 py-1.5 rounded-full border transition-all"
+                  style={{
+                    borderColor: active ? "transparent" : "var(--rule)",
+                    background: active ? "var(--gold)" : "transparent",
+                    color: active ? "#fff" : "var(--ink-soft)",
+                  }}
+                >
+                  {jt}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </section>
 
       {/* ---------- catalogue grid ---------- */}
@@ -354,7 +367,7 @@ export default function ProjectsAndCollaboration() {
               </button>
             ) : (
               <button
-                onClick={() => { setQuery(""); setSearchField("all"); setActiveCountry("All"); }}
+                onClick={() => { setQuery(""); setSearchField("all"); setActiveType("All"); setActiveJobType("All"); }}
                 className="atlas-mono atlas-focus mt-4 text-xs uppercase tracking-[0.2em] underline"
                 style={{ color: "var(--emerald)" }}
               >
@@ -388,12 +401,22 @@ export default function ProjectsAndCollaboration() {
                   {/* main column */}
                   <div className="flex flex-col min-w-0">
                     {p.entryType && (
-                      <span
-                        className="atlas-mono self-start text-[10px] uppercase tracking-[0.18em] px-2.5 py-1 rounded-full mb-3"
-                        style={{ color: "var(--emerald)", backgroundColor: "rgba(13,148,136,0.10)", border: "1px solid rgba(13,148,136,0.3)" }}
-                      >
-                        {p.entryType}
-                      </span>
+                      <div className="flex flex-wrap items-center gap-2 mb-3">
+                        <span
+                          className="atlas-mono self-start text-[10px] uppercase tracking-[0.18em] px-2.5 py-1 rounded-full"
+                          style={{ color: "var(--emerald)", backgroundColor: "rgba(13,148,136,0.10)", border: "1px solid rgba(13,148,136,0.3)" }}
+                        >
+                          {p.entryType}
+                        </span>
+                        {p.entryType === "Jobs" && p.jobType && (
+                          <span
+                            className="atlas-mono self-start text-[10px] uppercase tracking-[0.18em] px-2.5 py-1 rounded-full"
+                            style={{ color: "#0e7490", backgroundColor: "rgba(8,145,178,0.10)", border: "1px solid rgba(8,145,178,0.3)" }}
+                          >
+                            {p.jobType}
+                          </span>
+                        )}
+                      </div>
                     )}
 
                     <h2 className="text-2xl font-light leading-snug tracking-tight mb-2">
@@ -472,33 +495,14 @@ export default function ProjectsAndCollaboration() {
 
                   {/* meta column */}
                   <dl className="space-y-3 mt-6 sm:mt-0 sm:border-l sm:pl-8" style={{ borderColor: "var(--rule)" }}>
-                    <div className="flex items-baseline justify-between gap-4">
-                      <dt className="atlas-mono text-[10px] uppercase tracking-[0.15em]" style={{ color: "var(--ink-soft)" }}>Lead Country</dt>
-                      <dd className="text-sm text-right">{p.leadCountry || "—"}</dd>
-                    </div>
-                    <div className="border-t pt-3" style={{ borderColor: "var(--rule)" }}>
-                      <dt className="atlas-mono text-[10px] uppercase tracking-[0.15em] mb-2" style={{ color: "var(--ink-soft)" }}>Collaborating Countries</dt>
-                      <dd className="flex flex-wrap gap-1.5">
-                        {p.collaborativeCountries && p.collaborativeCountries.length > 0 ? (
-                          p.collaborativeCountries.map((c) => (
-                            <span key={c} className="atlas-mono text-[10px] uppercase tracking-[0.1em] px-2 py-1 rounded-full border"
-                              style={{ borderColor: "rgba(8,145,178,0.35)", color: "#0e7490", backgroundColor: "rgba(8,145,178,0.08)" }}>
-                              {c}
-                            </span>
-                          ))
-                        ) : (
-                          <span className="text-sm" style={{ color: "var(--ink-soft)" }}>—</span>
-                        )}
-                      </dd>
-                    </div>
                     {p.deadline && (
-                      <div className="flex items-baseline justify-between gap-3 border-t pt-3" style={{ borderColor: "var(--rule)" }}>
+                      <div className="flex items-baseline justify-between gap-3">
                         <dt className="atlas-mono text-[10px] uppercase tracking-[0.15em]" style={{ color: "var(--ink-soft)" }}>Deadline</dt>
                         <dd className="atlas-mono text-xs text-right whitespace-nowrap">{p.deadline}</dd>
                       </div>
                     )}
                     {p.keywords && p.keywords.length > 0 && (
-                      <div className="border-t pt-3" style={{ borderColor: "var(--rule)" }}>
+                      <div className={p.deadline ? "border-t pt-3" : ""} style={{ borderColor: "var(--rule)" }}>
                         <dt className="atlas-mono text-[10px] uppercase tracking-[0.15em] mb-2" style={{ color: "var(--ink-soft)" }}>Keywords</dt>
                         <dd className="flex flex-wrap gap-1.5">
                           {p.keywords.map((k) => (
@@ -588,14 +592,24 @@ export default function ProjectsAndCollaboration() {
             <div className="h-1" style={{ background: "var(--grad)" }} />
             <div className="p-7 sm:p-9">
               <div className="flex items-start justify-between gap-4 mb-2">
-                {modalProject.entryType && (
-                  <span
-                    className="atlas-mono text-[10px] uppercase tracking-[0.18em] px-2.5 py-1 rounded-full"
-                    style={{ color: "var(--emerald)", backgroundColor: "rgba(13,148,136,0.10)", border: "1px solid rgba(13,148,136,0.3)" }}
-                  >
-                    {modalProject.entryType}
-                  </span>
-                )}
+                <div className="flex flex-wrap items-center gap-2">
+                  {modalProject.entryType && (
+                    <span
+                      className="atlas-mono text-[10px] uppercase tracking-[0.18em] px-2.5 py-1 rounded-full"
+                      style={{ color: "var(--emerald)", backgroundColor: "rgba(13,148,136,0.10)", border: "1px solid rgba(13,148,136,0.3)" }}
+                    >
+                      {modalProject.entryType}
+                    </span>
+                  )}
+                  {modalProject.entryType === "Jobs" && modalProject.jobType && (
+                    <span
+                      className="atlas-mono text-[10px] uppercase tracking-[0.18em] px-2.5 py-1 rounded-full"
+                      style={{ color: "#0e7490", backgroundColor: "rgba(8,145,178,0.10)", border: "1px solid rgba(8,145,178,0.3)" }}
+                    >
+                      {modalProject.jobType}
+                    </span>
+                  )}
+                </div>
                 <button
                   type="button"
                   onClick={() => setModalProject(null)}
