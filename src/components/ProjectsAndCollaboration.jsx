@@ -255,7 +255,7 @@ export default function ProjectsAndCollaboration() {
             className="atlas-mono atlas-focus inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] px-6 py-3 rounded-full text-white transition-transform hover:scale-[1.03]"
             style={{ background: "var(--grad)" }}
           >
-            Submit a Project
+            Submit Your Interest
             <span aria-hidden="true">→</span>
           </button>
         </div>
