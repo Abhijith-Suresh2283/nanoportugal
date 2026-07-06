@@ -24,6 +24,7 @@ export default function ProjectSubmissionPage() {
     country: '',
     url: '',
     deadline: '',
+    job_type: '',
   });
 
   // Keywords (multi-tag, up to 5)
@@ -144,6 +145,10 @@ export default function ProjectSubmissionPage() {
       setError('Project type is required.');
       return;
     }
+    if (form.entry_type === 'Jobs' && !form.job_type) {
+      setError('Please select whether you are looking for a job or advertising a job.');
+      return;
+    }
     if (!form.title.trim()) {
       setError('Project title is required.');
       return;
@@ -211,6 +216,7 @@ export default function ProjectSubmissionPage() {
           country: form.country,
           url: form.url,
           deadline: form.deadline,
+          job_type: form.entry_type === 'Jobs' ? form.job_type : null,
           status: 'pending',
         },
       ]);
@@ -290,6 +296,37 @@ export default function ProjectSubmissionPage() {
                   <option key={t} value={t}>{t}</option>
                 ))}
               </select>
+
+              {/* Job intent — only shown when Project Type is "Jobs" */}
+              {form.entry_type === 'Jobs' && (
+                <div className="mt-3">
+                  <p className="text-sm font-medium text-gray-700 mb-2">Are you looking for a job or advertising one?</p>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer select-none px-4 py-2.5 rounded-xl border border-violet-200 bg-white/80 flex-1">
+                      <input
+                        type="radio"
+                        name="job_type"
+                        value="Looking for a job"
+                        checked={form.job_type === 'Looking for a job'}
+                        onChange={handleChange}
+                        className="h-4 w-4 text-violet-600 focus:ring-violet-400"
+                      />
+                      Looking for a job
+                    </label>
+                    <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer select-none px-4 py-2.5 rounded-xl border border-violet-200 bg-white/80 flex-1">
+                      <input
+                        type="radio"
+                        name="job_type"
+                        value="Advertise a job"
+                        checked={form.job_type === 'Advertise a job'}
+                        onChange={handleChange}
+                        className="h-4 w-4 text-violet-600 focus:ring-violet-400"
+                      />
+                      Advertise a job
+                    </label>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Summary */}
@@ -520,4 +557,4 @@ export default function ProjectSubmissionPage() {
       </div>
     </div>
   );
-}
+} 
