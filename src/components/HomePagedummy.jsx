@@ -33,10 +33,13 @@ const handlePageNavigation = (route) => {
       {/* ================= ANNOUNCEMENT BANNER (mobile: fixed right-edge tab) ================= */}
 <button
   onClick={() => handlePageNavigation("/projectsandcollaboration")}
-  className="sm:hidden fixed right-0 top-1/2 -translate-y-1/2 z-50 bg-gradient-to-b from-violet-500 via-purple-600 to-fuchsia-500 text-white py-4 px-2 rounded-l-xl shadow-lg shadow-purple-900/30"
+  className="sm:hidden fixed right-0 top-1/2 -translate-y-1/2 z-[60] bg-gradient-to-b from-violet-500 via-purple-600 to-fuchsia-500 text-white rounded-l-lg shadow-xl shadow-purple-900/40"
   aria-label="Projects & Collaborations"
 >
-  <span className="text-xs font-semibold tracking-wide" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
+  <span
+    className="block font-semibold tracking-wide whitespace-nowrap px-2.5 py-4"
+    style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", fontSize: "13px" }}
+  >
     Projects &amp; Collaborations
   </span>
 </button>
@@ -175,7 +178,7 @@ const handlePageNavigation = (route) => {
             {/* Projects & Collaboration */}
             <button
               onClick={() => handlePageNavigation("/projectsandcollaboration")}
-              className="group relative px-10 py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white text-sm font-medium tracking-widest uppercase hover:bg-white hover:text-gray-900 transition-all duration-300 rounded-full overflow-hidden"
+              className="hidden sm:block group relative px-10 py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white text-sm font-medium tracking-widest uppercase hover:bg-white hover:text-gray-900 transition-all duration-300 rounded-full overflow-hidden"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
                 Projects & Collaboration
