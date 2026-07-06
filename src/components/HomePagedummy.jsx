@@ -46,10 +46,9 @@ const handlePageNavigation = (route) => {
               absolute top-1/2 left-1/2 
               -translate-x-1/2 -translate-y-1/2
               min-w-full min-h-full
-              w-[177.77vh] h-[100vw]
+              w-[133.34vh] h-[75vh]
               sm:w-[177.77vh] sm:h-[56.25vw]
             "
-            style={{ aspectRatio: "16/9" }}
             src="https://www.youtube.com/embed/hAlTWkCIJ0I?autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=hAlTWkCIJ0I&playsinline=1"
             title="ANM 2026 Conference"
             frameBorder="0"
