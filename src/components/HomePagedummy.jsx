@@ -40,7 +40,7 @@ const handlePageNavigation = (route) => {
     className="block font-semibold tracking-wide whitespace-nowrap px-2.5 py-4"
     style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", fontSize: "13px" }}
   >
-    Projects &amp; Collaborations
+    Projects, Exhibitions &amp; Collaborations
   </span>
 </button>
       <SEO 
@@ -181,7 +181,7 @@ const handlePageNavigation = (route) => {
               className="hidden sm:block group relative px-10 py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white text-sm font-medium tracking-widest uppercase hover:bg-white hover:text-gray-900 transition-all duration-300 rounded-full overflow-hidden"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
-                Projects & Collaboration
+                Projects, Exhibitions & Collaboration
                 <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
