@@ -484,7 +484,7 @@ export default function ProjectsAndCollaboration() {
                           onMouseEnter={(e) => (e.currentTarget.style.color = "var(--emerald)")}
                           onMouseLeave={(e) => (e.currentTarget.style.color = "var(--ink)")}
                         >
-                          View Project
+                          View Institution
                           <span aria-hidden="true">→</span>
                         </a>
                       ) : (
