@@ -239,8 +239,13 @@ export default function ProjectSubmissionPage() {
           <div className="h-1 bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400 -mt-12 mb-8 rounded-full" />
           <h2 className="text-2xl font-light text-gray-900 mb-3">Thank you!</h2>
           <p className="text-gray-600 font-light">
-            Your project has been received. Once approved, it will appear on the
-            Projects and Collaboration page.
+            Your submission has been received. Once approved, it will appear online at{' '}
+            <a
+              href="/projectsandcollaboration"
+              className="text-violet-600 underline hover:text-violet-700 break-all"
+            >
+              nanoportugal.com/projectsandcollaboration
+            </a>
           </p>
         </div>
       </div>
