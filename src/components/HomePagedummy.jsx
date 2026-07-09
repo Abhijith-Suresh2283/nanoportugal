@@ -25,7 +25,7 @@ const handlePageNavigation = (route) => {
     {/* NEW badge */}
 
     <span className="text-sm sm:text-base font-light tracking-wide">
-      <span className="font-semibold">Projects & Collaborations</span>
+      <span className="font-semibold">Projects, Exhibitions & Collaborations</span>
     </span>
   </div>
 </button>
