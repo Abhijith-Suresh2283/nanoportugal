@@ -232,6 +232,9 @@ export default function ProjectSubmissionPage() {
   const inputClass =
     'w-full px-4 py-3 rounded-xl border border-violet-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-violet-400';
 
+  // Required-field asterisk
+  const Req = () => <span className="text-red-500"> *</span>;
+
   if (done) {
     return (
       <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen flex items-center justify-center px-4">
@@ -267,6 +270,10 @@ export default function ProjectSubmissionPage() {
             university-industry collaboration, exhibitions, consortia, and job oppurtunities.
           </p>
           <p className="text-gray-600 font-light">
+            Submitted projects will be featured on the conference website. Projects may be edited or removed at any time
+            by contacting the conference team via the conference email.
+          </p>
+          <p className="text-gray-600 font-light">
             Fill all the details before submitting the form.
           </p>
         </div>
@@ -277,7 +284,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Project Title */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Project Title</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project Title<Req /></label>
               <input
                 name="title"
                 value={form.title}
@@ -288,7 +295,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Project Type */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Project Type</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project Type<Req /></label>
               <select
                 name="entry_type"
                 value={form.entry_type}
@@ -304,7 +311,7 @@ export default function ProjectSubmissionPage() {
               {/* Job intent — only shown when Project Type is "Jobs" */}
               {form.entry_type === 'Jobs' && (
                 <div className="mt-3">
-                  <p className="text-sm font-medium text-gray-700 mb-2">Are you looking for a job or advertising one?</p>
+                  <p className="text-sm font-medium text-gray-700 mb-2">Are you looking for a job or advertising one?<Req /></p>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer select-none px-4 py-2.5 rounded-xl border border-violet-200 bg-white/80 flex-1">
                       <input
@@ -335,7 +342,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Summary */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Summary</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Summary<Req /></label>
               <p className="text-xs text-gray-400 mb-2 leading-relaxed">
                 Please provide a brief description of your project, including the scientific
                 question, challenge, or unmet need it addresses, the methods or approaches being
@@ -450,7 +457,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Full Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Full Name<Req /></label>
               <input
                 name="full_name"
                 value={form.full_name}
@@ -475,7 +482,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Email<Req /></label>
               <input
                 name="email"
                 type="email"
@@ -501,7 +508,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Affiliation */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Affiliation</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Affiliation<Req /></label>
               <input
                 name="affiliation"
                 value={form.affiliation}
@@ -513,7 +520,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Country */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Country<Req /></label>
               <input
                 name="country"
                 value={form.country}
@@ -524,7 +531,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Institution URL */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Institution URL</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Institution URL<Req /></label>
               <input
                 name="url"
                 type="url"
@@ -537,7 +544,7 @@ export default function ProjectSubmissionPage() {
 
             {/* Project Deadline */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Project Deadline</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Project Deadline<Req /></label>
               <input
                 name="deadline"
                 type="date"
@@ -561,4 +568,4 @@ export default function ProjectSubmissionPage() {
       </div>
     </div>
   );
-} 
+}
