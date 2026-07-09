@@ -263,9 +263,8 @@ export default function ProjectSubmissionPage() {
             </span>
           </h1>
           <p className="text-gray-600 font-light">
-            Researchers can share project ideas, develop consortia and find suitable
-            partners for both existing projects and new proposals in response to national
-            or international funding opportunities.
+            This platform enables researchers to network and connect by expressing their interests in project funding,
+            university-industry collaboration, exhibitions, consortia, and job oppurtunities.
           </p>
           <p className="text-gray-600 font-light">
             Fill all the details before submitting the form.
