@@ -70,12 +70,12 @@ export default function About() {
                 <p className="font-medium text-gray-900">Dear Colleague,</p>
 
                 <p className="font-light">
-                  We're delighted to invite you to the <span className="font-semibold text-violet-700">25th Advanced Nanomaterials Conference (ANM2026)</span>, 
+                  We're delighted to invite you to the <span className="font-semibold text-violet-700">27th Advanced Nanomaterials Conference (ANM2027)</span>, 
                   taking place <span className="font-semibold">22–24 July 2026</span> at the <span className="font-semibold">University of Aveiro, Portugal</span>.
                 </p>
 
                 <p className="font-light">
-                  Join us to celebrate the 25th series of innovation in nanomaterials and energy materials —
+                  Join us to celebrate the 27th series of innovation in nanomaterials and energy materials —
                   present your latest research, publish your work, showcase your products, 
                   and connect with global experts.
                 </p>
