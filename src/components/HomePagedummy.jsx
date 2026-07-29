@@ -88,7 +88,7 @@ const handlePageNavigation = (route) => {
             <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-4">
               <div className="w-2 h-2 bg-violet-400 rounded-full animate-pulse" />
               <span className="text-xs sm:text-sm uppercase tracking-widest font-semibold text-white/90">
-                25th Edition
+                27th Edition
               </span>
             </div>
 
@@ -111,7 +111,7 @@ const handlePageNavigation = (route) => {
             <div className="space-y-2">
               
               <p className="text-lg sm:text-xl md:text-2xl font-light tracking-wide opacity-95">
-                25th International Conference on Nano and Energy related materials
+                27th International Conference on Nano and Energy related materials
               </p>
               <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-base sm:text-lg font-light opacity-90">
                 <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
