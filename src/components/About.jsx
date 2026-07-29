@@ -7,7 +7,7 @@ export default function About() {
       <SEO 
         title="About the Conference" 
         description="Learn about the 25-year history of the Advanced Nanomaterials Conference (ANM 2027) at the University of Aveiro, Portugal. Discover our mission to advance nanotechnology research."
-        keywords="About ANM 2026, Nanotechnology history, University of Aveiro research, science conference Portugal"
+        keywords="About ANM 2027, Nanotechnology history, University of Aveiro research, science conference Portugal"
         path="/about"
       />
 
@@ -71,7 +71,7 @@ export default function About() {
 
                 <p className="font-light">
                   We're delighted to invite you to the <span className="font-semibold text-violet-700">27th Advanced Nanomaterials Conference (ANM2027)</span>, 
-                  taking place <span className="font-semibold">22–24 July 2026</span> at the <span className="font-semibold">University of Aveiro, Portugal</span>.
+                  taking place <span className="font-semibold">21–23 July 2027</span> at the <span className="font-semibold">University of Aveiro, Portugal</span>.
                 </p>
 
                 <p className="font-light">
