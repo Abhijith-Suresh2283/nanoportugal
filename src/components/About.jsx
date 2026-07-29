@@ -113,7 +113,7 @@ export default function About() {
                       <div>
                         <p className="font-semibold text-gray-900 mb-2">Registration</p>
                         
-                        <a  href="https://www.congressospco.abreu.pt/ANM2026-41875.aspx"
+                        <a  href="https://www.congressospco.abreu.pt/ANM2027-41875.aspx"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-violet-700 font-medium hover:text-violet-900 inline-flex items-center gap-1 group"
@@ -228,7 +228,7 @@ export default function About() {
               Industry & Exhibition Opportunities
             </h2>
             <p className="text-lg text-gray-700 font-light max-w-3xl mx-auto">
-              ANM2026 welcomes companies, startups, and R&D organizations to showcase 
+              ANM2027 welcomes companies, startups, and R&D organizations to showcase 
               their innovations and connect with key stakeholders across academia and industry.
             </p>
           </div>
@@ -331,7 +331,7 @@ export default function About() {
         <div className="max-w-6xl mx-auto px-4 space-y-4">
           <div className="flex items-center justify-center gap-2 text-sm opacity-90">
             <div className="w-8 h-px bg-gradient-to-r from-transparent via-violet-400 to-transparent" />
-            <span className="font-light tracking-widest">ANM 2026</span>
+            <span className="font-light tracking-widest">ANM 2027</span>
             <div className="w-8 h-px bg-gradient-to-r from-transparent via-violet-400 to-transparent" />
           </div>
           <p className="text-xs font-light tracking-wide opacity-60">
