@@ -22,12 +22,12 @@ export default function About() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full mb-8 shadow-sm">
             <div className="w-2 h-2 bg-violet-600 rounded-full animate-pulse" />
             <span className="text-xs uppercase tracking-widest text-violet-700 font-semibold">
-              25th Edition
+              27th Edition
             </span>
           </div>
 
           <h1 className="text-5xl sm:text-7xl font-extralight mb-6 tracking-tight">
-            About <span className="font-light">ANM 2026</span>
+            About <span className="font-light">ANM 2027</span>
           </h1>
           
           <div className="flex items-center gap-3 justify-center mb-8">
