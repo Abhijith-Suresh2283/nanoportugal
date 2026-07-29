@@ -6,7 +6,7 @@ export default function About() {
     <div className="min-h-screen bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] text-gray-900">
       <SEO 
         title="About the Conference" 
-        description="Learn about the 25-year history of the Advanced Nanomaterials Conference (ANM 2026) at the University of Aveiro, Portugal. Discover our mission to advance nanotechnology research."
+        description="Learn about the 25-year history of the Advanced Nanomaterials Conference (ANM 2027) at the University of Aveiro, Portugal. Discover our mission to advance nanotechnology research."
         keywords="About ANM 2026, Nanotechnology history, University of Aveiro research, science conference Portugal"
         path="/about"
       />
