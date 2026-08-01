@@ -52,7 +52,7 @@ export default function AbstractSubmissionPage() {
                 border: 'none',
                 backgroundColor: 'transparent'
               }}
-              src="https://forms.zohopublic.eu/drelbytitus/form/ANM2026AbstractSubmission/formperma/XuubN5h5tvE8pjsPPEr1TgEtp7KwnUFoL1OYlxb88U0"
+              src="https://forms.zohopublic.eu/drelbytitus/form/ANM2027AbstractSubmission/formperma/qEBR_DFTWhrDp1lqdquY5MOAP_RbyP0u29-29P6eTpA"
             />
           </div>
 
