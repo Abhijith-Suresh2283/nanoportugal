@@ -762,7 +762,7 @@ export default function Navbar() {
             <div className="px-6 py-4 border-t border-violet-100 bg-white/60 backdrop-blur-xl flex-shrink-0">
               <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
                 <div className="w-12 h-px bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
-                <span className="font-light">ANM 2026</span>
+                <span className="font-light">ANM Portugal</span>
                 <div className="w-12 h-px bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
               </div>
             </div>

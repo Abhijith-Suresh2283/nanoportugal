@@ -145,9 +145,16 @@ export default function AccommodationPage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-12 text-center border-t border-gray-700">
+      <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-12 text-center mt-auto border-t border-gray-700">
         <div className="max-w-6xl mx-auto px-4 space-y-4">
-          <p className="text-xs opacity-60">All Rights Reserved</p>
+          <div className="flex items-center justify-center gap-2 text-sm opacity-90">
+            <div className="w-8 h-px bg-gradient-to-r from-transparent via-violet-400 to-transparent" />
+            <span className="font-light tracking-widest">ANM Portugal</span>
+            <div className="w-8 h-px bg-gradient-to-r from-transparent via-violet-400 to-transparent" />
+          </div>
+          <p className="text-xs font-light tracking-wide opacity-60">
+            All Rights Reserved
+          </p>
         </div>
       </footer>
 

@@ -248,7 +248,7 @@ export default function ContactPage() {
         <div className="max-w-6xl mx-auto px-4 space-y-4">
           <div className="flex items-center justify-center gap-2 text-sm opacity-90">
             <div className="w-8 h-px bg-gradient-to-r from-transparent via-violet-400 to-transparent" />
-            <span className="font-light tracking-widest">ANM 2026</span>
+            <span className="font-light tracking-widest">ANM Portugal</span>
             <div className="w-8 h-px bg-gradient-to-r from-transparent via-violet-400 to-transparent" />
           </div>
           <p className="text-xs font-light tracking-wide opacity-60">
