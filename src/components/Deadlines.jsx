@@ -3,17 +3,17 @@ export default function DeadlinesPage() {
   const deadlines = [
     {
       title: "Abstract Submission",
-      date: "10 July 2026 (virtual)",
+      date: "30 November 2027",
       icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
     },
     {
       title: "Normal Registration",
-      date: "31 May 2026",
+      date: "30 April 2027",
       icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
     },
     {
       title: "Late Registration",
-      date: "15 July 2026",
+      date: "30 June 2027",
       icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
     },
     {
@@ -53,7 +53,7 @@ export default function DeadlinesPage() {
 
           {/* Main Title */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extralight leading-tight mb-6">
-            ANM 2026 <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent font-light">Deadlines</span>
+            ANM 2027 <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent font-light">Deadlines</span>
           </h1>
 
           {/* Divider */}
@@ -65,7 +65,7 @@ export default function DeadlinesPage() {
 
           {/* Subtitle */}
           <p className="text-lg sm:text-xl font-light text-gray-600 max-w-2xl mx-auto">
-            Mark your calendar with these key dates for ANM 2026
+            Mark your calendar with these key dates for ANM 2027
           </p>
         </div>
       </section>
