@@ -106,12 +106,12 @@ export default function RegistrationPage() {
           {/* Fees Cards - Mobile */}
           <div className="md:hidden space-y-4">
             {[
-              ["Academics", "TBD", "800", "900"],
-                  ["Post Docs", "TBD", "700", "800"],
-                  ["Students (PhD scholars, graduates & under graduates)", "TBD", "500", "550"],
-                  ["Industry", "TBD", "1500", "2000"],
-                  ["Accompanying Person", "TBD", "400", "450"],
-                  ["Virtual Presentation (Oral or Poster)", "TBD", "400", "450"]
+              ["Academics", "700", "800", "900"],
+                  ["Post Docs", "600", "700", "800"],
+                  ["Students (PhD scholars, graduates & under graduates)", "450", "500", "550"],
+                  ["Industry", "1000", "1500", "2000"],
+                  ["Accompanying Person", "350", "400", "450"],
+                  ["Virtual Presentation (Oral or Poster)", "350", "400", "450"]
             ].map((row, index) => (
               <div key={index} className="border border-gray-300 p-4 rounded-lg space-y-3">
                 <p className="font-semibold text-sm text-gray-900">{row[0]}</p>
