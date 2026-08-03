@@ -18,34 +18,10 @@ export default function Program() {
         
         <div className="max-w-5xl mx-auto text-center relative z-20">
           
-          {/* Badge */}
-          <a
-   href="/ANM2026-Programme at a glance_latest.pdf"
-            download
-            style={{ animation: 'breathe 3s ease-in-out infinite' }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/60 backdrop-blur-md border border-violet-200/50 rounded-full cursor-pointer hover:bg-white/80 hover:shadow-md transition-all duration-200 active:scale-95"
-          >
-            <svg className="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span className="text-xs sm:text-sm uppercase tracking-widest font-semibold text-violet-700">
-              Programme at a Glance
-            </span>
-          </a>
-
-          {/* Keyframes injected inline */}
-          <style>{`
-            @keyframes breathe {
-              0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
-              }
-              50% {
-                transform: scale(1.03);
-                box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.08);
-              }
-            }
-          `}</style>
+          {/* Informational Text */}
+          <p className="text-base sm:text-lg font-light text-gray-700 leading-relaxed max-w-3xl mx-auto text-justify">
+            The ANM2027 conference programme will be available approximately one month prior to the conference. In the meantime, please refer to the ANM2026 conference programme below for an overview of the conference format and schedule.
+          </p>
         </div>
       </section>
 

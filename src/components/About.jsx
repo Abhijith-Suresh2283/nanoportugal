@@ -12,21 +12,21 @@ export default function About() {
       />
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative py-24 sm:py-36 text-center px-6 overflow-hidden">
+      <section className="relative pt-10 pb-12 sm:pt-16 sm:pb-16 text-center px-6 overflow-hidden">
         {/* Decorative Background Elements */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-violet-200/30 rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl" />
         
         <div className="max-w-4xl mx-auto relative z-10">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full mb-8 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/80 backdrop-blur-sm rounded-full mb-8 shadow-sm">
             <div className="w-2 h-2 bg-violet-600 rounded-full animate-pulse" />
-            <span className="text-xs uppercase tracking-widest text-violet-700 font-semibold">
+            <span className="text-sm sm:text-base uppercase tracking-widest text-violet-700 font-semibold">
               27th Edition
             </span>
           </div>
 
-          <h1 className="text-5xl sm:text-7xl font-extralight mb-6 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl font-extralight mb-6 tracking-tight">
             About <span className="font-light">ANM 2027</span>
           </h1>
           
@@ -36,14 +36,14 @@ export default function About() {
             <div className="h-px w-16 bg-gradient-to-r from-transparent via-violet-400 to-transparent" />
           </div>
 
-          <p className="text-xl sm:text-2xl text-gray-700 font-light leading-relaxed">
-            Celebrating 25 years of excellence in Advanced Nanomaterials & Energy Materials Research
+          <p className="text-lg sm:text-xl text-gray-700 font-light leading-relaxed max-w-3xl mx-auto text-justify">
+            ANM is an annual conference series on Advanced Nanomaterials, held at the University of Aveiro, Portugal. The 27th Edition of ANM (ANM 2027) will take place from 21–23 July 2027 at the University of Aveiro, Portugal, and will feature both virtual and in-person presentations.
           </p>
         </div>
       </section>
 
       {/* ================= ANNOUNCEMENT ================= */}
-      <section className="py-16 sm:py-20 px-6">
+      <section className="pt-4 pb-16 sm:pb-20 px-6">
         <div className="max-w-5xl mx-auto">
           
           <div className="bg-white/90 backdrop-blur-xl rounded-[2rem] shadow-2xl border border-violet-100/50 overflow-hidden hover:shadow-violet-200/50 transition-all duration-500">
