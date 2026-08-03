@@ -463,7 +463,7 @@ export default function Navbar() {
         <img
           src={headerImageDesktop}
           alt="ANM 2026 Conference Header"
-          className="hidden sm:block w-full object-contain max-h-[120px]"
+          className="hidden sm:block w-full object-contain max-h-[180px]"
           loading="eager"
         />
 
@@ -771,4 +771,4 @@ export default function Navbar() {
       )}
     </>
   );
-}
+} 
