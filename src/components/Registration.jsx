@@ -84,7 +84,7 @@ export default function RegistrationPage() {
                   ["Industry", "1000", "1500", "2000"],
                   ["Accompanying Person", "350", "400", "450"],
                   ["Virtual Presentation (Oral or Poster)", "350", "400", "450"]
-                ].map((row, index) => 0
+                ].map((row, index) => (
                   <tr key={index} className="border-b border-gray-300">
                     <td className="p-3 border-r border-gray-300 text-sm">{row[0]}</td>
                     <td className="p-3 border-r border-gray-300 text-sm">{row[1]}</td>
