@@ -78,13 +78,13 @@ export default function RegistrationPage() {
               </thead>
               <tbody>
                 {[
-                  ["Academics", "TBD", "800", "900"],
-                  ["Post Docs", "TBD", "700", "800"],
-                  ["Students (PhD scholars, graduates & under graduates)", "TBD", "500", "550"],
-                  ["Industry", "TBD", "1500", "2000"],
-                  ["Accompanying Person", "TBD", "400", "450"],
-                  ["Virtual Presentation (Oral or Poster)", "TBD", "400", "450"]
-                ].map((row, index) => (
+                  ["Academics", "700", "800", "900"],
+                  ["Post Docs", "600", "700", "800"],
+                  ["Students (PhD scholars, graduates & under graduates)", "450", "500", "550"],
+                  ["Industry", "1000", "1500", "2000"],
+                  ["Accompanying Person", "350", "400", "450"],
+                  ["Virtual Presentation (Oral or Poster)", "350", "400", "450"]
+                ].map((row, index) => 0
                   <tr key={index} className="border-b border-gray-300">
                     <td className="p-3 border-r border-gray-300 text-sm">{row[0]}</td>
                     <td className="p-3 border-r border-gray-300 text-sm">{row[1]}</td>
