@@ -4,7 +4,7 @@ export default function RegistrationPage() {
     <div className="bg-white min-h-screen text-gray-900">
       <SEO 
         title="Registration Fees & Online Booking" 
-        description="Register for the ANM 2026 Nanomaterials Conference. View registration fees for academics, students, and industry professionals. Early bird discounts available until Feb 28, 2026."
+        description="Register for the ANM 2027 Nanomaterials Conference. View registration fees for academics, students, and industry professionals. Early bird discounts available until Feb 28, 2026."
         keywords="ANM 2026 registration, conference fees Portugal, student discount nanotechnology, early bird registration science, Abreu Events registration"
         path="/registration"
       />
@@ -15,9 +15,9 @@ export default function RegistrationPage() {
         {/* Registration Info */}
         <div className="space-y-4">
           <p className="text-sm sm:text-base leading-relaxed">
-            <span className="font-semibold">ANM2026 Conference Registration can be done via </span>
+            <span className="font-semibold">ANM2027 Conference Registration can be done via </span>
             <a 
-              href="https://www.congressospco.abreu.pt/ANM2026-41875.aspx" 
+              href="https://www.congressospco.abreu.pt/ANM2027-41875.aspx" 
               target="_blank"
               rel="noopener noreferrer"
               className="text-red-600 font-semibold hover:underline break-words"
@@ -249,7 +249,7 @@ export default function RegistrationPage() {
         <div className="pt-4 sm:pt-6 space-y-2 ml-4 sm:ml-6">
           <p className="font-semibold text-sm sm:text-base">Liability Waiver</p>
           <p className="text-gray-900 text-sm sm:text-base leading-relaxed pl-4">
-            The safety and well-being of our attendees is our top priority. The ANM2026 organizers are committed to providing a safe environment for the event and will make every reasonable effort to do so. However, as an attendee, you must fully understand and knowingly, voluntarily, and irrevocably assume all risks related to entry into, and presence in, at, and around the event venue(s), which may include an increased risk of exposure to communicable diseases. As an attendee, you accept personal responsibility for your voluntary participation in the event and assume all responsibility for claims and potential claims relating to any risks and hazards of attendance.
+            The safety and well-being of our attendees is our top priority. The ANM2027 organizers are committed to providing a safe environment for the event and will make every reasonable effort to do so. However, as an attendee, you must fully understand and knowingly, voluntarily, and irrevocably assume all risks related to entry into, and presence in, at, and around the event venue(s), which may include an increased risk of exposure to communicable diseases. As an attendee, you accept personal responsibility for your voluntary participation in the event and assume all responsibility for claims and potential claims relating to any risks and hazards of attendance.
           </p>
         </div>
 
@@ -257,7 +257,7 @@ export default function RegistrationPage() {
         <div className="pt-3 sm:pt-4 space-y-2 ml-4 sm:ml-6 pb-8">
           <p className="font-semibold text-sm sm:text-base">Privacy Policy</p>
           <p className="text-gray-900 text-sm sm:text-base leading-relaxed pl-4">
-            Any personal data inserted in the registration form will be of sole use to the ANM2026 Congress.
+            Any personal data inserted in the registration form will be of sole use to the ANM2027 Congress.
           </p>
         </div>
 
