@@ -68,7 +68,7 @@ export default function DeadlinesPage() {
               <span key={i} className="text-sm sm:text-base font-medium text-white mx-8">
                 Please refer the{" "}
                 <a
-                  href="https://nanoportugal.com/publications"
+                  href="/publications"
                   className="underline underline-offset-2 decoration-white/70 hover:decoration-white hover:text-violet-100 transition-colors duration-200"
                 >
                   publications page
