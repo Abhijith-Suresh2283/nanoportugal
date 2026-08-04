@@ -4,7 +4,7 @@ export default function SponsorsAndExhibitorsPage() {
     {
       tier: "Platinum",
       icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z",
-      description: "The platinum sponsor program at ANM2026 allows organizations to act as official conference sponsors. Platinum sponsors will have a sign board at the conference foyer and ample promotion on the conference website (Logo and details will appear in all pages) and in the program book. The sponsors will appear in all announcements.",
+      description: "The platinum sponsor program at ANM2027 allows organizations to act as official conference sponsors. Platinum sponsors will have a sign board at the conference foyer and ample promotion on the conference website (Logo and details will appear in all pages) and in the program book. The sponsors will appear in all announcements.",
       benefits: ["Official Conference Sponsor", "Sign Board at Foyer", "Logo on All Website Pages", "Featured in Program Book", "All Conference Announcements"]
     },
     {
@@ -77,7 +77,7 @@ export default function SponsorsAndExhibitorsPage() {
 
           {/* Subtitle */}
           <p className="text-base sm:text-lg font-light text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Become a sponsor or exhibitor at ANM2026, one of the largest academic & industry gatherings in Energy, Nanomaterials, Graphene, Polymers and Magnetic Materials
+            Become a sponsor or exhibitor at ANM2027, one of the largest academic & industry gatherings in Energy, Nanomaterials, Graphene, Polymers and Magnetic Materials
           </p>
         </div>
       </section>
