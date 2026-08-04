@@ -5,7 +5,7 @@ export default function ContactPage() {
       <SEO 
         title="Contact Us" 
         description="Get in touch with the ANM 2027 conference organizers. Contact us for general inquiries, abstract submissions, registration assistance, and travel planning in Portugal."
-        keywords="Contact ANM 2026, Nanomaterials conference email, Aveiro conference support, Abreu Events contact, nanotechnology research inquiry"
+        keywords="Contact ANM 2027, Nanomaterials conference email, Aveiro conference support, Abreu Events contact, nanotechnology research inquiry"
         path="/contact"
       />
       
