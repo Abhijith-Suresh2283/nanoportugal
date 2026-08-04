@@ -60,6 +60,30 @@ export default function DeadlinesPage() {
         </div>
       </section>
 
+      {/* ================= SCROLLING NOTICE ================= */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-2">
+        <div className="relative bg-gradient-to-r from-violet-600 to-purple-600 rounded-full overflow-hidden shadow-lg py-3">
+          <div className="flex whitespace-nowrap animate-marquee">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <span key={i} className="text-sm sm:text-base font-medium text-white mx-8">
+                Please refer the publications page for details of ANM2026 manuscript submission.
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Marquee keyframes */}
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee {
+            animation: marquee 25s linear infinite;
+          }
+        `}</style>
+      </section>
+
       {/* ================= DEADLINES TIMELINE ================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
         <div className="sr-only">
@@ -265,30 +289,6 @@ export default function DeadlinesPage() {
 
           </div>
         </div>
-      </section>
-
-      {/* ================= SCROLLING NOTICE ================= */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
-        <div className="relative bg-gradient-to-r from-violet-600 to-purple-600 rounded-full overflow-hidden shadow-lg py-3">
-          <div className="flex whitespace-nowrap animate-marquee">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <span key={i} className="text-sm sm:text-base font-medium text-white mx-8">
-                Please refer the publications page for details of ANM2026 manuscript submission.
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Marquee keyframes */}
-        <style>{`
-          @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-          }
-          .animate-marquee {
-            animation: marquee 25s linear infinite;
-          }
-        `}</style>
       </section>
 
       {/* ================= FOOTER ================= */}
