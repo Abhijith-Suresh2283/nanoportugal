@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import SEO from "./SEO";
@@ -10,6 +11,95 @@ const handlePageNavigation = (route) => {
   navigate(route);
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
+
+  // ================= HERO VIDEO (YouTube IFrame API, captions unloaded) =================
+  const playerHostRef = useRef(null);
+  const playerRef = useRef(null);
+
+  useEffect(() => {
+    const VIDEO_ID = "dnZdiwo-ZKo";
+    let cancelled = false;
+
+    // Caption-killing technique via Gelson Schikorski, https://stackoverflow.com/a/78920052 (CC BY-SA 4.0)
+    const killCaptions = (player) => {
+      try { player.unloadModule("captions"); } catch (e) { /* module absent */ }
+      try { player.unloadModule("cc"); } catch (e) { /* legacy player */ }
+    };
+
+    const createPlayer = () => {
+      if (cancelled || !playerHostRef.current || !window.YT?.Player) return;
+
+      // Fresh target node each time: YT replaces this element with its iframe,
+      // so React must never own it directly.
+      playerHostRef.current.innerHTML = "";
+      const target = document.createElement("div");
+      playerHostRef.current.appendChild(target);
+
+      playerRef.current = new window.YT.Player(target, {
+        width: "100%",
+        height: "100%",
+        videoId: VIDEO_ID,
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          rel: 0,
+          loop: 1,
+          playlist: VIDEO_ID,
+          playsinline: 1,
+          cc_load_policy: 0,
+          iv_load_policy: 3,
+          modestbranding: 1,
+          disablekb: 1,
+          fs: 0,
+        },
+        events: {
+          onReady: (event) => {
+            killCaptions(event.target);
+            const frame = event.target.getIframe();
+            frame.style.width = "100%";
+            frame.style.height = "100%";
+            frame.style.display = "block";
+            frame.setAttribute("title", "ANM 2026 Conference");
+            event.target.mute();
+            event.target.playVideo();
+          },
+          onStateChange: (event) => {
+            if (event.data === window.YT.PlayerState.PLAYING) {
+              killCaptions(event.target);
+              // Some clients re-attach the track shortly after playback begins
+              setTimeout(() => killCaptions(event.target), 500);
+              setTimeout(() => killCaptions(event.target), 2000);
+            }
+          },
+          onApiChange: (event) => killCaptions(event.target),
+        },
+      });
+    };
+
+    if (window.YT?.Player) {
+      createPlayer();
+    } else {
+      const previous = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => {
+        if (typeof previous === "function") previous();
+        createPlayer();
+      };
+      if (!document.getElementById("youtube-iframe-api")) {
+        const tag = document.createElement("script");
+        tag.id = "youtube-iframe-api";
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.body.appendChild(tag);
+      }
+    }
+
+    return () => {
+      cancelled = true;
+      try { playerRef.current?.destroy(); } catch (e) { /* already gone */ }
+      playerRef.current = null;
+      if (playerHostRef.current) playerHostRef.current.innerHTML = "";
+    };
+  }, []);
 
   return (
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] text-gray-900 overflow-x-hidden">
@@ -55,18 +145,16 @@ const handlePageNavigation = (route) => {
 
         {/* Video Background */}
         <div className="absolute inset-0 overflow-hidden">
-          <iframe
+          <div
+            ref={playerHostRef}
             className="
               absolute top-1/2 left-1/2 
               -translate-x-1/2 -translate-y-1/2
               min-w-full min-h-full
               w-[133.34vh] h-[75vh]
               sm:w-[177.77vh] sm:h-[56.25vw]
+              pointer-events-none
             "
-            src="https://www.youtube.com/embed/hAlTWkCIJ0I?autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=hAlTWkCIJ0I&playsinline=1"
-            title="ANM 2026 Conference"
-            frameBorder="0"
-            allow="autoplay; encrypted-media"
           />
         </div>
 
