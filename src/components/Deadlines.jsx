@@ -66,7 +66,14 @@ export default function DeadlinesPage() {
           <div className="flex whitespace-nowrap animate-marquee">
             {Array.from({ length: 4 }).map((_, i) => (
               <span key={i} className="text-sm sm:text-base font-medium text-white mx-8">
-                Please refer the publications page for details of ANM2026 manuscript submission.
+                Please refer the{" "}
+                <a
+                  href="https://nanoportugal.com/publications"
+                  className="underline underline-offset-2 decoration-white/70 hover:decoration-white hover:text-violet-100 transition-colors duration-200"
+                >
+                  publications page
+                </a>{" "}
+                for details of ANM2026 manuscript submission.
               </span>
             ))}
           </div>
@@ -80,6 +87,9 @@ export default function DeadlinesPage() {
           }
           .animate-marquee {
             animation: marquee 25s linear infinite;
+          }
+          .animate-marquee:hover {
+            animation-play-state: paused;
           }
         `}</style>
       </section>
