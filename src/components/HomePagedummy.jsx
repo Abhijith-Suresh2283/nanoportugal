@@ -60,7 +60,7 @@ const handlePageNavigation = (route) => {
             frame.style.width = "100%";
             frame.style.height = "100%";
             frame.style.display = "block";
-            frame.setAttribute("title", "ANM 2026 Conference");
+            frame.setAttribute("title", "ANM 2027 Conference");
             event.target.mute();
             event.target.playVideo();
           },
@@ -132,9 +132,9 @@ const handlePageNavigation = (route) => {
   </span>
 </button>
       <SEO 
-        title="ANM 2026 | International Conference on Advanced Nanomaterials" 
+        title="ANM 2027 | International Conference on Advanced Nanomaterials" 
         description="International conferences on: •Advanced Nanomaterials •Hydrogen Energy •Advanced Graphene Materials •Advanced Magnetic and Spintronics Materials •University of Aveiro, Portugal."
-        keywords="ANM 2026, Advanced Nanomaterials Conference, Hydrogen Energy Portugal, Graphene Research 2026, Spintronics Materials"
+        keywords="ANM 2027, Advanced Nanomaterials Conference, Hydrogen Energy Portugal, Graphene Research 2027, Spintronics Materials"
         path="/"
       />
 
@@ -234,7 +234,7 @@ const handlePageNavigation = (route) => {
 
             {/* Register Now */}
             <a
-              href="https://www.congressospco.abreu.pt/ANM2026-41875.aspx"
+              href="https://www.congressospco.abreu.pt/ANM2027-41875.aspx"
               target="_blank"
               rel="noopener noreferrer"
               className="group px-10 py-4 bg-gradient-to-r from-violet-500 to-purple-600 text-white text-sm font-medium tracking-widest uppercase hover:shadow-2xl hover:shadow-violet-500/50 transition-all duration-300 rounded-full hover:scale-105"
@@ -447,9 +447,9 @@ const handlePageNavigation = (route) => {
 {/* ================= HIDDEN SEO TRACKS SECTION ================= */}
       {/* This section helps Google associate your site with specific scientific topics */}
       <div className="sr-only">
-        <h2>Call for Papers: Nano Portugal 2026</h2>
+        <h2>Call for Papers: Nano Portugal 2027</h2>
         <p>Submit research abstracts on Advanced Nanomaterials, Energy Materials, Graphene, Carbon Nanotubes, and Polymer Nanocomposites.</p>
-        <p>The 2026 Nanomaterials conference tracks include: Hydrogen Energy, Battery Materials, and Nano-Biotechnology.</p>
+        <p>The 2027 Nanomaterials conference tracks include: Hydrogen Energy, Battery Materials, and Nano-Biotechnology.</p>
       </div>
 
       {/* ================= WELCOME ================= */}
@@ -526,7 +526,7 @@ const handlePageNavigation = (route) => {
               </span>
             </button>
                 
-                 <a href="https://www.congressospco.abreu.pt/ANM2026-41875.aspx"
+                 <a href="https://www.congressospco.abreu.pt/ANM2027-41875.aspx"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group px-10 py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-medium tracking-widest uppercase hover:shadow-lg hover:shadow-violet-300/50 transition-all duration-300 rounded-full hover:scale-105"
@@ -557,7 +557,7 @@ const handlePageNavigation = (route) => {
               Conference at a Glance
             </h2>
             <p className="text-gray-600 font-light">
-              A quarter-century of scientific excellence
+              Over a quarter-century of scientific excellence
             </p>
           </div>
 
@@ -570,7 +570,7 @@ const handlePageNavigation = (route) => {
               {[
                 { 
                   icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z",
-                  value: "25th", 
+                  value: "27th", 
                   label: "Edition",
                   description: "Years of Excellence"
                 },
@@ -820,7 +820,7 @@ const handlePageNavigation = (route) => {
           100% { left: 0; transform: translateX(-100%); }
         }
         .animate-marquee-bar {
-          animation: marquee-bar 10s linear infinite;
+          animation: marquee-bar 16s linear infinite;
         }
         .group:hover .animate-marquee-bar {
           animation-play-state: paused;
