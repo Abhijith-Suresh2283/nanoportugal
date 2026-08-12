@@ -62,20 +62,28 @@ export default function DeadlinesPage() {
 
       {/* ================= SCROLLING NOTICE ================= */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-2">
-        <div className="relative bg-gradient-to-r from-violet-600 to-purple-600 rounded-full overflow-hidden shadow-lg py-3">
-          <div className="flex whitespace-nowrap animate-marquee">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <span key={i} className="text-sm sm:text-base font-medium text-white mx-8">
-                Please refer the{" "}
-                <a
-                  href="/publications"
-                  className="underline underline-offset-2 decoration-white/70 hover:decoration-white hover:text-violet-100 transition-colors duration-200"
-                >
-                  publications page
-                </a>{" "}
-                for details of ANM2026 manuscript submission.
-              </span>
-            ))}
+        <div className="group relative bg-gradient-to-r from-violet-600 to-purple-600 rounded-full overflow-hidden shadow-lg py-3">
+          <div className="relative flex h-6 overflow-hidden">
+            <span className="marquee-item shrink-0 whitespace-nowrap text-sm sm:text-base font-medium text-white">
+              Please refer the{" "}
+              <a
+                href="/publications"
+                className="underline underline-offset-2 decoration-white/70 hover:decoration-white hover:text-violet-100 transition-colors duration-200"
+              >
+                publications page
+              </a>{" "}
+              for details of ANM2026 manuscript submission.
+            </span>
+            <span className="marquee-item shrink-0 whitespace-nowrap text-sm sm:text-base font-medium text-white" aria-hidden="true">
+              Please refer the{" "}
+              <a
+                href="/publications"
+                className="underline underline-offset-2 decoration-white/70 hover:decoration-white hover:text-violet-100 transition-colors duration-200"
+              >
+                publications page
+              </a>{" "}
+              for details of ANM2026 manuscript submission.
+            </span>
           </div>
         </div>
 
@@ -83,12 +91,14 @@ export default function DeadlinesPage() {
         <style>{`
           @keyframes marquee {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            100% { transform: translateX(-100%); }
           }
-          .animate-marquee {
-            animation: marquee 25s linear infinite;
+          .marquee-item {
+            min-width: 100vw;
+            padding-left: 2rem;
+            animation: marquee 18s linear infinite;
           }
-          .animate-marquee:hover {
+          .group:hover .marquee-item {
             animation-play-state: paused;
           }
         `}</style>

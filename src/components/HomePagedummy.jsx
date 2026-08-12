@@ -111,11 +111,9 @@ const handlePageNavigation = (route) => {
   {/* Shimmer effect */}
   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
   
-  <div className="relative z-10 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
-    {/* NEW badge */}
-
-    <span className="text-sm sm:text-base font-light tracking-wide">
-      <span className="font-semibold">Projects, Exhibitions & Collaborations</span>
+  <div className="relative z-10 h-6 overflow-hidden">
+    <span className="absolute left-0 top-0 whitespace-nowrap animate-marquee-bar text-sm sm:text-base font-semibold tracking-wide">
+      Projects, Exhibitions &amp; Collaborations
     </span>
   </div>
 </button>
@@ -252,7 +250,7 @@ const handlePageNavigation = (route) => {
           </div>
 
           {/* Bottom Row: Learn More + Projects & Collaboration */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
 
             {/* Learn More */}
             <button
@@ -266,13 +264,14 @@ const handlePageNavigation = (route) => {
             {/* Projects & Collaboration */}
             <button
               onClick={() => handlePageNavigation("/projectsandcollaboration")}
-              className="hidden sm:block group relative px-10 py-4 w-[240px] bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white text-sm font-medium tracking-widest uppercase hover:shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 rounded-full overflow-hidden"
+              className="hidden sm:block group relative px-10 py-4 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white text-sm font-medium tracking-widest uppercase hover:shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 rounded-full overflow-hidden"
             >
-              <div className="overflow-hidden whitespace-nowrap">
-                <span className="inline-block animate-marquee">
-                  Projects,&nbsp;Exhibitions&nbsp;&amp;&nbsp;Collaboration&nbsp;&nbsp;&nbsp;&nbsp;Projects,&nbsp;Exhibitions&nbsp;&amp;&nbsp;Collaboration&nbsp;&nbsp;&nbsp;&nbsp;
-                </span>
-              </div>
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                Projects, Exhibitions & Collaboration
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </span>
             </button>
 
           </div>
@@ -816,14 +815,14 @@ const handlePageNavigation = (route) => {
         .delay-300 {
           animation-delay: 300ms;
         }
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+        @keyframes marquee-bar {
+          0% { left: 100%; transform: translateX(0); }
+          100% { left: 0; transform: translateX(-100%); }
         }
-        .animate-marquee {
-          animation: marquee 8s linear infinite;
+        .animate-marquee-bar {
+          animation: marquee-bar 10s linear infinite;
         }
-        .group:hover .animate-marquee {
+        .group:hover .animate-marquee-bar {
           animation-play-state: paused;
         }
       `}</style>
