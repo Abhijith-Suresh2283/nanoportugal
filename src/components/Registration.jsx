@@ -158,6 +158,8 @@ export default function RegistrationPage() {
               "Publications in journal",
               "Publications in Proceedings",
               "Lunch",
+              "Boat trip",
+              "Cocktail Party",
               "Banquet",
               "Participation certificate"
             ].map((item, i) => (
@@ -189,7 +191,13 @@ export default function RegistrationPage() {
             Registration fee for Accompanying Person
           </p>
           <ul className="space-y-2 ml-4 sm:ml-6">
-            <li className="list-disc text-gray-900 text-sm sm:text-base">Lunch</li>
+            {[
+              "Lunch",
+              "Boat trip",
+              "Cocktail Party"
+            ].map((item, i) => (
+              <li key={i} className="list-disc text-gray-900 text-sm sm:text-base">{item}</li>
+            ))}
           </ul>
         </div>
 
