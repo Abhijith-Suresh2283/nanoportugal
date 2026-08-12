@@ -1,3 +1,14 @@
 User-agent: *
 Allow: /
+
+# Explicitly welcome the major search crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
 Sitemap: https://nanoportugal.com/sitemap.xml

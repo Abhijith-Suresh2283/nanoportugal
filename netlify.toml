@@ -1,0 +1,51 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Clean URLs: /about instead of /about.html
+[build.processing.html]
+  pretty_urls = true
+
+
+# ============================================================
+#  SPA FALLBACK
+#  Required so /about, /registration etc. return index.html
+#  instead of a 404. Must come AFTER any specific redirects.
+# ============================================================
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+
+# ============================================================
+#  HEADERS
+# ============================================================
+
+# Make sure sitemap and robots are served with correct types
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Cache-Control = "public, max-age=3600"
+
+# Long cache for hashed build assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Basic security headers (no effect on SEO, good practice)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
