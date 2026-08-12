@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({ title, description, keywords, path = "" }) => {
-  const siteName = "Nano Portugal (ANM 2026)";
+  const siteName = "Nano Portugal (ANM 2027)";
   const fullTitle = `${title} | ${siteName}`;
   const url = `https://nanoportugal.com${path}`;
 
