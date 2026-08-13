@@ -17,7 +17,7 @@ export default function RegistrationPage() {
           <p className="text-sm sm:text-base leading-relaxed">
             <span className="font-semibold">ANM2027 Conference Registration can be done via </span>
             <a 
-              href="https://www.congressospco.abreu.pt/ANM2027-41875.aspx" 
+              href="https://www.congressospco.abreu.pt/ANM2027-42562.aspx" 
               target="_blank"
               rel="noopener noreferrer"
               className="text-red-600 font-semibold hover:underline break-words"
