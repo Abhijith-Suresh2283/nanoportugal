@@ -4,8 +4,8 @@ export default function RegistrationPage() {
     <div className="bg-white min-h-screen text-gray-900">
       <SEO 
         title="Registration Fees & Online Booking" 
-        description="Register for the ANM 2027 Nanomaterials Conference. View registration fees for academics, students, and industry professionals. Early bird discounts available until Feb 28, 2026."
-        keywords="ANM 2026 registration, conference fees Portugal, student discount nanotechnology, early bird registration science, Abreu Events registration"
+        description="Register for the ANM 2027 Nanomaterials Conference. View registration fees for academics, students, and industry professionals. Early bird discounts available until Feb 28, 2027."
+        keywords="ANM 2027 registration, conference fees Portugal, student discount nanotechnology, early bird registration science, Abreu Events registration"
         path="/registration"
       />
 
@@ -72,8 +72,8 @@ export default function RegistrationPage() {
                 <tr className="border-b border-gray-300 bg-gray-50">
                   <th className="text-left p-3 font-normal border-r border-gray-300 text-sm"></th>
                   <th className="text-left p-3 font-normal border-r border-gray-300 text-sm">Until 28 Feb 2027</th>
-                  <th className="text-left p-3 font-normal border-r border-gray-300 text-sm">Until 31 May 2026</th>
-                  <th className="text-left p-3 font-normal text-sm">Until 15 July 2026</th>
+                  <th className="text-left p-3 font-normal border-r border-gray-300 text-sm">Until 31 May 2027</th>
+                  <th className="text-left p-3 font-normal text-sm">Until 15 July 2027</th>
                 </tr>
               </thead>
               <tbody>
@@ -121,11 +121,11 @@ export default function RegistrationPage() {
                     <span className="font-semibold">{row[1] === "TBD" ? "TBD" : `€${row[1]}`}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Normal (Until 31 May 2026):</span>
+                    <span className="text-gray-600">Normal (Until 31 May 2027):</span>
                     <span className="font-semibold">€{row[2]}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Late (Until 15 Jul 2026):</span>
+                    <span className="text-gray-600">Late (Until 15 Jul 2027):</span>
                     <span className="font-semibold">€{row[3]}</span>
                   </div>
                 </div>

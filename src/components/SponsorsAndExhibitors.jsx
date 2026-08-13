@@ -39,8 +39,8 @@ export default function SponsorsAndExhibitorsPage() {
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 overflow-x-hidden">
       <SEO 
         title="Sponsorship & Exhibition Opportunities" 
-        description="Partner with ANM 2026. Explore sponsorship tiers (Platinum, Gold, Silver) and exhibition opportunities for the premier international gathering in Nanomaterials and Energy."
-        keywords="ANM 2026 sponsors, exhibit at nanotechnology conference, conference sponsorship tiers, Portugal science exhibition, nanotechnology industry partners"
+        description="Partner with ANM 2027. Explore sponsorship tiers (Platinum, Gold, Silver) and exhibition opportunities for the premier international gathering in Nanomaterials and Energy."
+        keywords="ANM 2027 sponsors, exhibit at nanotechnology conference, conference sponsorship tiers, Portugal science exhibition, nanotechnology industry partners"
         path="/sponsors"
       />
 

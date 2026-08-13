@@ -61,8 +61,8 @@ export default function CommitteesPage() {
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 overflow-x-hidden">
       <SEO 
         title="Committees & Leadership" 
-        description="Meet the ANM 2026 Organizing and Scientific Committees. Featuring distinguished chairs and nanotechnology experts from the University of Aveiro, Porto, Coimbra, and global institutions."
-        keywords="ANM 2026 committee, scientific committee nanomaterials, Dr. Elby Titus, Prof. João Campos Gil, University of Aveiro research, nanotechnology leadership Portugal"
+        description="Meet the ANM 2027 Organizing and Scientific Committees. Featuring distinguished chairs and nanotechnology experts from the University of Aveiro, Porto, Coimbra, and global institutions."
+        keywords="ANM 2027 committee, scientific committee nanomaterials, Dr. Elby Titus, Prof. João Campos Gil, University of Aveiro research, nanotechnology leadership Portugal"
         path="/committees"
       />
 
@@ -99,7 +99,7 @@ export default function CommitteesPage() {
 
           {/* Subtitle */}
           <p className="text-lg sm:text-xl font-light text-gray-600 max-w-2xl mx-auto">
-            Meet the distinguished experts organizing ANM 2026
+            Meet the distinguished experts organizing ANM 2027
           </p>
         </div>
       </section>

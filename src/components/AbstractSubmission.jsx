@@ -4,11 +4,10 @@ export default function AbstractSubmissionPage() {
     <div className="bg-white min-h-screen text-gray-900">
         <SEO 
         title="Abstract Submission" 
-        description="Official abstract submission portal for the 2026 Nanomaterials Conference (ANM). Download the template and submit your research on energy and advanced materials."
-        keywords="ANM 2026 abstract submission, call for papers nanotechnology 2026, nanomaterials submission portal, Aveiro Portugal conference"
+        description="Official abstract submission portal for the 2027 Nanomaterials Conference (ANM). Download the template and submit your research on energy and advanced materials."
+        keywords="ANM 2027 abstract submission, call for papers nanotechnology 2027, nanomaterials submission portal, Aveiro Portugal conference"
         path="/abstract-submission"
       />
-
       {/* ================= PAGE HEADER ================= */}
       <section className="py-12 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto text-center">
@@ -29,12 +28,11 @@ export default function AbstractSubmissionPage() {
           </p>
         </div>
       </section>
-
       {/* ================= SUBMISSION FORM ================= */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
         {/* 3. VISUALLY HIDDEN SEO DATA (Crucial for iframe pages) */}
         <div className="sr-only">
-          <h2>Nanomaterials Conference 2026 Call for Papers</h2>
+          <h2>Nanomaterials Conference 2027 Call for Papers</h2>
           <p>Submission categories: Keynote, Invited, Oral, and Poster presentations.</p>
           <p>Scientific tracks: Graphene, Carbon Nanotubes, Energy Materials, and Polymer Nanocomposites.</p>
         </div>
@@ -55,9 +53,7 @@ export default function AbstractSubmissionPage() {
               src="https://forms.zohopublic.eu/drelbytitus/form/ANM2027AbstractSubmission/formperma/qEBR_DFTWhrDp1lqdquY5MOAP_RbyP0u29-29P6eTpA"
             />
           </div>
-
         </div>
-
       </section>
       {/* ================= FOOTER ================= */}
       <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-12 text-center mt-auto border-t border-gray-700">
@@ -72,7 +68,6 @@ export default function AbstractSubmissionPage() {
           </p>
         </div>
       </footer>
-
     </div>
   );
 }

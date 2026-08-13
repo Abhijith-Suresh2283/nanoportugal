@@ -4,8 +4,8 @@ export default function TravelPage() {
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900">
       <SEO 
         title="Travel Information & Directions" 
-        description="Plan your trip to ANM 2026. Detailed guide on reaching the University of Aveiro from Porto (OPO) and Lisbon (LIS) airports by train, bus, or car."
-        keywords="Travel to Aveiro Portugal, Porto airport to Aveiro train, Lisbon to Aveiro directions, ANM 2026 travel guide, University of Aveiro location"
+        description="Plan your trip to ANM 2027. Detailed guide on reaching the University of Aveiro from Porto (OPO) and Lisbon (LIS) airports by train, bus, or car."
+        keywords="Travel to Aveiro Portugal, Porto airport to Aveiro train, Lisbon to Aveiro directions, ANM 2027 travel guide, University of Aveiro location"
         path="/travel"
       />
 
@@ -42,12 +42,12 @@ export default function TravelPage() {
 
           {/* Subtitle */}
           <p className="text-lg sm:text-xl font-light text-gray-600 max-w-2xl mx-auto">
-            Your guide to reaching the University of Aveiro for ANM 2026
+            Your guide to reaching the University of Aveiro for ANM 2027
           </p>
         </div>
       </section>
       <div className="sr-only">
-        <h2>ANM 2026 Travel Summary</h2>
+        <h2>ANM 2027 Travel Summary</h2>
         <p>Porto Airport to Aveiro: 40-75 minutes via Metro and CP Train.</p>
         <p>Lisbon Airport to Aveiro: 2-2.5 hours via Oriente Railway Station.</p>
         <p>Aveiro is located 70km from Porto and 250km from Lisbon.</p>
@@ -336,7 +336,7 @@ export default function TravelPage() {
             {/* CTA */}
             <div className="pt-4">
               <a
-                href="https://www.congressospco.abreu.pt/ANM2026-41875.aspx"
+                href="https://www.congressospco.abreu.pt/ANM2027-41875.aspx"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-medium tracking-widest uppercase hover:shadow-lg hover:shadow-violet-300/50 transition-all duration-300 rounded-full hover:scale-105"

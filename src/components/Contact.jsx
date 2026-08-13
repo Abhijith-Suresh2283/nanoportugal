@@ -39,7 +39,7 @@ export default function ContactPage() {
           </div>
 
           <p className="text-lg sm:text-xl text-gray-600 font-light leading-relaxed">
-            ANM 2026 – International Conference on Advanced Nanomaterials
+            ANM 2027 – International Conference on Advanced Nanomaterials
           </p>
         </div>
       </section>

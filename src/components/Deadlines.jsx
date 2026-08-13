@@ -32,8 +32,8 @@ export default function DeadlinesPage() {
     <div className="bg-gradient-to-br from-[#f7e3ff] via-[#fef3ff] to-[#f0e7ff] min-h-screen text-gray-900 overflow-x-hidden">
       <SEO 
         title="Important Deadlines" 
-        description="View all key dates and deadlines for the ANM 2026 conference in Aveiro, Portugal. Includes abstract submission, early bird registration, and manuscript deadlines."
-        keywords="ANM 2026 deadlines, abstract submission date 2026, nanomaterials conference registration, early bird nano conference, Portugal research deadlines"
+        description="View all key dates and deadlines for the ANM 2027 conference in Aveiro, Portugal. Includes abstract submission, early bird registration, and manuscript deadlines."
+        keywords="ANM 2027 deadlines, abstract submission date 2027, nanomaterials conference registration, early bird nano conference, Portugal research deadlines"
         path="/deadlines"
       />
 
@@ -72,7 +72,7 @@ export default function DeadlinesPage() {
               >
                 publications page
               </a>{" "}
-              for details of ANM2026 manuscript submission.
+              for details of ANM2027 manuscript submission.
             </span>
             <span className="marquee-item shrink-0 whitespace-nowrap text-sm sm:text-base font-medium text-white" aria-hidden="true">
               Please refer the{" "}
@@ -82,7 +82,7 @@ export default function DeadlinesPage() {
               >
                 publications page
               </a>{" "}
-              for details of ANM2026 manuscript submission.
+              for details of ANM2027 manuscript submission.
             </span>
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function DeadlinesPage() {
       {/* ================= DEADLINES TIMELINE ================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
         <div className="sr-only">
-          <h2>Key Submission and Registration Dates for Nano Portugal 2026</h2>
+          <h2>Key Submission and Registration Dates for Nano Portugal 2027</h2>
           <ul>
             {deadlines.map((item, index) => (
               <li key={index}>{item.title}: {item.date}</li>
@@ -295,7 +295,7 @@ export default function DeadlinesPage() {
               </a>
 
               <a
-                href="https://www.congressospco.abreu.pt/ANM2026-41875.aspx"
+                href="https://www.congressospco.abreu.pt/ANM2027-41875.aspx"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-white border-2 border-violet-600 text-violet-700 text-sm font-medium tracking-widest uppercase hover:bg-violet-600 hover:text-white transition-all duration-300 rounded-full"

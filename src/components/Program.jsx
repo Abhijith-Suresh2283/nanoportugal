@@ -7,8 +7,8 @@ export default function Program() {
       <section className="relative pt-8 sm:pt-12 pb-8 px-4 sm:px-6">
         <SEO 
         title="Conference Program & Schedule" 
-        description="Explore the ANM 2026 conference schedule. Featuring keynote speakers, technical sessions on graphene and energy materials, and networking events in Aveiro, Portugal."
-        keywords="ANM 2026 program, conference schedule nanotechnology, technical sessions energy materials, graphene research presentations, Aveiro science events"
+        description="Explore the ANM 2027 conference schedule. Featuring keynote speakers, technical sessions on graphene and energy materials, and networking events in Aveiro, Portugal."
+        keywords="ANM 2027 program, conference schedule nanotechnology, technical sessions energy materials, graphene research presentations, Aveiro science events"
         path="/program"
       />
         
@@ -28,7 +28,7 @@ export default function Program() {
       {/* ================= MAIN CONTENT ================= */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20 pt-0 space-y-12">
         <div className="sr-only">
-          <h2>Scientific Program Tracks - Nano Portugal 2026</h2>
+          <h2>Scientific Program Tracks - Nano Portugal 2027</h2>
           <p>Our technical sessions cover advanced topics in: Energy materials research, Graphene applications, Polymer chemistry, and Magnetic nanomaterials.</p>
           <p>Schedule includes plenary talks, invited oral presentations, and interactive poster sessions.</p>
         </div>
