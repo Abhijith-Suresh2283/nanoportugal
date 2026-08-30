@@ -30,9 +30,9 @@ const handlePageNavigation = (route) => {
   </div>
 </button>
       <SEO 
-        title="ANM 2026 | International Conference on Advanced Nanomaterials" 
+        title="ANM 2027 | International Conference on Advanced Nanomaterials" 
         description="International conferences on: •Advanced Nanomaterials •Hydrogen Energy •Advanced Graphene Materials •Advanced Magnetic and Spintronics Materials •University of Aveiro, Portugal."
-        keywords="ANM 2026, Advanced Nanomaterials Conference, Hydrogen Energy Portugal, Graphene Research 2026, Spintronics Materials"
+        keywords="ANM 2027, Advanced Nanomaterials Conference, Hydrogen Energy Portugal, Graphene Research 2026, Spintronics Materials"
         path="/"
       />
 
@@ -50,7 +50,7 @@ const handlePageNavigation = (route) => {
               sm:w-[177.77vh] sm:h-[56.25vw]
             "
             src="https://www.youtube.com/embed/hAlTWkCIJ0I?autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=hAlTWkCIJ0I&playsinline=1"
-            title="ANM 2026 Conference"
+            title="ANM 2027 Conference"
             frameBorder="0"
             allow="autoplay; encrypted-media"
           />
