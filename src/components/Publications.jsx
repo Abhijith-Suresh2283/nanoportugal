@@ -38,20 +38,6 @@ export default function PublicationsPage() {
               <div className="space-y-3 text-gray-700">
                 {/* Journal 1 */}
                 <p className="leading-relaxed">
-                  1. International Journal of Hydrogen Energy (
-                  <a 
-                    href="http://www.journals.elsevier.com/international-journal-of-hydrogen-energy/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800 underline break-all"
-                  >
-                    http://www.journals.elsevier.com/international-journal-of-hydrogen-energy/
-                  </a>
-                  ) – Special issue name- ANM2027
-                </p>
-
-                {/* Journal 2 */}
-                <p className="leading-relaxed">
                   2. Energy Storage (Wiley){" "}
                   <a 
                     href="https://onlinelibrary.wiley.com/" 
