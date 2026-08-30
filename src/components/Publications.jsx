@@ -4,7 +4,7 @@ export default function PublicationsPage() {
     <div className="min-h-screen bg-white">
       <SEO 
         title="Journal Publications & Special Issues" 
-        description="Publish your ANM 2027 research in prestigious journals. Special issues available in International Journal of Hydrogen Energy, Energy Storage, Nanomaterials, and more."
+        description="Publish your ANM 2027 research in prestigious journals. Special issues available in Energy Storage, Nanomaterials, and more."
         keywords="ANM 2027 publications, nanomaterials special issue, Elsevier hydrogen energy, MDPI nanomaterials, Wiley energy storage, research paper submission 2027"
         path="/publications"
       />
@@ -16,14 +16,14 @@ export default function PublicationsPage() {
           {/* Main Text Content */}
           <div className="prose max-w-none">
             <p className="text-gray-700 leading-relaxed mb-6">
-              Authors who have presented their work at ANM2027 can send their manuscripts as a pdf file to{" "}
+              Authors who have presented their work at ANM2026 can send their manuscripts as a pdf file to{" "}
               <a 
                 href="mailto:info@anmportugal.com" 
                 className="text-blue-600 hover:text-blue-800 underline"
               >
                 info@anmportugal.com
               </a>{" "}
-              for the first review by 30 September 2027. Authors can choose the journals as mentioned on the publication page and prepare the manuscript according to the journal format.
+              for the first review by 30 September 2026. Authors can choose the journals as mentioned on the publication page and prepare the manuscript according to the journal format.
             </p>
 
             {/* Email Subject Line */}
