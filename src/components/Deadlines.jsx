@@ -82,7 +82,7 @@ export default function DeadlinesPage() {
               >
                 publications page
               </a>{" "}
-              for details of ANM2027 manuscript submission.
+              for details of ANM2026 manuscript submission.
             </span>
           </div>
         </div>
