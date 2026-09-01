@@ -64,7 +64,6 @@
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
 
           {[
-            { img: "/journals/ijhe.jpg", name: "International Journal of Hydrogen Energy" },
             { img: "/journals/energy-storage.jpg", name: "Energy Storage" },
             { img: "/journals/nanomaterials.jpg", name: "Nanomaterials" },
             { img: "/journals/nanoenergy.jpg", name: "Nano Energy" },
