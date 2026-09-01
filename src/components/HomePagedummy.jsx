@@ -355,7 +355,7 @@ const handlePageNavigation = (route) => {
         </div>
 
         {/* Journals Grid - Centered layout for odd number of items */}
-        <div className="grid grid-cols-2 gap-6 sm:gap-8 max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-6 gap-6 sm:gap-8 max-w-4xl mx-auto">
 
           {[
             { 
@@ -389,8 +389,8 @@ const handlePageNavigation = (route) => {
               href={journal.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group relative cursor-pointer ${
-                i === 4 ? "col-span-2 sm:w-1/2 sm:mx-auto" : ""
+              className={`group relative cursor-pointer sm:col-span-2 ${
+              i === 3 ? "sm:col-start-2" : ""
               }`}
             >
               {/* Journal Logo Container - Increased size */}
