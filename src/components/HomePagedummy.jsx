@@ -751,15 +751,6 @@ const handlePageNavigation = (route) => {
         />
       </a>
 
-      {/* HIAG / H2 */}
-      <div className="hover:scale-105 transition duration-300">
-        <img
-          src="/hiag.jpg"
-          alt="H2"
-          className="h-16 object-contain grayscale-0 sm:grayscale sm:hover:grayscale-0 transition duration-300"
-        />
-      </div>
-
       {/* Energies */}
       <a href="https://www.mdpi.com/journal/energies" target="_blank" rel="noopener noreferrer" className="hover:scale-105 transition duration-300">
         <img
