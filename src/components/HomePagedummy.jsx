@@ -355,14 +355,9 @@ const handlePageNavigation = (route) => {
         </div>
 
         {/* Journals Grid - Centered layout for odd number of items */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-2 gap-6 sm:gap-8 max-w-3xl mx-auto">
 
           {[
-            { 
-              img: "/hydrogen.jpeg", 
-              name: "International Journal of Hydrogen Energy",
-              url: "https://www.sciencedirect.com/journal/international-journal-of-hydrogen-energy"
-            },
             { 
               img: "/energystorage.jpeg", 
               name: "Energy Storage",
@@ -394,7 +389,9 @@ const handlePageNavigation = (route) => {
               href={journal.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative cursor-pointer"
+              className={`group relative cursor-pointer ${
+                i === 4 ? "col-span-2 sm:w-1/2 sm:mx-auto" : ""
+              }`}
             >
               {/* Journal Logo Container - Increased size */}
               <div className="relative bg-gradient-to-br from-violet-50/30 to-purple-50/20 rounded-xl p-6 h-44 sm:h-48 flex items-center justify-center border border-violet-100/30 hover:border-violet-300/50 transition-all duration-300 hover:shadow-lg hover:shadow-violet-200/30">
@@ -740,7 +737,7 @@ const handlePageNavigation = (route) => {
     </p>
 
     {/* Logos Grid */}
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-10 items-center justify-items-center">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 items-center justify-items-center max-w-4xl mx-auto">
 
       {/* NFFA */}
       <a href="https://www.nffa.eu" target="_blank" rel="noopener noreferrer" className="hover:scale-105 transition duration-300">
