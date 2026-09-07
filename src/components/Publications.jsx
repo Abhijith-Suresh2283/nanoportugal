@@ -47,7 +47,7 @@ export default function PublicationsPage() {
                   >
                     https://onlinelibrary.wiley.com/
                   </a>
-                  - Special Issue ANM2027
+                  - Special Issue ANM2026
                 </p>
 
                 {/* Journal 3 */}
