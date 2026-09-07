@@ -38,6 +38,19 @@ export default function PublicationsPage() {
               <div className="space-y-3 text-gray-700">
                 {/* Journal 1 */}
                 <p className="leading-relaxed">
+                  1. IJHE (International Journal of Hydrogen Energy) (Elsevier){" "}
+                  <a 
+                    href="https://www.sciencedirect.com/journal/international-journal-of-hydrogen-energy" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 underline"
+                  >
+                    https://www.sciencedirect.com/journal/international-journal-of-hydrogen-energy
+                  </a>
+                  - Selected papers will be published in regular issue
+                </p>
+
+                <p className="leading-relaxed">
                   2. Energy Storage (Wiley){" "}
                   <a 
                     href="https://onlinelibrary.wiley.com/" 
