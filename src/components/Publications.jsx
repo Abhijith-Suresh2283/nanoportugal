@@ -31,7 +31,7 @@ export default function PublicationsPage() {
               The email subject should be Manuscript – journal name
             </p>
 
-            {/* Special Issues Section */}
+            {/* Publications Section */}
             <div className="mb-4">
               <p className="text-gray-900 font-semibold mb-4">Special issues:</p>
               
