@@ -89,7 +89,7 @@ export default function PublicationsPage() {
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 underline break-all"
                   >
-                    https://www.mdpi.com/journal/nanoenergyadv/special_issues/0309978TA4
+                
                   </a>
                 </p>
 
