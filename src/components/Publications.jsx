@@ -84,7 +84,7 @@ export default function PublicationsPage() {
                 </p>
                 <p className="leading-relaxed pl-4">
                   <a 
-                    href="https://www.mdpi.com/journal/nanoenergyadv/special_issues/0309978TA4" 
+                    href="" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 underline break-all"
