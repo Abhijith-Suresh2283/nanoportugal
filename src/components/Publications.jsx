@@ -109,7 +109,7 @@ export default function PublicationsPage() {
 
                 {/* Journal 6 */}
                 <p className="leading-relaxed">
-                  6. Condensed matter (mdpi)- selected papers in regular issue
+                  6. Condensed matter (mdpi)-  https://www.mdpi.com/journal/condensedmatter/special_issues/JNO7F4481Q
                 </p>
               </div>
             </div>
